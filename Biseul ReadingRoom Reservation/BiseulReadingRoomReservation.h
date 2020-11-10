@@ -2,7 +2,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_BiseulReadingRoomReservation.h"
-
+//test2
 class BiseulReadingRoomReservation : public QMainWindow
 {
     Q_OBJECT
