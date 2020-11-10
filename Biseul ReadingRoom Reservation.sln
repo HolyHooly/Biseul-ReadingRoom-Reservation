@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Biseul ReadingRoom Reservation", "Biseul ReadingRoom Reservation\Biseul ReadingRoom Reservation.vcxproj", "{862D135E-2E2E-4F4E-A0DA-2433135D0187}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{862D135E-2E2E-4F4E-A0DA-2433135D0187}.Debug|x64.ActiveCfg = Debug|x64
+		{862D135E-2E2E-4F4E-A0DA-2433135D0187}.Debug|x64.Build.0 = Debug|x64
+		{862D135E-2E2E-4F4E-A0DA-2433135D0187}.Release|x64.ActiveCfg = Release|x64
+		{862D135E-2E2E-4F4E-A0DA-2433135D0187}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4592CB41-8754-4D16-AA40-753125445C40}
+	EndGlobalSection
+EndGlobal
