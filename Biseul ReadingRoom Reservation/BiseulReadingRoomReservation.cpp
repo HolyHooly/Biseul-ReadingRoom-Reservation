@@ -3,6 +3,6 @@
 BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
     : QMainWindow(parent)
 {
-    //testtest4
+    //test
     ui.setupUi(this);
 }
