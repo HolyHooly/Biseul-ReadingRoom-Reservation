@@ -112,7 +112,6 @@
     <QtUic Include="BiseulReadingRoomReservation.ui" />
     <QtMoc Include="BiseulReadingRoomReservation.h" />
     <ClCompile Include="BiseulReadingRoomReservation.cpp" />
-    <ClCompile Include="BiseulReadingRoomReservation_log.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
