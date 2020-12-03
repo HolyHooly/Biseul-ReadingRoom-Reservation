@@ -19,6 +19,9 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="windowIcon">
+   <iconset theme="./assets/icon.png"/>
+  </property>
  </widget>
  <resources/>
  <connections/>

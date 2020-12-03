@@ -1,4 +1,4 @@
-#ifndef RFID_H
+ï»¿#ifndef RFID_H
 #define RFID_H
 
 #include <QDialog>
@@ -33,14 +33,14 @@ private:
 
     Ui::RfidPanel *ui;
     
-    QMessageBox msg;// ¿¹, ¾Æ´Ï¿À ¶ß´Â msg
-    QLabel *im;// ¸ŞÀÎ ÀÌ¹ÌÁö
-    QPushButton *n;// Ãë¼Ò ¹öÆ°
+    QMessageBox msg;// ì˜ˆ, ì•„ë‹ˆì˜¤ ëœ¨ëŠ” msg
+    QLabel *im;// ë©”ì¸ ì´ë¯¸ì§€
+    QPushButton *n;// ì·¨ì†Œ ë²„íŠ¼
     QGridLayout *grid; // grid
 
-    QString rfid;// rfid¸¦ append ½ÃÅ³ Àå¼Ò
-    __int64 int_number;// µé¾î¿Â »ç¿ëÀÚÀÇ rfid number
-    std::string string_number;// rfid¸¦ stringÀ¸·Î ¹Ş°í ½ÍÀ¸¸é ÀÌ°Å »ç¿ë
+    QString rfid;// rfidë¥¼ append ì‹œí‚¬ ì¥ì†Œ
+    __int64 int_number;// ë“¤ì–´ì˜¨ ì‚¬ìš©ìì˜ rfid number
+    std::string string_number;// rfidë¥¼ stringìœ¼ë¡œ ë°›ê³  ì‹¶ìœ¼ë©´ ì´ê±° ì‚¬ìš©
 
 protected:
    

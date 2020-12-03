@@ -1,4 +1,4 @@
-#include "RegisterPanel.h"
+ï»¿#include "RegisterPanel.h"
 #include "ui_RegisterPanel.h"
 
 RegisterPanel::RegisterPanel(QWidget *parent) :
@@ -10,48 +10,23 @@ RegisterPanel::RegisterPanel(QWidget *parent) :
     // whole layout
     QVBoxLayout *vlayout = new QVBoxLayout;
 
-    // Á¦¸ñ
-    label = new QLabel("Appliciant");
-    // ¾à°ü
+    // ì œëª©
+    label = new QLabel("Terms of Use");
+    // ì•½ê´€
+
+    std::ifstream in("./data/terms.txt");
+    std::string s;
+    
+    if (in.is_open()) {
+        in.seekg(0, std::ios::end);
+        int size = in.tellg();
+        s.resize(size);
+        in.seekg(0, std::ios::beg);
+        in.read(&s[0], size);
+    }
+
+    QString q = QString::fromStdString(s);
     brouser = new QTextBrowser();
-    QString q = QString(tr("°³ÀÎÁ¤º¸ ¼öÁý ¹× ÀÌ¿ë µ¿ÀÇ""\n"
-                           "ÀÌ ÇÁ·Î±×·¥ ¹× ¼­ºñ½º¸¦ ÀÌ¿ëÇÏ´Â °æ¿ì, ¾Æ·¡ »çÇ×¿¡ ´ëÇØ µ¿ÀÇ ÈÄ¿¡¸¸ ÀÌ¿ë °¡´ÉÇÕ´Ï´Ù."
-                           "\n"
-                           "\n"
-                           "1. °³ÀÎÁ¤º¸ÀÇ ¼öÁýÇ×¸ñ ¹× ÀÌ¿ë ¸ñÀû"
-                           "\n"
-                           "A. º» ÇÁ·Î±×·¥('ºñ½½ºô¸®Áö µ¶¼­½Ç ÁÂ¼® ¿¹¾à ÇÁ·Î±×·¥')Àº ´ÙÀ½°ú °°ÀÌ °³ÀÎÁ¤º¸¸¦ ¼öÁýÇÏ¿© ÀÌ¿ëÇÕ´Ï´Ù.""\n"
-                           "    ÇÊ¼öÇ×¸ñ: ÀÌ¸§, ÇÐ¹ø, ÇÐ»ýÁõ RFID Á¤º¸"
-                           "\n"
-                           "B. ¼­ºñ½º ÀÌ¿ë°úÁ¤ÀÌ³ª »ýÈ°°üÇÐ»ýÀÚÄ¡È¸ÀÇ ¿î¿µ¿¡ µû¶ó ´ÙÀ½°ú °°Àº Á¤º¸µéÀÌ »ý¼ºµÇ¾î ¼öÁýµÉ ¼ö ÀÖ½À´Ï´Ù.""\n"
-                           "    i. È¸¿ø°¡ÀÔ ±â·Ï, ÁÂ¼® ¿¹¾à/¹Ý³³/ÀÚ¸®ºñ¿ò ³»¿ª""\n"
-                           "    ii. µ¶¼­½Ç ÀÌ¿ë ±ÔÄ¢ À§¹Ý¿¡ °üÇÑ ³»¿ª""\n"
-                           "\n"
-                           "C. ÀÌ¿ë¸ñÀû""\n"
-                           "    i. µ¶¼­½Ç ÁÂ¼® »ç¼®È­ ¹æÁö""\n"
-                           "        °¡) ÀÌ¿ëÀÚ °ü¸®¸¦ ÅëÇÑ Áßº¹ ¿¹¾à ¹× ÁÂ¼® »ç¼®È­ ¹æÁö"
-                           "\n"
-                           "\n"
-                           "2. °³ÀÎÁ¤º¸ÀÇ ¼öÁý ¹æ¹ý"
-                           "\n"
-                           "\n"
-                           "È¸¿ø°¡ÀÔ ÁøÇà½Ã 1È¸ °³ÀÎÁ¤º¸(ÀÌ¸§, ÇÐ¹ø, ÇÐ»ýÁõRFID¹øÈ£)°¡ ¼öÁýµË´Ï´Ù."
-                           "\n"
-                           "\n"
-                           "3. °³ÀÎÁ¤º¸ÀÇ º¸À¯ ¹× ÀÌ¿ë±â°£""\n""\n"
-                           "A. ÀÌ¿ëÀÚÀÇ °³ÀÎÁ¤º¸´Â º» ÇÁ·Î±×·¥ÀÇ ¼­ºñ½º¸¦ Á¦°øÇÏ´Â ±â°£ µ¿¾È¿¡ º¸À¯ ¹× ÀÌ¿ëµÇ°í, È¸¿ø Å»Åð ½Ã ¼öÁýµÈ °³ÀÎÀÇ Á¤º¸°¡ ¿­¶÷ ¶Ç´Â ÀÌ¿ëµÉ ¼ö ¾øµµ·Ï ÆÄ±â Ã³¸®µË´Ï´Ù. ´Ù¸¸, °ü°è¹ý·ÉÀÇ ±ÔÁ¤¿¡ ÀÇÇÏ¿© º¸Á¸ÇÒ ÇÊ¿ä¼ºÀÌ ÀÖ´Â °æ¿ì¿¡´Â °ü°è¹ý·É¿¡ µû¶ó º¸Á¸ÇÕ´Ï´Ù."
-                           "\n"
-                           "B. ÀÌ¿ëÀÚÀÇ µ¿ÀÇ¸¦ ¹Þ¾Æ º¸À¯ÇÏ°í ÀÖ´Â ÀÌ¿ë³»¿ª¿¡ ´ëÇØ ÀÌ¿ëÀÚ°¡ ¿­¶÷À» ¿ä±¸ÇÏ´Â °æ¿ì¿¡´Â ÁöÃ¼ ¾øÀÌ ÇØ´ç Á¤º¸¸¦ ¿­¶÷/È®ÀÎ ÇÒ ¼ö ÀÖµµ·Ï Á¶Ä¡ÇÕ´Ï´Ù."
-                           "\n"
-                           "C. ÀÌ¿ëÀÚ°¡ ¼­ºñ½º »ç¿ëÀ» Á¾·áÇÏ½Å ÀÌÈÄ¿¡µµ 6°³¿ù°£ ´Ù¸¥ »ç¿ëÀÚÀÇ »ç¼®È­ ¹æÁö ¹× µ¶¼­½ÇÀÇ ¿øÈ°ÇÑ ¿î¿µÀ» À§ÇÏ¿© ÁÂ¼® »ç¿ë ·Î±×´Â º¸°üÇÕ´Ï´Ù."
-                           "\n"
-                           "\n"
-                           "4. Å»Åð ¾È³»"
-                           "\n"
-                           "A. È¸¿ø Å»ÅðÀÇ °æ¿ì °æ°í »çÇ×°ú °ü·ÃÇÏ¿©, Å»Åð/Àç°¡ÀÔ ¾Ç¿ë ¹æÁö¸¦ À§ÇØ »ýÈ°°üÀÚÄ¡È¸·Î ¿¬¶ô ÈÄ Å»ÅðÃ³¸® °¡´ÉÇÕ´Ï´Ù."
-                           "\n"
-                           "\n"
-                           "[ºÎÄ¢] (½ÃÇàÀÏ) º» ¾à°üÀº 2019³â 9¿ù 2ÀÏºÎÅÍ ½ÃÇà ÇÕ´Ï´Ù.));"));
     brouser->setText(q);
 
     // component 3
@@ -61,10 +36,10 @@ RegisterPanel::RegisterPanel(QWidget *parent) :
     hh_con = new QVBoxLayout;
     button_con = new QVBoxLayout;
 
-    // ÀÌ¸§
-    QLabel *name_label = new QLabel("ÀÌ¸§");
-    // ÇÐ¹ø
-    QLabel *bunho_label = new QLabel("ÇÐ¹ø");
+    // ì´ë¦„
+    QLabel *name_label = new QLabel(QString::fromLocal8Bit("ì´ë¦„/Name"));
+    // í•™ë²ˆ
+    QLabel *bunho_label = new QLabel(QString::fromLocal8Bit("í•™ë²ˆ/Student ID"));
 
     // depending on "letter", minimum can be changed
     name_label->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
@@ -75,6 +50,16 @@ RegisterPanel::RegisterPanel(QWidget *parent) :
     input_name = new QLineEdit();
     input_number = new QLineEdit();
 
+    QRegularExpression name_rx(QString::fromLocal8Bit("^[A-Za-zê°€-íž£\\s]*$"));
+    QRegularExpression id_rx("20\\d{2}(0|1|2|3|4)(0|1|2|3|4)\\d{3}");
+    QValidator* name_validator = new QRegularExpressionValidator(name_rx, this);
+    QValidator* id_validator = new QRegularExpressionValidator(id_rx, this);
+    input_name->setValidator(name_validator);
+    input_number->setValidator(id_validator);
+
+    
+    input_name->setValidator(name_validator);
+
     hlayout1->addWidget(name_label);
     hlayout1->addWidget(input_name);
 
@@ -84,9 +69,9 @@ RegisterPanel::RegisterPanel(QWidget *parent) :
     hh_con->addLayout(hlayout1);
     hh_con->addLayout(hlayout2);
 
-    // È®ÀÎ, Ãë¼Ò ¹öÆ°
-    confirm = new QPushButton("register");
-    nono = new QPushButton("cancel");
+    // í™•ì¸, ì·¨ì†Œ ë²„íŠ¼
+    confirm = new QPushButton("Register");
+    nono = new QPushButton("Cancel");
     button_con->addWidget(confirm);
     button_con->addWidget(nono);
 
@@ -100,7 +85,7 @@ RegisterPanel::RegisterPanel(QWidget *parent) :
     // showing layout
     setModal(true);
     setLayout(vlayout);
-    setWindowTitle("Applications");
+    setWindowTitle("Sign Up");
 
 //    mdialog.exec();
 
@@ -119,7 +104,8 @@ void RegisterPanel::cancel() {
 }
 
 void RegisterPanel::TAG() {
-    rf = new RfidPanel;
-    rf->show();
-    this->close();
+    RfidPanel rf;
+    if (rf.exec() == QDialog::Accepted) {
+        rfid_id = rf.getdata();
+    }
 }

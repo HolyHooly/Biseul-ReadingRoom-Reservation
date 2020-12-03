@@ -1,4 +1,4 @@
-#include "BiseulReadingRoomReservation.h"
+ï»¿#include "BiseulReadingRoomReservation.h"
 #include <iostream>
 
 BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
@@ -12,7 +12,7 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 	//title of the program
 	//layout setting
 	QHBoxLayout* title_layout = new QHBoxLayout;
-	QLabel* title_label = new QLabel("Biseul Village ReadingRoom");
+	QLabel* title_label = new QLabel(QString::fromLocal8Bit("ë¹„ìŠ¬ë¹Œë¦¬ì§€ ë…ì„œì‹¤ ì˜ˆì•½ì‹œìŠ¤í…œ"));
 	auto sty_t = "font: 20pt Futura;";
 	title_label->setStyleSheet({ sty_t });
 
@@ -120,11 +120,11 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 	return_btn->setStyleSheet({ return_btn_sty });
 
 	//side bar info setup
-	QLabel* info_name = new QLabel("»ıÈ°°üÀÚÄ¡À§¿øÈ¸");
+	QLabel* info_name = new QLabel(QString::fromLocal8Bit("ìƒí™œê´€ìì¹˜ìœ„ì›íšŒ"));
 	info_name->setAlignment(Qt::AlignCenter);
 	QLabel* info_contributor = new QLabel("Contributor : OOP Team");
 	info_contributor->setAlignment(Qt::AlignRight);
-	//ÇÒ°Í style Ãß°¡
+	//í• ê²ƒ style ì¶”ê°€
 
 	//side bar layout setup
 	//button add to the layout
@@ -181,7 +181,7 @@ void BiseulReadingRoomReservation::seat_button_click()
 	_set_occupied_style(num);
 	
 	if (exe_seat_manager.seat_status_check(num) == biseul_rroom::SeatStatus::Vacant) { // Vacant Button click
-		int rfid_id = 0;//ÇÒ°Í:rfid tag window
+		int rfid_id = 0;//í• ê²ƒ:rfid tag window
 
 
 		biseul_rroom::UserAction action = exe_user_manager.user_valid_check(rfid_id);
@@ -192,24 +192,24 @@ void BiseulReadingRoomReservation::seat_button_click()
 			biseul_rroom::Seat* new_seat = exe_seat_manager.create_seat(rfid_id, hour, pause);
 			exe_seat_manager.reserve_seat(num, new_seat);
 			
-			//ÇÒ°Í: ±×»ç¶÷ ¸î¹ø °æ°í ¸Ô¾ú´ÂÁöµµ ¾Ë·ÁÁà¾ß´ï
-			msgBox.setText("¼º°øÀûÀ¸·Î ÀÚ¸®¸¦ ¿¹¾àÇÏ¿´½À´Ï´Ù!");
+			//í• ê²ƒ: ê·¸ì‚¬ëŒ ëª‡ë²ˆ ê²½ê³  ë¨¹ì—ˆëŠ”ì§€ë„ ì•Œë ¤ì¤˜ì•¼ëŒ
+			msgBox.setText(QString::fromLocal8Bit("ì„±ê³µì ìœ¼ë¡œ ìë¦¬ë¥¼ ì˜ˆì•½í•˜ì˜€ìŠµë‹ˆë‹¤! Success!"));
 			msgBox.setStandardButtons(QMessageBox::Ok);
 			msgBox.show();
 			
 		}
 		else if (action == biseul_rroom::UserAction::Signup) {
-			msgBox.setText("È¸¿ø°¡ÀÔÀÌ µÇ¾îÀÖÁö ¾Ê½À´Ï´Ù! È¸¿ø°¡ÀÔ ÈÄ ÀÌ¿ëÇØÁÖ¼¼¿ä\nUser not Signed Up! Please register first.");
+			msgBox.setText("íšŒì›ê°€ì…ì´ ë˜ì–´ìˆì§€ ì•ŠìŠµë‹ˆë‹¤! íšŒì›ê°€ì… í›„ ì´ìš©í•´ì£¼ì„¸ìš”\nUser not Signed Up! Please register first.");
 			msgBox.setStandardButtons(QMessageBox::Ok);
 			msgBox.show();
 		}
 		else if (action == biseul_rroom::UserAction::Warning) {
-			msgBox.setText("°æ°í È½¼ö ´©ÀûÀ¸·Î »ç¿ëÀÌ Á¦ÇÑµÇ¾ú½À´Ï´Ù.\nYou are banned because of warnings.");
+			msgBox.setText("ê²½ê³  íšŸìˆ˜ ëˆ„ì ìœ¼ë¡œ ì‚¬ìš©ì´ ì œí•œë˜ì—ˆìŠµë‹ˆë‹¤.\nYou are banned because of warnings.");
 			msgBox.setStandardButtons(QMessageBox::Ok);
 			msgBox.show();
 		}
 		else if (action == biseul_rroom::UserAction::OverTime) {
-			msgBox.setText("¿À´ÃÀÇ ¿¹¾à È½¼ö¸¦ ÀÌ¹Ì ¼ÒÁøÇÏ¿´½À´Ï´Ù.\nYou already used all of your reservation times per day");
+			msgBox.setText("ì˜¤ëŠ˜ì˜ ì˜ˆì•½ íšŸìˆ˜ë¥¼ ì´ë¯¸ ì†Œì§„í•˜ì˜€ìŠµë‹ˆë‹¤.\nYou already used all of your reservation times per day");
 			msgBox.setStandardButtons(QMessageBox::Ok);
 			msgBox.show();
 		}
@@ -223,18 +223,18 @@ void BiseulReadingRoomReservation::seat_button_click()
 
 void BiseulReadingRoomReservation::pause_button_click()
 {
-	//ÇÒ°Í:rfid tag window
+	//í• ê²ƒ:rfid tag window
 	__int64 rfid_id = 0;
 
 	int num = exe_seat_manager.find_seat(rfid_id); //num as seat number
 	if (num == -1) { //seat doesn't exist
-		msgBox.setText("¿¹¾àµÇ¾îÀÖÁö ¾Ê½À´Ï´Ù. Not reserved.");
+		msgBox.setText("ì˜ˆì•½ë˜ì–´ìˆì§€ ì•ŠìŠµë‹ˆë‹¤. Not reserved.");
 		msgBox.setStandardButtons(QMessageBox::Ok);
 		msgBox.show();
 	}
 	else {
 		exe_seat_manager.pause_seat(num);
-		msgBox.setText("ÀÚ¸®ºñ¿ò Ã³¸® µÇ¾ú½À´Ï´Ù. Paused your seat.");
+		msgBox.setText("ìë¦¬ë¹„ì›€ ì²˜ë¦¬ ë˜ì—ˆìŠµë‹ˆë‹¤. Paused your seat.");
 		msgBox.setStandardButtons(QMessageBox::Ok);
 		msgBox.show();
 	}
@@ -260,6 +260,10 @@ void BiseulReadingRoomReservation::return_button_click()
 
 void BiseulReadingRoomReservation::signup_button_click()
 {
+	RegisterPanel rp;
+	if (rp.exec() == QDialog::Accepted) {
+
+	}
 
 }
 

@@ -1,5 +1,4 @@
-
-#include <QtWidgets/QApplication>
+﻿#include <QtWidgets/QApplication>
 
 #include "BiseulReadingRoomReservation.h"
 #include "BiseulReadingRoomReservation_log.h"

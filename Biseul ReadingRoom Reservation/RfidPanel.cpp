@@ -1,4 +1,4 @@
-#include "RfidPanel.h"
+ï»¿#include "RfidPanel.h"
 #include "ui_RfidPanel.h"
 
 #include <QString>
@@ -25,7 +25,7 @@ RfidPanel::RfidPanel(QWidget *parent) :
     grid->addWidget(n, 3, 1, 1, 1);
     grid->setAlignment(Qt::AlignCenter);
 
-    setWindowFlags(Qt::FramelessWindowHint); //ÇÁ·¹ÀÓ Á¦°Å
+    setWindowFlags(Qt::FramelessWindowHint); //í”„ë ˆìž„ ì œê±°
     setFixedSize(400, 400);
     setModal(true);
     setLayout(grid);

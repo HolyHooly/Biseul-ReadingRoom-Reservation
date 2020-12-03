@@ -1,4 +1,4 @@
-#ifndef MYDIALOG_H
+ï»¿#ifndef MYDIALOG_H
 #define MYDIALOG_H
 
 #include <QDialog>
@@ -10,6 +10,9 @@
 #include <QString>
 #include <QTextEdit>
 #include <QLineEdit>
+#include <QRegularExpressionValidator>
+
+#include <fstream>
 
 #include "RfidPanel.h"
 
@@ -25,27 +28,37 @@ public:
     explicit RegisterPanel(QWidget *parent = nullptr);
     ~RegisterPanel();
 
+    __int64 get_rfid() { return rfid_id; };
+
+
+   
+
 private slots:
     void cancel();
     void TAG();
 
 private:
+
+
     Ui::RegisterPanel *ui;
     RfidPanel *rf;
-    // Á¦¸ñ
-    QLabel *label;
-    // ¾à°ü
-    QTextBrowser *brouser;
-    // ¾à°ü ¹ØÂÊÀÇ layout, »ó°ü ¾È½áµµ µÉµí
+    
+    QLabel *label; // ì œëª©
+    
+    QTextBrowser *brouser; // ì•½ê´€
+    // ì•½ê´€ ë°‘ìª½ì˜ layout, ìƒê´€ ì•ˆì¨ë„ ë ë“¯
     QHBoxLayout *hlayout1;
     QHBoxLayout *hlayout2;
     QHBoxLayout *hb_con;
     QVBoxLayout *hh_con;
     QVBoxLayout *button_con;
-    // ÀÌ¸§, ÇĞ¹ø ÀÔ·Â¶õ
+
+    // ì´ë¦„, í•™ë²ˆ ì…ë ¥ë€
     QLineEdit *input_name;
     QLineEdit *input_number;
-    // È®ÀÎ, Ãë¼Ò¹öÆ°
+    __int64 rfid_id = 0;
+
+    // í™•ì¸, ì·¨ì†Œë²„íŠ¼
     QPushButton *confirm;
     QPushButton *nono;
 };

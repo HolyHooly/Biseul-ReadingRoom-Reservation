@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QtWidgets/QMainWindow>
 #include <QPushButton>
@@ -17,7 +17,7 @@
 
 #include "AdminPanel.h"
 #include "RfidPanel.h"
-//#include "RegisterPanel.h"
+#include "RegisterPanel.h"
 //#include "SeatInfoPanel.h"
 
 
@@ -31,8 +31,6 @@
 
 #include "DBInterface.h"
 #include "DBsystem.h"
-
-#define kor(str) QString::fromLocal8Bit(str)
 
 class BiseulReadingRoomReservation : public QMainWindow
 {
