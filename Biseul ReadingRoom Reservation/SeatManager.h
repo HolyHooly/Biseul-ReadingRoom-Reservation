@@ -48,21 +48,32 @@ namespace biseul_rroom {
 	/// provides seat control functions
 	class SeatManager : public Manager {
 	public:
-		SeatManager() {};
+		//singleton
+		static SeatManager& instance() {
+			static SeatManager* instance = new SeatManager();
+			return *instance;
+		}
 		~SeatManager();
 
 		SeatStatus seat_status_check(int); //seat number as an input
+		Seat* create_seat(__int64 rfid_id, int hour, int pause);
+		void delete_seat(int num);
 
-		void reserve_seat(int, Seat*);
+		void reserve_seat(int num, Seat* seat);
 		void return_seat(int);
 		void renew_seat(int, int);
 		void pause_seat(int);
 		void unpause_seat(int);
 		void move_seat(int, int);
 
+		int find_seat(__int64 rfid_id);
+
 	private:
+		SeatManager() {};
+
 		int _seat_cnt = 0;
 		Seat* rroom_seat[READINGROOM_SEAT] = { nullptr, }; //total 124 seats in the reading room
+
 
 	};
 }

@@ -17,7 +17,11 @@ namespace biseul_rroom {
 	/// This is for blocking multi-time reservation per a day
 	class UserManger : public Manager {
 	public:
-		UserManger() {};
+		// singleton
+		static UserManger& instance() {
+			static UserManger* instance = new UserManger();
+			return *instance;
+		}
 		~UserManger() {};
 
 		/// validating user's permission to reserve new seat
@@ -25,15 +29,20 @@ namespace biseul_rroom {
 		/// returns each action value: Signup, Warning, OverTime, or Pass
 		/// parm: (int)rfid_id
 		/// return: (UserAction)
-		UserAction user_valid_check(int); //rfid_id as an input
+		UserAction user_valid_check(__int64); //rfid_id as an input
 
 		//parm: (int) stud_id
-		int get_user_reserve_cnt(int);
+		int get_user_reserve_cnt(__int64 rfid_id);
+		int available_reserve_hour(__int64 rfid_id);
+		int get_user_pause_left(int stud_id);
 
 	private:
+		UserManger() {};
+
 		//counts student's reservation times in a day
 		//This is for blocking multi-time reservation per a day
-		std::map<int, int> reserve_cnt; // <stud_id, cnt>
+		std::map<int, int> reserve_cnt; // <rfid_id, cnt>
+		std::map<int, int> pause_left; // <rfid_id, pause_left>
 
 	};
 

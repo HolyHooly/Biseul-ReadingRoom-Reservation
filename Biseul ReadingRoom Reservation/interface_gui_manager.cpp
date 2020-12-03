@@ -6,11 +6,6 @@
 
 
 #include "interface_gui_manager.h"
-#include "Manager.h"
-#include "Reserver.h"
-#include "SeatManager.h"
-#include "UserManager.h"
-#include "TimeManager.h"
 
 // 자리 버튼 클릭시 호출 될 함수
 
@@ -34,6 +29,27 @@ namespace biseul_rroom {
 		
 
 
+
+	}
+
+	void pause_button_click(int)
+	{
+	}
+
+	void renew_button_click(int)
+	{
+	}
+
+	void return_button_click(int)
+	{
+	}
+
+	void signup_button_click()
+	{
+	}
+
+	void admin_button_click()
+	{
 	}
 
 

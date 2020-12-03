@@ -61,6 +61,19 @@ namespace biseul_rroom {
 		else return rroom_seat[num]->get_status();
 	}
 
+	Seat* SeatManager::create_seat(__int64 rfid_id, int hour, int pause)
+	{
+		Reserver* new_reserver = new Reserver(rfid_id);
+		Seat* new_seat = new Seat(new_reserver, SeatStatus::Vacant, hour, pause);
+		return new_seat;
+	}
+
+	void SeatManager::delete_seat(int num)
+	{
+		delete rroom_seat[num]->get_reserver(); //delete reserver instance
+		delete rroom_seat[num]; // delete seat instance
+	}
+
 	void SeatManager::reserve_seat(int num, Seat* seat)
 	{
 		num = num - 1;
@@ -100,6 +113,19 @@ namespace biseul_rroom {
 		to = to - 1;
 		rroom_seat[to] = rroom_seat[from];
 		rroom_seat[from] = nullptr;
+	}
+
+	int SeatManager::find_seat(__int64 rfid_id)
+	{
+		for (int i = 0; i < READINGROOM_SEAT; ++i) {
+			if (rroom_seat[i] != nullptr) { //if seat is reserved
+				if (rfid_id = rroom_seat[i]->get_reserver()->get_rfid_id()) {
+					return i + 1; // return as seat number (not array index)
+				}
+			}
+		}
+
+		return -1; //return -1 as for error value (not existing)
 	}
 
 	

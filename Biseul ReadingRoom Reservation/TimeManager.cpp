@@ -22,4 +22,7 @@ namespace biseul_rroom {
 		new_time = new_time + hour * (__int64) 3600;
 		t1 = *localtime(&new_time);
 	}
+	TimeManager::~TimeManager()
+	{
+	}
 }

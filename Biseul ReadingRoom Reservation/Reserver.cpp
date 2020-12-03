@@ -7,7 +7,13 @@
 # include <string>
 #include "Reserver.h"
 
-biseul_rroom::Reserver::Reserver(std::string name, int stud_id, int rfid_id) :
+biseul_rroom::Reserver::Reserver(__int64 rfid_id) :
+	rfid_id(rfid_id)
+{
+	//db로부터 찾아서 자동으로 생성해주기
+}
+
+biseul_rroom::Reserver::Reserver(std::string name, int stud_id, __int64 rfid_id) :
 	name(name), stud_id(stud_id), rfid_id(rfid_id)
 {
 

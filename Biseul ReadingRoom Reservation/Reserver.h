@@ -12,7 +12,8 @@ namespace biseul_rroom {
 	class Reserver { //base class for a person
 	public:
 		Reserver() {};
-		Reserver(const std::string name, const int stud_id, const int rfid_id);
+		Reserver(__int64 rfid_id);
+		Reserver(const std::string name, const int stud_id, const __int64 rfid_id);
 		~Reserver();
 		bool operator==(const int) const;
 		bool operator==(const Reserver&) const;
@@ -24,7 +25,7 @@ namespace biseul_rroom {
 	private:
 		std::string name;
 		int stud_id = 0;
-		int rfid_id = 0;
+		__int64 rfid_id = 0;
 	};
 
 }

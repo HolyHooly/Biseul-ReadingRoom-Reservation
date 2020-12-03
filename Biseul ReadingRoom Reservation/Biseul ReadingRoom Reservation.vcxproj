@@ -46,6 +46,28 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile />
+    <Link />
+    <ClCompile />
+    <Link />
+    <ClCompile />
+    <Link>
+      <AdditionalLibraryDirectories>$(Qt_LIBPATH_);%(AdditionalLibraryDirectories);C:\boost_1_74_0\stage\lib;</AdditionalLibraryDirectories>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(Qt_INCLUDEPATH_);%(AdditionalIncludeDirectories);C:\boost_1_74_0</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile />
+    <Link>
+      <AdditionalLibraryDirectories>$(Qt_LIBPATH_);%(AdditionalLibraryDirectories);C:\boost_1_74_0\stage\lib;</AdditionalLibraryDirectories>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(Qt_INCLUDEPATH_);%(AdditionalIncludeDirectories);C:\boost_1_74_0</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
@@ -86,28 +108,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="interface_gui_manager.cpp" />
+    <ClCompile Include="AdminPanel.cpp" />
+    <ClCompile Include="BiseulReadingRoomReservation_log.cpp" />
+    <ClCompile Include="DBinterface.cpp" />
+    <ClCompile Include="DBsystem.cpp" />
     <ClCompile Include="Manager.cpp" />
+    <ClCompile Include="RegisterPanel.cpp" />
     <ClCompile Include="Reserver.cpp" />
+    <ClCompile Include="RfidPanel.cpp" />
     <ClCompile Include="SeatManager.cpp" />
+    <ClCompile Include="sqlite\shell.c" />
+    <ClCompile Include="sqlite\sqlite3.c" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="UserManager.cpp" />
     <QtRcc Include="BiseulReadingRoomReservation.qrc" />
+    <QtUic Include="AdminPanel.ui" />
     <QtUic Include="BiseulReadingRoomReservation.ui" />
     <QtMoc Include="BiseulReadingRoomReservation.h" />
     <ClCompile Include="BiseulReadingRoomReservation.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="RegisterPanel.ui" />
+    <QtUic Include="RfidPanel.ui" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="interface_gui_manager.h" />
+    <QtMoc Include="AdminPanel.h" />
+    <ClInclude Include="BiseulReadingRoomReservation_log.h" />
+    <ClInclude Include="DBInterface.h" />
+    <ClInclude Include="DBsystem.h" />
     <ClInclude Include="Manager.h" />
+    <QtMoc Include="RegisterPanel.h" />
     <ClInclude Include="Reserver.h" />
+    <QtMoc Include="RfidPanel.h" />
     <ClInclude Include="SeatManager.h" />
+    <ClInclude Include="sqlite\sqlite3.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="UserManager.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

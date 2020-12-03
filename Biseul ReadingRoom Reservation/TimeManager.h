@@ -14,6 +14,15 @@ namespace biseul_rroom {
 
 	class TimeManager : public Manager {
 		//스레드 해야댐
+	public:
+		static TimeManager& instance() {
+			static TimeManager* instance = new TimeManager();
+			return *instance;
+		}
+		~TimeManager();
+
+	private:
+		TimeManager() {};
 
 	};
 
