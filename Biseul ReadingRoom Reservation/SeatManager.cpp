@@ -83,6 +83,23 @@ namespace biseul_rroom {
 		return rroom_seat[num-1];
 	}
 
+	/// <summary>
+	/// 자리가 예약되거나 자리비움 되어있는 자리만 vector에 담아준다.
+	/// vector의 형식에 pair<int, Seat*> 가 있는 이유는
+	/// int에는 자리 번호(1~124), Seat* 에는 자리의 포인터가 들어간다.
+	/// 자세한 pair사용법: https://blockdmask.tistory.com/64
+	/// </summary>
+	std::vector<std::pair<int, Seat*>> SeatManager::get_reserved_seat_vector()
+	{
+		std::vector<std::pair<int,Seat*>> seat_vector;
+		for (int i = 0; i < READINGROOM_SEAT; ++i) { //모든 자리 돈다
+			if (rroom_seat[i] != nullptr) { //빈자리가 아니라면
+				seat_vector.push_back(std::make_pair(i,rroom_seat[i])); //자리 번호와 Seat*를 pair로 묶어서 vector에 넣어준다
+			}
+		}
+		return seat_vector; //벡터 리턴
+	}
+
 	void SeatManager::delete_seat(int num)
 	{
 		delete rroom_seat[num]->get_reserver(); //delete reserver instance

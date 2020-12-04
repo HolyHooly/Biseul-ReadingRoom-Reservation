@@ -12,6 +12,8 @@
 
 #include <ctime>
 #include <string>
+#include <vector>
+#include <utility>
 
 namespace biseul_rroom {
 
@@ -61,6 +63,10 @@ namespace biseul_rroom {
 		SeatStatus seat_status_check(int); //seat number as an input
 		Seat* create_seat(Reserver* reserver, int hour, int pause);
 		Seat* get_seat(int num);
+		
+		std::vector<std::pair<int, Seat*>> get_reserved_seat_vector();
+
+
 		void delete_seat(int num);
 
 		void reserve_seat(int num, std::string name, int stud_id, __int64 rfid_id, int hour, int pause);

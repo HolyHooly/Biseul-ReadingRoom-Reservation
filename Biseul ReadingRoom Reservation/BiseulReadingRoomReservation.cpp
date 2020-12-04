@@ -414,12 +414,18 @@ __int64 BiseulReadingRoomReservation::tag_rfid()
 void BiseulReadingRoomReservation::_msg_not_reserved()
 {
 	msgBox.setText(QString::fromLocal8Bit("자리가 예약되어있지 않습니다! Not reserved a seat!"));
+	msgBox.setStyleSheet({ "font: 75 10pt KBIZgo B;" });
+	msgBox.setWindowTitle("Error");
+	msgBox.setWindowIcon(QIcon("./assets/icon.png"));
 	msgBox.setStandardButtons(QMessageBox::Ok);
 	msgBox.show();
 }
 void BiseulReadingRoomReservation::_msg_already_reserved()
 {
 	msgBox.setText(QString::fromLocal8Bit("이미 자리를 예약하였습니다! Already reserved a seat!"));
+	msgBox.setStyleSheet({ "font: 75 10pt KBIZgo B;" });
+	msgBox.setWindowTitle("Error");
+	msgBox.setWindowIcon(QIcon("./assets/icon.png"));
 	msgBox.setStandardButtons(QMessageBox::Ok);
 	msgBox.show();
 }
@@ -427,6 +433,9 @@ void BiseulReadingRoomReservation::_msg_already_reserved()
 void BiseulReadingRoomReservation::_msg_diy(const char* msg)
 {
 	msgBox.setText(QString::fromLocal8Bit(msg));
+	msgBox.setStyleSheet({ "font: 75 10pt KBIZgo B;" });
+	msgBox.setWindowTitle("Alert");
+	msgBox.setWindowIcon(QIcon("./assets/icon.png"));
 	msgBox.setStandardButtons(QMessageBox::Ok);
 	msgBox.show();
 
@@ -438,7 +447,7 @@ void BiseulReadingRoomReservation::_msg_diy(const char* msg)
 //setting seat buttons' style
 void BiseulReadingRoomReservation::_set_vacant_style(int num)
 {
-	this->p_seat[num]->setStyleSheet({ "background-color: #5fe37e; font: 75 14pt Arial;" });
+	this->p_seat[num]->setStyleSheet({ "background-color: #5fe37e; font: 75 14pt Arial; qproperty-iconSize: 0px 0px" });
 
 }
 
