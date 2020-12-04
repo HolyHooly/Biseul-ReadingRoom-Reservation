@@ -1,4 +1,4 @@
-#include "DBsystem.h"
+﻿#include "DBsystem.h"
 namespace biseul_rroom {
 
 	DBsystem::DBsystem(std::string* filename, int max_name_length = 100) noexcept {
@@ -67,14 +67,14 @@ namespace biseul_rroom {
 		int warning = 0;
 		std::string nametemp = "";
 		std::string* nameptr = &nametemp;
-		_int64 numtmp;
-		int numtmp2;
+		_int64 rfidnumtmp;
+		int studtmp;
 		try {
 			if ((stud_id == 0) || (rfid_id == 0) || (name->length() > 99)) {
 				throw signal::DBPARAMETERERR;
 			}
 
-			if ((get_studinf_bystudid(nameptr, stud_id, numtmp, warning)) || (get_studinf_byrfid(nameptr, numtmp2, rfid_id, warning))) {
+			if ((get_studinf_bystudid(nameptr, stud_id, rfidnumtmp, warning)) || (get_studinf_byrfid(nameptr, studtmp, rfid_id, warning))) {
 				throw signal::DBOVERLAP;
 			}
 			else {
@@ -160,15 +160,14 @@ namespace biseul_rroom {
 
 	bool DBsystem::get_studinf_byrfid(std::string*& name, int& stud_id, const _int64& rfid_id, int& warning) {
 		sqlite3_stmt* stmt;
-		int id = rfid_id;
 		try {
 			if (rfid_id == 0) {
 				throw signal::DBPARAMETERERR;
 			}
-			std::string query = "select name, x1, x2, x3 from studinf where x2 == " + std::to_string(id);
+			std::string query = "select name, x1, x2, x3 from studinf where x2 == " + std::to_string(rfid_id);
 			sqlite3_prepare_v2(DB, query.c_str(), -1, &stmt, 0);
 			sqlite3_step(stmt);
-			if (sqlite3_column_int(stmt, 2) != id) {
+			if (sqlite3_column_int(stmt, 2) != rfid_id) {
 				throw (bool)signal::DBNOTEXIST;
 			}
 		}
@@ -236,7 +235,7 @@ namespace biseul_rroom {
 					std::string query = "DELETE from studinf where x2 == " + std::to_string(rfid_id);
 					sqlite3_prepare_v2(DB, query.c_str(), -1, &stmt, 0);
 					sqlite3_step(stmt);
-					if (get_studinf_bystudid(nameptr, studidtmp, rfid_id, warntmp)) {
+					if (get_studinf_byrfid(nameptr, studidtmp, rfid_id, warntmp)) {
 						throw signal::DBREMOVEERR;
 					}
 				}

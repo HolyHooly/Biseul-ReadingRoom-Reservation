@@ -14,7 +14,7 @@ namespace biseul_rroom {
 	{
 		//db existence check
 		if (true) { //db check result
-			int warning = 0; //get_warning from db
+			int warning = 0; //гр╟м:get_warning from db
 
 			if (warning < 3) {
 				//get daily reservation times

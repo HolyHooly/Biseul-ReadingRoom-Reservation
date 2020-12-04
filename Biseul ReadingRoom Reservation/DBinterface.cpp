@@ -1,4 +1,4 @@
-#include "DBInterface.h"
+ï»¿#include "DBInterface.h"
 namespace biseul_rroom {
 
 	DBinterface::DBinterface()noexcept {
@@ -129,6 +129,25 @@ namespace biseul_rroom {
 		}
 	}
 
+	bool DBinterface::existence_check_byrfid(_int64 rfid_id) {
+		try {
+			std::string nametmp = "";
+			std::string* nameptr = &nametmp;
+			int stud_id;
+			int warntmp;
+			if (dbsys.get_studinf_byrfid(nameptr, stud_id, rfid_id, warntmp)) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		catch (bool expn) {
+			exception.scenario(expn);
+			return false;
+		}
+	}
+
 	bool DBinterface::get_studinf(std::string*& name, const int& stud_id, _int64& rfid, int& warning) {
 		std::string nametmp = "";
 		std::string* nameptr = &nametmp;
@@ -199,5 +218,5 @@ namespace biseul_rroom {
 		return true;
 	}
 }
-////  getÇÔ¼ö º¯È¯. bool Å¸ÀÔ. ÂüÁ¶ÀÚ·Î ÇØ´çµ¥ÀÌÅÍ ³Ñ°ÜÁÖ´Â½ÄÀ¸·Î.
-////  °æ°íÈ½¼ö µ¥ÀÌÅÍ Ãß°¡.
+////  getí•¨ìˆ˜ ë³€í™˜. bool íƒ€ì…. ì°¸ì¡°ìë¡œ í•´ë‹¹ë°ì´í„° ë„˜ê²¨ì£¼ëŠ”ì‹ìœ¼ë¡œ.
+////  ê²½ê³ íšŸìˆ˜ ë°ì´í„° ì¶”ê°€.

@@ -41,7 +41,7 @@ namespace biseul_rroom {
 
 		//counts student's reservation times in a day
 		//This is for blocking multi-time reservation per a day
-		std::map<int, int> reserve_cnt; // <rfid_id, cnt>
+		std::map<__int64, int> reserve_cnt; // <rfid_id, cnt>
 		std::map<int, int> pause_left; // <rfid_id, pause_left>
 
 	};

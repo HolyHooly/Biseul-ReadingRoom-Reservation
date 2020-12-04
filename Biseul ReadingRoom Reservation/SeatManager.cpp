@@ -61,10 +61,9 @@ namespace biseul_rroom {
 		else return rroom_seat[num]->get_status();
 	}
 
-	Seat* SeatManager::create_seat(__int64 rfid_id, int hour, int pause)
+	Seat* SeatManager::create_seat(Reserver* reserver, int hour, int pause)
 	{
-		Reserver* new_reserver = new Reserver(rfid_id);
-		Seat* new_seat = new Seat(new_reserver, SeatStatus::Vacant, hour, pause);
+		Seat* new_seat = new Seat(reserver, SeatStatus::Vacant, hour, pause);
 		return new_seat;
 	}
 
@@ -74,17 +73,20 @@ namespace biseul_rroom {
 		delete rroom_seat[num]; // delete seat instance
 	}
 
-	void SeatManager::reserve_seat(int num, Seat* seat)
+	void SeatManager::reserve_seat(int num, std::string name, int stud_id, __int64 rfid_id, int hour, int pause)
 	{
 		num = num - 1;
+		Reserver* reserver = new Reserver(name, stud_id, rfid_id);
+		Seat* seat = create_seat(reserver, hour, pause);
 		rroom_seat[num] = seat;
+		rroom_seat[num]->setStatus(SeatStatus::Occupied);
 		++_seat_cnt;
 	}
 
 	void SeatManager::return_seat(int num)
 	{
 		num = num - 1;
-		delete rroom_seat[num];
+		delete_seat(num);
 		rroom_seat[num] = nullptr;
 		--_seat_cnt;
 	}

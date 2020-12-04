@@ -70,10 +70,10 @@ RegisterPanel::RegisterPanel(QWidget *parent) :
     hh_con->addLayout(hlayout2);
 
     // 확인, 취소 버튼
-    confirm = new QPushButton("Register");
-    nono = new QPushButton("Cancel");
-    button_con->addWidget(confirm);
-    button_con->addWidget(nono);
+    confirm_btn = new QPushButton("Register");
+    cancel_btn = new QPushButton("Cancel");
+    button_con->addWidget(confirm_btn);
+    button_con->addWidget(cancel_btn);
 
     hb_con->addLayout(hh_con);
     hb_con->addLayout(button_con);
@@ -90,8 +90,8 @@ RegisterPanel::RegisterPanel(QWidget *parent) :
 //    mdialog.exec();
 
     // connect
-    connect(nono, SIGNAL(clicked()), this, SLOT(cancel()));
-    connect(confirm, SIGNAL(clicked()), this, SLOT(TAG()));
+    connect(cancel_btn, SIGNAL(clicked()), this, SLOT(cancel()));
+    connect(confirm_btn, SIGNAL(clicked()), this, SLOT(confirm()));
 }
 
 RegisterPanel::~RegisterPanel()
@@ -99,13 +99,40 @@ RegisterPanel::~RegisterPanel()
     delete ui;
 }
 
+std::string RegisterPanel::get_name()
+{
+    return name;
+}
+
+int RegisterPanel::get_stud_id()
+{
+    
+    QString stud = input_number->text();
+    int stud_int = stud.toInt();
+    return stud_int;
+    
+}
+
 void RegisterPanel::cancel() {
     this->close();
 }
 
-void RegisterPanel::TAG() {
-    RfidPanel rf;
-    if (rf.exec() == QDialog::Accepted) {
-        rfid_id = rf.getdata();
+void RegisterPanel::confirm() {
+    
+    if (input_name->text().isEmpty()  || input_number->text().isEmpty()) {
+        QMessageBox msg;
+        msg.setText(QString::fromLocal8Bit("제대로 작성하세요. Please fill appropriately"));
+        msg.exec();
+    }
+    else {
+        RfidPanel rf;
+        if (rf.exec() == QDialog::Accepted) {
+            rfid_id = rf.getdata();
+        }
+        name = input_name->text().toLocal8Bit(); //8bit for korean data
+        stud_id = input_number->text().toInt();
+        
+        this->accept();
+
     }
 }

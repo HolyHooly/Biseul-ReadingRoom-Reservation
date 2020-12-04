@@ -29,22 +29,19 @@ public:
     ~RegisterPanel();
 
     __int64 get_rfid() { return rfid_id; };
-
-
-   
+    std::string get_name();
+    int get_stud_id();
 
 private slots:
     void cancel();
-    void TAG();
+    void confirm();
 
 private:
-
 
     Ui::RegisterPanel *ui;
     RfidPanel *rf;
     
     QLabel *label; // 제목
-    
     QTextBrowser *brouser; // 약관
     // 약관 밑쪽의 layout, 상관 안써도 될듯
     QHBoxLayout *hlayout1;
@@ -57,10 +54,12 @@ private:
     QLineEdit *input_name;
     QLineEdit *input_number;
     __int64 rfid_id = 0;
+    std::string name;
+    int stud_id;
 
     // 확인, 취소버튼
-    QPushButton *confirm;
-    QPushButton *nono;
+    QPushButton *confirm_btn;
+    QPushButton *cancel_btn;
 };
 
 #endif // MYDIALOG_H

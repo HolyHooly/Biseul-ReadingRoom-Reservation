@@ -56,10 +56,10 @@ namespace biseul_rroom {
 		~SeatManager();
 
 		SeatStatus seat_status_check(int); //seat number as an input
-		Seat* create_seat(__int64 rfid_id, int hour, int pause);
+		Seat* create_seat(Reserver* reserver, int hour, int pause);
 		void delete_seat(int num);
 
-		void reserve_seat(int num, Seat* seat);
+		void reserve_seat(int num, std::string name, int stud_id, __int64 rfid_id, int hour, int pause);
 		void return_seat(int);
 		void renew_seat(int, int);
 		void pause_seat(int);

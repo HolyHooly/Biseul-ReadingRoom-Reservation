@@ -14,23 +14,21 @@
 #include <QMessageBox>
 #include <QTimer>
 
+#include "ui_BiseulReadingRoomReservation.h"
 
 #include "AdminPanel.h"
 #include "RfidPanel.h"
 #include "RegisterPanel.h"
 //#include "SeatInfoPanel.h"
 
-
-#include "ui_BiseulReadingRoomReservation.h"
+#include "DBinterface.h"
+#include "DBsystem.h"
 
 #include "Reserver.h"
 #include "Manager.h"
 #include "SeatManager.h"
 #include "UserManager.h"
 #include "TimeManager.h"
-
-#include "DBInterface.h"
-#include "DBsystem.h"
 
 class BiseulReadingRoomReservation : public QMainWindow
 {
@@ -39,6 +37,8 @@ class BiseulReadingRoomReservation : public QMainWindow
 public:
     BiseulReadingRoomReservation(QWidget *parent = Q_NULLPTR);
     friend class AdminPanel; //AdminPanel class to be a friend --> to access seatmanager, etc
+
+    __int64 tag_rfid();
 
 private slots:
     void seat_button_click();
@@ -67,8 +67,8 @@ private:
     biseul_rroom::TimeManager exe_time_manager = biseul_rroom::TimeManager::instance();
 
     //DBinterface
-    biseul_rroom::DBinterface* interface1 = new biseul_rroom::DBinterface("test111.db");
-   
+    biseul_rroom::DBinterface* biseul_db_interface = new biseul_rroom::DBinterface("./data/test111.db");
+    
 
     //QTime* seat_time[125];
     QLabel* label_time;

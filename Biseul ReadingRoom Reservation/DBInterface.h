@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "DBsystem.h"
 
 namespace biseul_rroom {
@@ -53,6 +53,7 @@ namespace biseul_rroom {
 		virtual bool remove(_int64 rfid_id);
 		virtual bool remove_by_studid(int stud_id);
 		virtual bool existence_check(int stud_id);
+		virtual bool existence_check_byrfid(_int64 rfid_id);
 		virtual bool get_studinf(std::string*& name, const int& stud_id, _int64& rfid, int& warning);
 		virtual bool get_studinf_byrfid(std::string*& name, int& stud_id, const _int64& rfid, int& warning);
 		virtual bool give_penalty(int stud_id);

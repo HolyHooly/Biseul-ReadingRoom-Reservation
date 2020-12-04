@@ -24,11 +24,10 @@ int main() {
 	interface1->openDB(&file);  // file 을오픈하여 성공시 true를 리턴, 실패시 에러코드 메세지를 출력하고 false 를 리턴.
 
 	/// -데이터베이스에 학생정보 저장 -
-	/// 함수명 : insert(string* name, int stud_id, int rfid_id)
+	/// 함수명 : insert(string* name, int stud_id, _int64 rfid_id)
 	/// <returns> 학생정보 저장을 성공하면 True 를 return.
 	///           학생정보 저장을 실패하면 실패 이유를 출력하고 false 를 return.
 	/// <throw>  없음.
-
 
 	std::string name = "name";
 	interface1->insert(&name, 201011010, 1234);  // 학생이름의 주소, 학번과 rfid를 파라미터로 전달하여 데이터베이스에 학생정보를 저장. 
@@ -36,18 +35,19 @@ int main() {
 	                                             // warning 은 0으로 저장.	
 
 	/// - 데이터베이스에서 특정 학생정보 삭제 -
-	/// 함수명 : remove(int rfid_id) , remove_by_studid(int stud_id)
+	/// 함수명 : remove(_int64 rfid_id) , remove_by_studid(int stud_id)
 	/// <returns> 해당 학생정보 삭제를 성공하면 true 를 return.
 	///           해당 학생정보 삭제를 실패하면 실패 이유를 출력하고 false 를 return.
 	/// <throw>  없음.
 	
 
-	interface1->remove(1234);  // 해당 학생 rfid를 파라미터로 전달하여 데이터베이스에서 해당 학생정보를 삭제. 실패시 false 를 리턴.
-	interface1->remove_by_studid(201011010);  // 해당 학생 학번을 파라미터로 전달하여 데이터베이스에서 해당 학생정보를 삭제. 실패시 false 를 리턴.
+	
+	interface1->remove(123);  // 해당 학생 rfid를 파라미터로 전달하여 데이터베이스에서 해당 학생정보를 삭제. 실패시 false 를 리턴.
+	interface1->remove_by_studid(20101101);  // 해당 학생 학번을 파라미터로 전달하여 데이터베이스에서 해당 학생정보를 삭제. 실패시 false 를 리턴.
 	
 	
 	/// - 데이터베이스에 해당 학생정보 존재여부 체크 -
-	/// 함수명 : existence_check(int stud_id)
+	/// 함수명 : existence_check(int stud_id), existence_check(_int64 rfid_id)
 	/// <returns> 데이터베이스에 해당 학생정보 존재시 true 를 리턴.
 	///           데이터베이스에 해당 학생정보 없을 시 false 를 리턴.
 	/// <throw> 없음.
@@ -55,11 +55,11 @@ int main() {
 
 	interface1->existence_check(201011010);  // 해당 학생 학번을 파라미터로 전달하여 데이터베이스에서 해당 학생정보 체크하여 존재시 true 리턴,
 	                                        // 없을 시 false 리턴.
-
+	interface1->existence_check_byrfid(1234);
 
 	/// - 데이터베이스에 해당 학생정보 가져오기 -
-	/// 함수명 : bool get_studinf(string*& name,const int& stud_id,int& rfid, int& warning);
-	///          bool get_studinf_byrfid(string * &name, int& stud_id, const int& rfid, int& warning);
+	/// 함수명 : bool get_studinf(string*& name,const int& stud_id,_int64& rfid, int& warning);
+	///          bool get_studinf_byrfid(string * &name, int& stud_id, const _int64& rfid, int& warning);
 	/// <returns> 데이터베이스에 해당 학생정보 존재시 해당 학생정보를 참조파라미터로 전달하고 true를 리턴. 
 	/// .         해당 학생 정보가 없거나 오류 발생시 오류내용을 출력하고 false를 리턴.
 	/// <throw> 없음.
@@ -89,7 +89,7 @@ int main() {
 	std::cout << "girl warning : " << desired_warning << std::endl;
 
 	/// - 데이터베이스의 해당 학생 패널티 증가 -
-	/// 함수명 :give_penalty(int& stud_id) , give_penalty_byrfid(int rfid)
+	/// 함수명 :give_penalty(int& stud_id) , give_penalty_byrfid(_int64 rfid)
 	/// <returns> 데이터베이스의 해당 학생 warning 값을 1 증가시키고 true를 리턴. 
 	/// .         해당 학생 정보가 없거나 오류 발생시 오류내용을 출력하고 false를 리턴.
 	/// <throw> 없음.
@@ -113,7 +113,7 @@ int main() {
 
 
 	/// - 데이터베이스의 해당 학생 정보 변경 -
-	/// 함수명 : modify_byrfid(const string name, const int stud_id, const int rfid_id, const int warning)
+	/// 함수명 : modify_byrfid(const string name, const int stud_id, const _int64 rfid_id, const int warning)
 	/// <returns> 데이터베이스의 해당 학생정보를 전달된 파라미터의 값으로 변경(rfid 제외)하고 true를 리턴. 
 	/// .         해당 학생 정보가 없거나 오류 발생시 오류내용을 출력하고 false를 리턴.
 	///           해당 학생의 rfid_id를 전달하여야 해당 학생정보를 변경할 수 있음.

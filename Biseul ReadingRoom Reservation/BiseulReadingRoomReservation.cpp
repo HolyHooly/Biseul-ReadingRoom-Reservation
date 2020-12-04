@@ -1,5 +1,6 @@
 ﻿#include "BiseulReadingRoomReservation.h"
 #include <iostream>
+#include <string>
 
 BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
     : QMainWindow(parent)
@@ -161,8 +162,6 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 
 	connect(signup_btn, SIGNAL(clicked()), this, SLOT(signup_button_click()));
 	connect(admin_btn, SIGNAL(clicked()), this, SLOT(admin_button_click()));
-
-
 	//</button-slot connection>
 
 	//Timer setup, it will call slot for every minutes.
@@ -178,24 +177,49 @@ void BiseulReadingRoomReservation::seat_button_click()
 	//seder() to get which button called the function
 	QObject* obj = sender();
 	int num = obj->objectName().toInt(); //getting seat number
-	_set_occupied_style(num);
 	
 	if (exe_seat_manager.seat_status_check(num) == biseul_rroom::SeatStatus::Vacant) { // Vacant Button click
-		int rfid_id = 0;//할것:rfid tag window
+		
+		//Getting RFID information with RfidPanel
+		__int64 rfid_id = tag_rfid();
 
-
+		//User inquiry start
 		biseul_rroom::UserAction action = exe_user_manager.user_valid_check(rfid_id);
-		if (action == biseul_rroom::UserAction::Pass) {
-			//reserve seat
-			int hour = exe_user_manager.available_reserve_hour(rfid_id);
-			int pause = exe_user_manager.get_user_pause_left(rfid_id);
-			biseul_rroom::Seat* new_seat = exe_seat_manager.create_seat(rfid_id, hour, pause);
-			exe_seat_manager.reserve_seat(num, new_seat);
-			
-			//할것: 그사람 몇번 경고 먹었는지도 알려줘야댐
-			msgBox.setText(QString::fromLocal8Bit("성공적으로 자리를 예약하였습니다! Success!"));
-			msgBox.setStandardButtons(QMessageBox::Ok);
-			msgBox.show();
+
+		if (action == biseul_rroom::UserAction::Pass) { //User is able to reserve a seat
+			if (exe_seat_manager.find_seat(rfid_id) != -1) { // Already taken
+				msgBox.setText(QString::fromLocal8Bit("이미 자리를 예약하였습니다! Already taken a seat!"));
+				msgBox.setStandardButtons(QMessageBox::Ok);
+				msgBox.show();
+			}
+			else { //no already taken seat
+				int hour = exe_user_manager.available_reserve_hour(rfid_id);
+				int pause = exe_user_manager.get_user_pause_left(rfid_id);
+
+				std::string name;
+				std::string* nameptr = &name;
+				int stud_id;
+				int warnings;
+				std::string file = "test111.db";
+				biseul_db_interface->openDB(&file);
+				biseul_db_interface->get_studinf_byrfid(nameptr, stud_id, rfid_id, warnings);
+
+				exe_seat_manager.reserve_seat(num, name, stud_id, rfid_id, hour, pause);
+
+
+				//할것: 그사람 몇번 경고 먹었는지도 알려줘야댐
+				msgBox.setText(QString::fromLocal8Bit("성공적으로 자리를 예약하였습니다! Success!"));
+				msgBox.setStandardButtons(QMessageBox::Ok);
+				msgBox.show();
+
+				if (warnings > 0) {
+					msgBox.setText(QString::fromLocal8Bit("경고횟수가 존재합니다! 주의바랍니다.\nYour have warnings. Be careful."));
+					msgBox.setStandardButtons(QMessageBox::Ok);
+					msgBox.show();
+				}
+
+				_set_occupied_style(num);
+			}
 			
 		}
 		else if (action == biseul_rroom::UserAction::Signup) {
@@ -215,16 +239,16 @@ void BiseulReadingRoomReservation::seat_button_click()
 		}
 
 	}
-	else { //not vacant button
-		//info window 
+	else { //if pressed occupied seat
+
+
 	}
-	
 }
 
 void BiseulReadingRoomReservation::pause_button_click()
 {
 	//할것:rfid tag window
-	__int64 rfid_id = 0;
+	__int64 rfid_id = tag_rfid();
 
 	int num = exe_seat_manager.find_seat(rfid_id); //num as seat number
 	if (num == -1) { //seat doesn't exist
@@ -262,6 +286,26 @@ void BiseulReadingRoomReservation::signup_button_click()
 {
 	RegisterPanel rp;
 	if (rp.exec() == QDialog::Accepted) {
+		std::string name = rp.get_name();
+		__int64 rfid_id = rp.get_rfid();
+		int stud_id = rp.get_stud_id();
+
+		if (biseul_db_interface->existence_check(stud_id) || 
+			biseul_db_interface->existence_check_byrfid(rfid_id))
+		{ //already have a record on db
+			msgBox.setText(QString::fromLocal8Bit("이미 가입되어있습니다! Already registered!"));
+			msgBox.exec();
+		}
+		else {
+			if (biseul_db_interface->insert(&name, stud_id, rfid_id)) { //학생 정보 db에 insert
+				msgBox.setText(QString::fromLocal8Bit("가입이 완료되었습니다! Registered!"));
+				msgBox.exec();
+			}
+			else { //insert 실패시
+				msgBox.setText(QString::fromLocal8Bit("알 수 없는 에러가 발생하였습니다! 관리자에게 문의하세요.\nError! Please contact the administrator"));
+				msgBox.exec();
+			}
+		}
 
 	}
 
@@ -275,6 +319,20 @@ void BiseulReadingRoomReservation::admin_button_click()
 
 void BiseulReadingRoomReservation::minute_tiemout()
 {
+
+}
+
+
+
+__int64 BiseulReadingRoomReservation::tag_rfid()
+{
+	RfidPanel rf;
+	__int64 rfid_id;
+	if (rf.exec() == QDialog::Accepted) {
+		rfid_id = rf.getdata();
+		return rfid_id;
+	}
+	else return -1;
 }
 
 
