@@ -51,15 +51,20 @@ private slots:
     void signup_button_click();
     void admin_button_click();
 
-    void minute_tiemout();
+    void minute_timeout();
 
 private:
+
+    Ui::BiseulReadingRoomReservationClass ui;
 
     void _set_vacant_style(int num);
     void _set_occupied_style(int num);
     void _set_paused_style(int num);
 
-    Ui::BiseulReadingRoomReservationClass ui;
+    void _msg_not_reserved();
+    void _msg_already_reserved();
+    void _msg_diy(char* msg);
+
     
     //managers are created with singletons
     biseul_rroom::SeatManager exe_seat_manager = biseul_rroom::SeatManager::instance();

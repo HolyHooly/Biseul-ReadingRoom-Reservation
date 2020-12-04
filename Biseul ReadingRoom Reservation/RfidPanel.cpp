@@ -40,6 +40,7 @@ RfidPanel::~RfidPanel()
 }
 
 void RfidPanel::cancel() {
+    int_number = -1;
     this->close();
 }
 

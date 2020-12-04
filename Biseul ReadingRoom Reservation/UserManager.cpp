@@ -42,8 +42,17 @@ namespace biseul_rroom {
 		else if (cnt < 3 && cnt >0) return 3; // 3 hours available
 		else return 0;
 	}
-	int UserManger::get_user_pause_left(int stud_id)
+	int UserManger::get_user_pause_left(__int64 rfid_id)
 	{
-		return pause_left[stud_id];
+		//할것: 처음예약시 바꿀것
+		auto it = pause_left.find(rfid_id);
+		if (it == pause_left.end()) {
+			pause_left[rfid_id] = 240;
+		}
+		return pause_left[rfid_id];
+	}
+	void UserManger::add_user_reserve_cnt(__int64 rfid_id)
+	{
+		++reserve_cnt[rfid_id];
 	}
 }

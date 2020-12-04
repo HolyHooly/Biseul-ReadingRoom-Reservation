@@ -35,7 +35,9 @@ namespace biseul_rroom {
 		//parm: (int) stud_id
 		int get_user_reserve_cnt(__int64 rfid_id);
 		int available_reserve_hour(__int64 rfid_id);
-		int get_user_pause_left(int stud_id);
+		int get_user_pause_left(__int64 rfid_id);
+
+		void add_user_reserve_cnt(__int64 rfid_id);
 
 	private:
 		UserManger() {};
