@@ -8,7 +8,8 @@
 
 
 #include "Manager.h"
-
+#include "DBInterface.h"
+#include "DBsystem.h"
 
 namespace biseul_rroom {
 
@@ -29,7 +30,7 @@ namespace biseul_rroom {
 		/// returns each action value: Signup, Warning, OverTime, or Pass
 		/// parm: (int)rfid_id
 		/// return: (UserAction)
-		UserAction user_valid_check(__int64); //rfid_id as an input
+		UserAction user_valid_check(__int64, DBinterface*); //rfid_id as an input
 
 		//parm: (int) stud_id
 		int get_user_reserve_cnt(__int64 rfid_id);
@@ -42,7 +43,7 @@ namespace biseul_rroom {
 		//counts student's reservation times in a day
 		//This is for blocking multi-time reservation per a day
 		std::map<__int64, int> reserve_cnt; // <rfid_id, cnt>
-		std::map<int, int> pause_left; // <rfid_id, pause_left>
+		std::map<__int64, int> pause_left; // <rfid_id, pause_left>
 
 	};
 

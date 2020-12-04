@@ -1,4 +1,4 @@
-ï»¿#include "DBInterface.h"
+#include "DBInterface.h"
 namespace biseul_rroom {
 
 	DBinterface::DBinterface()noexcept {
@@ -218,5 +218,5 @@ namespace biseul_rroom {
 		return true;
 	}
 }
-////  getí•¨ìˆ˜ ë³€í™˜. bool íƒ€ì…. ì°¸ì¡°ìë¡œ í•´ë‹¹ë°ì´í„° ë„˜ê²¨ì£¼ëŠ”ì‹ìœ¼ë¡œ.
-////  ê²½ê³ íšŸìˆ˜ ë°ì´í„° ì¶”ê°€.
+////  getÇÔ¼ö º¯È¯. bool Å¸ÀÔ. ÂüÁ¶ÀÚ·Î ÇØ´çµ¥ÀÌÅÍ ³Ñ°ÜÁÖ´Â½ÄÀ¸·Î.
+////  °æ°íÈ½¼ö µ¥ÀÌÅÍ Ãß°¡.

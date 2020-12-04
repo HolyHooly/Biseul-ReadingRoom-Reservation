@@ -184,7 +184,7 @@ void BiseulReadingRoomReservation::seat_button_click()
 		__int64 rfid_id = tag_rfid();
 
 		//User inquiry start
-		biseul_rroom::UserAction action = exe_user_manager.user_valid_check(rfid_id);
+		biseul_rroom::UserAction action = exe_user_manager.user_valid_check(rfid_id, biseul_db_interface);
 
 		if (action == biseul_rroom::UserAction::Pass) { //User is able to reserve a seat
 			if (exe_seat_manager.find_seat(rfid_id) != -1) { // Already taken
@@ -200,8 +200,6 @@ void BiseulReadingRoomReservation::seat_button_click()
 				std::string* nameptr = &name;
 				int stud_id;
 				int warnings;
-				std::string file = "test111.db";
-				biseul_db_interface->openDB(&file);
 				biseul_db_interface->get_studinf_byrfid(nameptr, stud_id, rfid_id, warnings);
 
 				exe_seat_manager.reserve_seat(num, name, stud_id, rfid_id, hour, pause);
@@ -223,17 +221,17 @@ void BiseulReadingRoomReservation::seat_button_click()
 			
 		}
 		else if (action == biseul_rroom::UserAction::Signup) {
-			msgBox.setText("회원가입이 되어있지 않습니다! 회원가입 후 이용해주세요\nUser not Signed Up! Please register first.");
+			msgBox.setText(QString::fromLocal8Bit("회원가입이 되어있지 않습니다! 회원가입 후 이용해주세요\nUser not Signed Up! Please register first."));
 			msgBox.setStandardButtons(QMessageBox::Ok);
 			msgBox.show();
 		}
 		else if (action == biseul_rroom::UserAction::Warning) {
-			msgBox.setText("경고 횟수 누적으로 사용이 제한되었습니다.\nYou are banned because of warnings.");
+			msgBox.setText(QString::fromLocal8Bit("경고 횟수 누적으로 사용이 제한되었습니다.\nYou are banned because of warnings."));
 			msgBox.setStandardButtons(QMessageBox::Ok);
 			msgBox.show();
 		}
 		else if (action == biseul_rroom::UserAction::OverTime) {
-			msgBox.setText("오늘의 예약 횟수를 이미 소진하였습니다.\nYou already used all of your reservation times per day");
+			msgBox.setText(QString::fromLocal8Bit("오늘의 예약 횟수를 이미 소진하였습니다.\nYou already used all of your reservation times per day"));
 			msgBox.setStandardButtons(QMessageBox::Ok);
 			msgBox.show();
 		}

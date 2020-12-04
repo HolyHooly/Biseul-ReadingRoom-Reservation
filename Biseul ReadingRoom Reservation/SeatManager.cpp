@@ -121,7 +121,7 @@ namespace biseul_rroom {
 	{
 		for (int i = 0; i < READINGROOM_SEAT; ++i) {
 			if (rroom_seat[i] != nullptr) { //if seat is reserved
-				if (rfid_id = rroom_seat[i]->get_reserver()->get_rfid_id()) {
+				if (rfid_id == rroom_seat[i]->get_reserver()->get_rfid_id()) {
 					return i + 1; // return as seat number (not array index)
 				}
 			}

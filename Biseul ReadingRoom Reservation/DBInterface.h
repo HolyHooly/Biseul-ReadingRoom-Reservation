@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "DBsystem.h"
 
 namespace biseul_rroom {
@@ -19,7 +19,7 @@ namespace biseul_rroom {
 				std::cout << "From DBsystem: student data already exists" << std::endl;
 				return;
 			case (int)signal::DBPARAMETERERR:
-				std::cout << "From DBsystem: Recognize disallowed input. name length >99, student id, rfid = 0 is not allowed." << std::endl;
+				std::cout << "From DBsystem: Recognize disallowed input. Acceptable input : name length <99, student id, rfid != 0 ,student id with 9 digit number , rfid id with 10 digit number." << std::endl;
 				return;
 			case (int)signal::DBMODIFYERR:
 				std::cout << "From DBsystem: Modify error. try again" << std::endl;

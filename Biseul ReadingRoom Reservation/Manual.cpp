@@ -10,8 +10,8 @@ int main() {
 	///     DBinterface(string filename) : 해당 filename 파일을 열고, 오픈 실패시 에러코드 문자를 출력하고 false 를 throw.
 	                            
 	
-	biseul_rroom::DBinterface* interface1 = new biseul_rroom::DBinterface;  //// DB 디폴트 파일 :"dbsys0.db" 를 데이터베이스로 사용하는 DB인터페이스1 생성.
-	biseul_rroom::DBinterface* interface2 = new biseul_rroom::DBinterface("desired_filename.db");  //// DB 파일: "dedesired_filename.db" 를 데이터베이스로 사용하는 DB인터페이스2 생성.
+	biseul_rroom::DBinterface* interface1 = new biseul_rroom::DBinterface("desired_filename1.db");  //// DB 디폴트 파일 :"dbsys0.db" 를 데이터베이스로 사용하는 DB인터페이스1 생성.
+	biseul_rroom::DBinterface* interface2 = new biseul_rroom::DBinterface("desired_filename2.db");  //// DB 파일: "dedesired_filename.db" 를 데이터베이스로 사용하는 DB인터페이스2 생성.
 	
 
 	/// - 데이터베이스 새로 열거나 종료 -
@@ -119,10 +119,10 @@ int main() {
 	///           해당 학생의 rfid_id를 전달하여야 해당 학생정보를 변경할 수 있음.
 	/// <throw> 없음.
 
-	interface1->modify_byrfid("김학생", 20802080, 2000, 0); // rfid 2000 인 학생의 이름과 학번, 경고횟수를 각각 '김학생', 20802080, 0 으로 변경하고 성공시 true 리턴.
+	interface1->modify_byrfid("그여자", 20902080, 2200, 0); // rfid 2000 인 학생의 이름과 학번, 경고횟수를 각각 '김학생', 20802080, 0 으로 변경하고 성공시 true 리턴.
 	                                                        // 해당학생이 없거나 변경오류시 false를 리턴하고 에러메세지를 출력.
 
-	interface1->get_studinf_byrfid(nameptr, desired_stud_id, 2000, desired_warning);
+	interface1->get_studinf_byrfid(nameptr, desired_stud_id, 2200, desired_warning);
 																			
 	std::cout << "girl name : " << desired_name << std::endl;
 	std::cout << "girl student ID : " << desired_stud_id << std::endl;

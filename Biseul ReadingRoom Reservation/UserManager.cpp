@@ -10,13 +10,17 @@
 
 namespace biseul_rroom {
 
-	UserAction UserManger::user_valid_check(__int64 rfid_id)
+	UserAction UserManger::user_valid_check(__int64 rfid_id, DBinterface* db_interface)
 	{
-		//db existence check
-		if (true) { //db check result
-			int warning = 0; //гр╟м:get_warning from db
 
-			if (warning < 3) {
+		if (db_interface->existence_check_byrfid(rfid_id)) { //db check result
+			std::string name;
+			std::string* nameptr = &name;
+			int stud_id;
+			int warnings;
+			db_interface->get_studinf_byrfid(nameptr, stud_id, rfid_id, warnings);
+
+			if (warnings < 3) {
 				//get daily reservation times
 				if (reserve_cnt[rfid_id] >= 3) return UserAction::OverTime;
 				else return UserAction::Pass;
