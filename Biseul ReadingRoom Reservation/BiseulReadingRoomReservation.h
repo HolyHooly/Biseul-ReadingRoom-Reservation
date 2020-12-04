@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <QInputDialog>
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -56,6 +57,8 @@ private slots:
 private:
 
     Ui::BiseulReadingRoomReservationClass ui;
+    QGridLayout* whole;
+    QWidget* main;
 
     void _set_vacant_style(int num);
     void _set_occupied_style(int num);
@@ -63,7 +66,7 @@ private:
 
     void _msg_not_reserved();
     void _msg_already_reserved();
-    void _msg_diy(char* msg);
+    void _msg_diy(const char* msg);
 
     
     //managers are created with singletons
@@ -74,15 +77,9 @@ private:
     //DBinterface
     biseul_rroom::DBinterface* biseul_db_interface = new biseul_rroom::DBinterface("./data/test111.db");
     
-
-    //QTime* seat_time[125];
-    QLabel* label_time;
     QTimer* m_pTimer;
     QMessageBox msgBox;
     QPushButton* p_seat[125];
-    QGridLayout* whole;
-    QWidget* main;
-    int uss[125] = { 0, };
 
 };
 

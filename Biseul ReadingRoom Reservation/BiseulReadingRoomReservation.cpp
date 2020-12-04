@@ -302,7 +302,30 @@ void BiseulReadingRoomReservation::renew_button_click()
 
 void BiseulReadingRoomReservation::move_button_click()
 {
-	std::cout << 11;
+	__int64 rfid_id = tag_rfid();
+	if (rfid_id == -1) { //user cancelled tagging rfid
+	}
+	else {
+		int seat_num = exe_seat_manager.find_seat(rfid_id);
+		if (seat_num == -1) { //cannot find seat reserved
+			_msg_not_reserved();
+		}
+		else {
+			bool ok;
+			int to_seat_num = QInputDialog::getInt(this, tr("Where to Move?"), tr("To: "), 1, 1, READINGROOM_SEAT, 1, &ok);
+			if (ok) { //user pressed ok (not cancel)
+				if (exe_seat_manager.get_seat(to_seat_num)==nullptr) { //seat is empty
+					exe_seat_manager.move_seat(seat_num, to_seat_num);
+					_set_vacant_style(seat_num);
+					_set_occupied_style(to_seat_num);
+					_msg_diy("자리를 이동했습니다! Moved your seat!");
+				}
+				else {
+					_msg_diy("빈 자리를 선택해주세요! Please choose vacant seat!");
+				}
+			}
+		}
+	}
 }
 
 void BiseulReadingRoomReservation::return_button_click()
@@ -379,7 +402,7 @@ void BiseulReadingRoomReservation::_msg_already_reserved()
 	msgBox.show();
 }
 
-void BiseulReadingRoomReservation::_msg_diy(char* msg)
+void BiseulReadingRoomReservation::_msg_diy(const char* msg)
 {
 	msgBox.setText(QString::fromLocal8Bit(msg));
 	msgBox.setStandardButtons(QMessageBox::Ok);

@@ -68,7 +68,7 @@ namespace biseul_rroom {
 		void renew_seat(int, int);
 		void pause_seat(int);
 		void unpause_seat(int);
-		void move_seat(int, int);
+		void move_seat(int from, int to);
 
 		int find_seat(__int64 rfid_id);
 
