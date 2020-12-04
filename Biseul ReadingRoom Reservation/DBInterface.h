@@ -1,7 +1,5 @@
 #pragma once
 #include "DBsystem.h"
-#include <iostream>
-#include"sqlite/sqlite3.h"
 
 namespace biseul_rroom {
 
@@ -50,14 +48,14 @@ namespace biseul_rroom {
 		virtual~DBinterface() {}
 		virtual bool closeDB();
 		virtual bool openDB(std::string* filename);
-		virtual bool insert(std::string* name, int stud_id, int rfid_id);
-		virtual bool modify_byrfid(const std::string name, const int stud_id, const int rfid_id, const int warning);
-		virtual bool remove(int rfid_id);
+		virtual bool insert(std::string* name, int stud_id, _int64 rfid_id);
+		virtual bool modify_byrfid(const std::string name, const int stud_id, const _int64 rfid_id, const int warning);
+		virtual bool remove(_int64 rfid_id);
 		virtual bool remove_by_studid(int stud_id);
 		virtual bool existence_check(int stud_id);
-		virtual bool get_studinf(std::string*& name, const int& stud_id, int& rfid, int& warning);
-		virtual bool get_studinf_byrfid(std::string*& name, int& stud_id, const int& rfid, int& warning);
+		virtual bool get_studinf(std::string*& name, const int& stud_id, _int64& rfid, int& warning);
+		virtual bool get_studinf_byrfid(std::string*& name, int& stud_id, const _int64& rfid, int& warning);
 		virtual bool give_penalty(int stud_id);
-		virtual bool give_penalty_byrfid(int rfid);
+		virtual bool give_penalty_byrfid(_int64 rfid);
 	};
 }

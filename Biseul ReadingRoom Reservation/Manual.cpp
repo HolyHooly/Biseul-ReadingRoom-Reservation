@@ -68,11 +68,11 @@ int main() {
 	std::string desired_name;
 	std::string* nameptr = &desired_name;
 	int desired_stud_id;
-	int desired_rfid;
+	_int64 desired_rfid;
 	int desired_warning;
 	interface1->insert(&guyname,202011010,1000);
 	interface1->insert(&girlname, 202010000, 2000);
-
+	int tmp;
 
 	interface1->get_studinf(nameptr,202011010,desired_rfid,desired_warning);  // 해당 학생 학번을 파라미터로 전달하여 데이터베이스에서 해당 학생정보를 
 	                                                                          // 전달된 파라미터에 저장하고 true를 리턴. 실패시 이유를 출력하고 false를 리턴.                           

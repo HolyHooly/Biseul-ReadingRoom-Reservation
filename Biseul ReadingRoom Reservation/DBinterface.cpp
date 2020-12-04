@@ -42,7 +42,7 @@ namespace biseul_rroom {
 		}
 		return true;
 	}
-	bool DBinterface::insert(std::string* name, int stud_id, int rfid_id) {
+	bool DBinterface::insert(std::string* name, int stud_id, _int64 rfid_id) {
 		try {
 			dbsys.insert(name, stud_id, rfid_id);
 			return true;
@@ -61,7 +61,7 @@ namespace biseul_rroom {
 			return false;
 		}
 	}
-	bool DBinterface::modify_byrfid(const std::string name, const int stud_id, const int rfid_id, const int warning) {
+	bool DBinterface::modify_byrfid(const std::string name, const int stud_id, const _int64 rfid_id, const int warning) {
 		try {
 			const std::string* nameptr = &name;
 			dbsys.modify_byrfid(nameptr, stud_id, rfid_id, warning);
@@ -74,7 +74,7 @@ namespace biseul_rroom {
 		}
 		return true;
 	}
-	bool DBinterface::remove(int rfid_id) {
+	bool DBinterface::remove(_int64 rfid_id) {
 		try {
 			if (dbsys.remove_data_byrfidid(rfid_id)) {
 				return true;
@@ -114,7 +114,8 @@ namespace biseul_rroom {
 		try {
 			std::string nametmp = "";
 			std::string* nameptr = &nametmp;
-			int rfid_id, warntmp;
+			_int64 rfid_id;
+			int warntmp;
 			if (dbsys.get_studinf_bystudid(nameptr, stud_id, rfid_id, warntmp)) {
 				return true;
 			}
@@ -128,10 +129,11 @@ namespace biseul_rroom {
 		}
 	}
 
-	bool DBinterface::get_studinf(std::string*& name, const int& stud_id, int& rfid, int& warning) {
+	bool DBinterface::get_studinf(std::string*& name, const int& stud_id, _int64& rfid, int& warning) {
 		std::string nametmp = "";
 		std::string* nameptr = &nametmp;
-		int rfid_id, warntmp;
+		_int64 rfid_id; 
+		int warntmp;
 		try {
 			if (dbsys.get_studinf_bystudid(nameptr, stud_id, rfid_id, warntmp)) {}
 			else {
@@ -147,7 +149,7 @@ namespace biseul_rroom {
 		warning = warntmp;
 		return true;
 	}
-	bool DBinterface::get_studinf_byrfid(std::string*& name, int& stud_id, const int& rfid, int& warning) {
+	bool DBinterface::get_studinf_byrfid(std::string*& name, int& stud_id, const _int64& rfid, int& warning) {
 		std::string nametmp = "";
 		std::string* nameptr = &nametmp;
 		int studtmp, warntmp;
@@ -182,7 +184,7 @@ namespace biseul_rroom {
 		}
 		return true;
 	}
-	bool DBinterface::give_penalty_byrfid(int rfid) {
+	bool DBinterface::give_penalty_byrfid(_int64 rfid) {
 		try {
 			dbsys.add_penalty_byrfid(rfid);
 		}

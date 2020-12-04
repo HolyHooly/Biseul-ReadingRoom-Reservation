@@ -61,19 +61,20 @@ namespace biseul_rroom {
 	}
 
 
-	bool DBsystem::insert(std::string* name, int stud_id, int rfid_id) {
+	bool DBsystem::insert(std::string* name, int stud_id, _int64 rfid_id) {
 		char* error_msg;
 		int check;
 		int warning = 0;
 		std::string nametemp = "";
 		std::string* nameptr = &nametemp;
-		int numtmp;
+		_int64 numtmp;
+		int numtmp2;
 		try {
 			if ((stud_id == 0) || (rfid_id == 0) || (name->length() > 99)) {
 				throw signal::DBPARAMETERERR;
 			}
 
-			if ((get_studinf_bystudid(nameptr, stud_id, numtmp, warning)) || (get_studinf_byrfid(nameptr, numtmp, rfid_id, warning))) {
+			if ((get_studinf_bystudid(nameptr, stud_id, numtmp, warning)) || (get_studinf_byrfid(nameptr, numtmp2, rfid_id, warning))) {
 				throw signal::DBOVERLAP;
 			}
 			else {
@@ -98,7 +99,7 @@ namespace biseul_rroom {
 		}
 	}
 
-	bool DBsystem::modify_byrfid(const std::string* name, const int stud_id, const int rfid_id, const int warning) {
+	bool DBsystem::modify_byrfid(const std::string* name, const int stud_id, const _int64 rfid_id, const int warning) {
 		std::string nametmp = "";
 		std::string* nameptr = &nametmp;
 		sqlite3_stmt* stmt;
@@ -129,7 +130,7 @@ namespace biseul_rroom {
 		return (bool)signal::DBSUCCESS;
 	}
 
-	bool DBsystem::get_studinf_bystudid(std::string*& name, const int& stud_id, int& rfid_id, int& warning) {
+	bool DBsystem::get_studinf_bystudid(std::string*& name, const int& stud_id, _int64& rfid_id, int& warning) {
 		sqlite3_stmt* stmt;
 		int id = stud_id;
 		try {
@@ -157,7 +158,7 @@ namespace biseul_rroom {
 		return (bool)signal::DBSUCCESS;
 	}
 
-	bool DBsystem::get_studinf_byrfid(std::string*& name, int& stud_id, const int& rfid_id, int& warning) {
+	bool DBsystem::get_studinf_byrfid(std::string*& name, int& stud_id, const _int64& rfid_id, int& warning) {
 		sqlite3_stmt* stmt;
 		int id = rfid_id;
 		try {
@@ -189,7 +190,7 @@ namespace biseul_rroom {
 		sqlite3_stmt* stmt;
 		std::string nametemp = "";
 		std::string* nameptr = &nametemp;
-		int rfidtmp;
+		_int64 rfidtmp;
 		int warntmp;
 		try {
 			if (stud_id == 0) {
@@ -221,7 +222,7 @@ namespace biseul_rroom {
 		}
 	}
 
-	bool DBsystem::remove_data_byrfidid(int& rfid_id) {
+	bool DBsystem::remove_data_byrfidid(_int64& rfid_id) {
 		sqlite3_stmt* stmt;
 		std::string nametemp = "";
 		std::string* nameptr = &nametemp;
@@ -260,7 +261,8 @@ namespace biseul_rroom {
 		std::string nametmp = "";
 		std::string* nameptr = &nametmp;
 		sqlite3_stmt* stmt;
-		int rfidtmp, warningtmp;
+		_int64 rfidtmp;
+	    int warningtmp;
 		try {
 			if ((stud_id == 0)) {
 				throw signal::DBPARAMETERERR;
@@ -285,7 +287,7 @@ namespace biseul_rroom {
 		}
 		return (bool)signal::DBSUCCESS;
 	}
-	bool DBsystem::add_penalty_byrfid(int& rfid_id) {
+	bool DBsystem::add_penalty_byrfid(_int64& rfid_id) {
 		std::string nametmp = "";
 		std::string* nameptr = &nametmp;
 		sqlite3_stmt* stmt;
