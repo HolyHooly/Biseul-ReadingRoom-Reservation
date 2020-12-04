@@ -153,7 +153,7 @@ namespace biseul_rroom {
 		char* myname;
 		myname = (char*)sqlite3_column_text(stmt, 0);
 		*name += myname;
-		rfid_id = sqlite3_column_int(stmt, 2);
+		rfid_id = sqlite3_column_int64(stmt, 2);
 		warning = sqlite3_column_int(stmt, 3);
 		return (bool)signal::DBSUCCESS;
 	}

@@ -10,13 +10,17 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 	whole = new QGridLayout;
 	main = new QWidget;
 
-	//title of the program
-	//layout setting
+
+
+	setStyleSheet({ "background-color:rgb(255,255,255);" });
+	setMenuBar(false);
+	setWindowFlags(Qt::FramelessWindowHint);
+
+//---------------------title layout---------------------------------//
 	QHBoxLayout* title_layout = new QHBoxLayout;
 	QLabel* title_label = new QLabel(QString::fromLocal8Bit("비슬빌리지 독서실 예약시스템"));
-	auto sty_t = "font: 20pt Futura;";
+	auto sty_t = "font: 20pt KBIZgo B;";
 	title_label->setStyleSheet({ sty_t });
-
 	
 	QPixmap icon_pix = QPixmap("./assets/icon.png");
 	icon_pix = icon_pix.scaledToHeight(80);
@@ -30,11 +34,11 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 	title_layout->addStretch(2);
 	title_layout->addWidget(title_label);
 	title_layout->addStretch(15);
-	//title setting done;
+//------------------------------------------------------------------//
 
-	//setting main UI
+//------------------setting main UI---------------------------------//
 	// & button slot connection
-	main->setStyleSheet("QPushButton{ background-color: #c6ffcf;font:20pt}");
+	main->setStyleSheet("QPushButton{background-color : #5fe37e; font: 75 14pt Arial; border: none; min-width: 80px;}");
 	int seat[] = { 0,
 				  0,0,0,1,1,1,1,1,1,1,1,0,
 				  0,0,0,1,1,1,1,1,1,1,1,0,
@@ -75,9 +79,9 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 			}
 		}
 	}
-	//main seat UI setting done;
+//-------------------------------------------------------------//
 
-	//<sidebar setting>
+//--------------------<sidebar setting>------------------------//
 	//side bar button setup
 	QPushButton* pause_btn = new QPushButton("Pause");
 	pause_btn->setObjectName("pause_btn");
@@ -92,18 +96,18 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 	QPushButton* return_btn = new QPushButton("Return");
 	return_btn->setObjectName("return_btn");
 
-	auto pause_btn_sty = "font: 20pt; background-color : #fff8a6;"
+	auto pause_btn_sty = "font: 15pt KBIZgo B; background-color : #fff8a6;"
 		"color:#252525; border: 4px solid #eae393;";
-	auto renew_btn_sty = "font: 20pt; background-color : #ffd19a;"
+	auto renew_btn_sty = "font: 15pt KBIZgo B; background-color : #ffd19a;"
 		"color:#252525; border: 4px solid #e0b98d;";
-	auto move_btn_sty = "font: 20pt; background-color : #ffc5a1;"
+	auto move_btn_sty = "font: 15pt KBIZgo B; background-color : #ffc5a1;"
 		"color:#252525; border: 4px solid #e5b192;";
-	auto signup_btn_sty = "font: 20pt; background-color : #b0deff;"
-		"color:#252525; border: 4px solid #a3c8e2;";
-	auto admin_btn_sty = "font: 20pt; background-color : #5c5757;"
-		"color:#363434; border: 4px solid #363434;";
-	auto return_btn_sty = "font: 20pt; background-color : #8cb8ff;"
+	auto signup_btn_sty = "font: 15pt KBIZgo B; background-color : #8cb8ff;"
 		"color:#252525; border: 4px solid #5e9cff;";
+	auto admin_btn_sty = "font: 15pt KBIZgo B; background-color : #5c5757;"
+		"color:#363434; border: 4px solid #363434;";
+	auto return_btn_sty = "font: 15pt KBIZgo B; background-color : #b0deff;"
+		"color:#252525; border: 4px solid #a3c8e2;";
 
 	auto prefer = QSizePolicy::Preferred;
 	pause_btn->setSizePolicy(prefer, prefer);
@@ -123,8 +127,10 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 	//side bar info setup
 	QLabel* info_name = new QLabel(QString::fromLocal8Bit("생활관자치위원회"));
 	info_name->setAlignment(Qt::AlignCenter);
-	QLabel* info_contributor = new QLabel("Contributor : OOP Team");
-	info_contributor->setAlignment(Qt::AlignRight);
+	QLabel* info_contributor = new QLabel(QString::fromLocal8Bit("Contributtor \n 김태현, 고지연, 이준영, 박준서"));
+	info_contributor->setAlignment(Qt::AlignLeft);
+	auto sty_con = "font: 63 10pt KBIZgo B";
+	info_contributor->setStyleSheet(sty_con);
 	//할것 style 추가
 
 	//side bar layout setup
@@ -153,8 +159,9 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 	main->setLayout(whole);
 	setCentralWidget(main);
 	//</whole layout setting>
+//---------------------------------------------------//
 
-	//<button-slot connection>
+//--------------<button-slot connection>-------------------//
 	connect(pause_btn, SIGNAL(clicked()), this, SLOT(pause_button_click()));
 	connect(renew_btn, SIGNAL(clicked()), this, SLOT(renew_button_click()));
 	connect(move_btn, SIGNAL(clicked()), this, SLOT(move_button_click()));
@@ -162,20 +169,34 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 
 	connect(signup_btn, SIGNAL(clicked()), this, SLOT(signup_button_click()));
 	connect(admin_btn, SIGNAL(clicked()), this, SLOT(admin_button_click()));
-	//</button-slot connection>
+//----------------</button-slot connection>----------------//
 
 	//Timer setup, it will call slot for every minutes.
 	m_pTimer = new QTimer();
 	m_pTimer->start(1000 * 60); //1000ms * 60s
 	connect(m_pTimer, SIGNAL(timeout()), this, SLOT(minute_timeout()));
 
+
+
+	showMaximized();
+
 }
 
 void BiseulReadingRoomReservation::minute_timeout()
 {
 	for (int i = 1; i <= READINGROOM_SEAT; ++i) {
-		if (exe_seat_manager.seat_status_check(i) == biseul_rroom::SeatStatus::Paused) {
-			exe_seat_manager.get_seat(i)->minus_pause_time();
+		biseul_rroom::Seat* cur_seat = exe_seat_manager.get_seat(i);
+		if (cur_seat != nullptr) {
+			if (exe_seat_manager.seat_status_check(i) == biseul_rroom::SeatStatus::Paused) {
+				cur_seat->minus_pause_time();
+			}
+			if (exe_seat_manager.get_seat(i)->over_time()) {
+				int stud_id = cur_seat->get_reserver()->get_stud_id(); // get seat reserver's student id
+				biseul_db_interface->give_penalty(stud_id); //give him/her a penalty
+				//할것: 여기 give penalty하면 rfid overflow되어서 저장되는 버그있음
+				exe_seat_manager.return_seat(i); //return the seat
+				_set_vacant_style(i);
+			}
 		}
 	}
 
@@ -304,6 +325,7 @@ void BiseulReadingRoomReservation::move_button_click()
 {
 	__int64 rfid_id = tag_rfid();
 	if (rfid_id == -1) { //user cancelled tagging rfid
+		std::cout << 1;
 	}
 	else {
 		int seat_num = exe_seat_manager.find_seat(rfid_id);
@@ -416,16 +438,16 @@ void BiseulReadingRoomReservation::_msg_diy(const char* msg)
 //setting seat buttons' style
 void BiseulReadingRoomReservation::_set_vacant_style(int num)
 {
-	this->p_seat[num]->setStyleSheet({ "background-color: #c6ffcf;font:20pt" });
+	this->p_seat[num]->setStyleSheet({ "background-color: #5fe37e; font: 75 14pt Arial;" });
 
 }
 
 void BiseulReadingRoomReservation::_set_occupied_style(int num)
 {
-	this->p_seat[num]->setStyleSheet({ "background-color: red; font:20pt" });
+	this->p_seat[num]->setStyleSheet({ "background-color: #e35f5f; font: 75 14pt Arial; qproperty-icon: url(./assets/occupied.png); qproperty-iconSize: 15px 15px;" });
 }
 
 void BiseulReadingRoomReservation::_set_paused_style(int num)
 {
-	this->p_seat[num]->setStyleSheet({ "background-color: yellow; font:20pt" });
+	this->p_seat[num]->setStyleSheet({ "background-color: #f2e85a; font: 75 14pt Arial;qproperty-icon: url(./assets/flag.png); qproperty-iconSize: 20px 20px; " });
 }
