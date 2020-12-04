@@ -12,6 +12,7 @@ namespace biseul_rroom {
 		: seat_reserver(reserver), status(status), pause_minutes_left(pause_minutes)
 	{
 		get_local_time(reserved_time); //reserved time initializing
+		get_local_time(reserve_end_time);
 		add_tm_hour(reserve_end_time, reserve_hour); //reserve end time
 	}
 
@@ -49,6 +50,16 @@ namespace biseul_rroom {
 		--pause_minutes_left;
 	}
 
+	bool Seat::before_minutes(int minutes)
+	{
+		return before_min_timemanager(reserve_end_time, minutes);
+	}
+
+	bool Seat::over_time()
+	{
+		return over_time_timemanager(reserve_end_time);
+	}
+
 
 	SeatManager::~SeatManager()
 	{
@@ -65,6 +76,11 @@ namespace biseul_rroom {
 	{
 		Seat* new_seat = new Seat(reserver, SeatStatus::Vacant, hour, pause);
 		return new_seat;
+	}
+
+	Seat* SeatManager::get_seat(int num)
+	{
+		return rroom_seat[num-1];
 	}
 
 	void SeatManager::delete_seat(int num)

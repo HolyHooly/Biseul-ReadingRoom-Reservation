@@ -34,6 +34,9 @@ namespace biseul_rroom {
 		void add_time_hour(int);
 		void minus_pause_time();
 
+		bool before_minutes(int minutes);
+		bool over_time();
+
 	private:
 		Reserver* seat_reserver = nullptr;     //reserver class that contains info
 		SeatStatus status = SeatStatus::Vacant;//seat status of reservation
@@ -57,6 +60,7 @@ namespace biseul_rroom {
 
 		SeatStatus seat_status_check(int); //seat number as an input
 		Seat* create_seat(Reserver* reserver, int hour, int pause);
+		Seat* get_seat(int num);
 		void delete_seat(int num);
 
 		void reserve_seat(int num, std::string name, int stud_id, __int64 rfid_id, int hour, int pause);

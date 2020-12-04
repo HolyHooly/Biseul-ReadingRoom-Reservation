@@ -166,15 +166,18 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 
 	//Timer setup, it will call slot for every minutes.
 	m_pTimer = new QTimer();
-	m_pTimer->start(1000 * 5);
+	m_pTimer->start(1000 * 60); //1000ms * 60s
 	connect(m_pTimer, SIGNAL(timeout()), this, SLOT(minute_timeout()));
 
 }
 
 void BiseulReadingRoomReservation::minute_timeout()
 {
-	msgBox.setText("test");
-	msgBox.show();
+	for (int i = 1; i <= READINGROOM_SEAT; ++i) {
+		if (exe_seat_manager.seat_status_check(i) == biseul_rroom::SeatStatus::Paused) {
+			exe_seat_manager.get_seat(i)->minus_pause_time();
+		}
+	}
 
 }
 
@@ -189,12 +192,9 @@ void BiseulReadingRoomReservation::seat_button_click()
 		
 		//Getting RFID information with RfidPanel
 		__int64 rfid_id = tag_rfid();
-		if (rfid_id == -1) { //cancelled the action
-
+		if (rfid_id == -1) { //cancelled the action (do nothing)
 		}
 		else {
-
-
 			//User inquiry start
 			biseul_rroom::UserAction action = exe_user_manager.user_valid_check(rfid_id, biseul_db_interface);
 
@@ -238,7 +238,6 @@ void BiseulReadingRoomReservation::seat_button_click()
 				_msg_diy("오늘의 예약 횟수를 이미 소진하였습니다.\nYou already used all of your reservation times per day");
 			}
 		}
-
 	}
 	else { //if pressed occupied seat
 
@@ -259,22 +258,51 @@ void BiseulReadingRoomReservation::pause_button_click()
 			_msg_not_reserved();
 		}
 		else {
-			exe_seat_manager.pause_seat(num);
-			_msg_diy("자리비움 처리 되었습니다. Paused your seat.");
+			if (exe_seat_manager.get_seat(num)->get_status() == biseul_rroom::SeatStatus::Occupied) { //seat is occupied
+				if (exe_seat_manager.get_seat(num)->get_pause_time() <= 0) { //not enough pause time
+					_msg_diy("자리비움 시간이 남아있지 않습니다. Not enough out time.");
+				}
+				else { //enough pause time
+					exe_seat_manager.pause_seat(num);
+					_msg_diy("자리비움 처리 되었습니다. Out your seat.");
+					_set_paused_style(num);
+				}
+			}
+			else {
+				exe_seat_manager.unpause_seat(num);
+				_msg_diy("자리비움 해제 되었습니다. In your seat.");
+				_set_occupied_style(num);
+			}
 		}
 	}
 }
 
 void BiseulReadingRoomReservation::renew_button_click()
 {
-	
-
-
+	__int64 rfid_id = tag_rfid();
+	if (rfid_id == -1) { //user cancelled
+	}
+	else {
+		int seat_num = exe_seat_manager.find_seat(rfid_id);
+		if (seat_num == -1) {
+			_msg_not_reserved();
+		}
+		else {
+			//only able to renew before 30min of reserve end time
+			if (exe_seat_manager.get_seat(seat_num)->before_minutes(30)) {
+				exe_seat_manager.renew_seat(seat_num, 3); //add 3hours to the seat
+				_msg_diy("3시간 연장되었습니다! Renewed your seat for 3 hours!");
+			}
+			else {
+				_msg_diy("종료 30분 전부터 연장할 수 있습니다!\nAble to renew before 30min to the end!");
+			}
+		}
+	}
 }
 
 void BiseulReadingRoomReservation::move_button_click()
 {
-	
+	std::cout << 11;
 }
 
 void BiseulReadingRoomReservation::return_button_click()
@@ -289,11 +317,10 @@ void BiseulReadingRoomReservation::return_button_click()
 		}
 		else {
 			exe_seat_manager.return_seat(seat_num);
+			_msg_diy("반납되었습니다! Returned your seat!");
+			_set_vacant_style(seat_num);
 		}
-		
 	}
-	
-
 }
 
 void BiseulReadingRoomReservation::signup_button_click()
@@ -304,7 +331,7 @@ void BiseulReadingRoomReservation::signup_button_click()
 		__int64 rfid_id = rp.get_rfid();
 		int stud_id = rp.get_stud_id();
 
-		if (biseul_db_interface->existence_check(stud_id) || 
+		if (biseul_db_interface->existence_check(stud_id) ||
 			biseul_db_interface->existence_check_byrfid(rfid_id))
 		{ //already have a record on db
 			_msg_diy("이미 가입되어있습니다! Already registered!");
@@ -317,9 +344,7 @@ void BiseulReadingRoomReservation::signup_button_click()
 				_msg_diy("알 수 없는 에러가 발생하였습니다! 관리자에게 문의하세요.\nError! Please contact the administrator");
 			}
 		}
-
 	}
-
 }
 
 void BiseulReadingRoomReservation::admin_button_click()

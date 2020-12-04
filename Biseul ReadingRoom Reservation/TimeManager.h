@@ -13,7 +13,7 @@
 namespace biseul_rroom {
 
 	class TimeManager : public Manager {
-		//스레드 해야댐
+		
 	public:
 		static TimeManager& instance() {
 			static TimeManager* instance = new TimeManager();
@@ -28,6 +28,8 @@ namespace biseul_rroom {
 
 	void get_local_time(tm& t);
 	void add_tm_hour(tm& t1, int hour);
+	bool before_min_timemanager(tm& t1, int minutes);
+	bool over_time_timemanager(tm& t1);
 	
 
 	
