@@ -38,7 +38,7 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 
 //------------------setting main UI---------------------------------//
 	// & button slot connection
-	main->setStyleSheet("QPushButton{background-color : #5fe37e; font: 75 14pt Arial; border: none; min-width: 80px;}");
+	main->setStyleSheet("QPushButton{background-color : #d6f7ad; color:#1d7f46; border:3px solid #bdd899; font: 75 14pt Arial; min-width: 80px;}");
 	int seat[] = { 0,
 				  0,0,0,1,1,1,1,1,1,1,1,0,
 				  0,0,0,1,1,1,1,1,1,1,1,0,
@@ -262,6 +262,12 @@ void BiseulReadingRoomReservation::seat_button_click()
 	}
 	else { //if pressed occupied seat
 
+		std::string temp_name = exe_seat_manager.get_seat(num)->get_reserver()->get_name();
+		tm* reserved_time = exe_seat_manager.get_seat(num)->get_reserved_time();
+		tm* end_time = exe_seat_manager.get_seat(num)->get_reserve_end_time();
+		int pause_time = exe_seat_manager.get_seat(num)->get_pause_time();
+		SeatInfoPanel sp(this, num, temp_name, reserved_time, end_time, pause_time);
+		sp.exec();
 
 	}
 }
@@ -325,7 +331,7 @@ void BiseulReadingRoomReservation::move_button_click()
 {
 	__int64 rfid_id = tag_rfid();
 	if (rfid_id == -1) { //user cancelled tagging rfid
-		std::cout << 1;
+		
 	}
 	else {
 		int seat_num = exe_seat_manager.find_seat(rfid_id);
@@ -447,16 +453,16 @@ void BiseulReadingRoomReservation::_msg_diy(const char* msg)
 //setting seat buttons' style
 void BiseulReadingRoomReservation::_set_vacant_style(int num)
 {
-	this->p_seat[num]->setStyleSheet({ "background-color: #5fe37e; font: 75 14pt Arial; qproperty-iconSize: 0px 0px" });
+	this->p_seat[num]->setStyleSheet({ "background-color : #d6f7ad; color:#1d7f46; border:3px solid #bdd899; font: 75 14pt Arial; min-width: 80px;; qproperty-iconSize: 0px 0px" });
 
 }
 
 void BiseulReadingRoomReservation::_set_occupied_style(int num)
 {
-	this->p_seat[num]->setStyleSheet({ "background-color: #e35f5f; font: 75 14pt Arial; qproperty-icon: url(./assets/occupied.png); qproperty-iconSize: 15px 15px;" });
+	this->p_seat[num]->setStyleSheet({ "background-color: #f38181;border:3px solid #d37272; font: 75 14pt Arial; qproperty-icon: url(./assets/occupied.png); qproperty-iconSize: 15px 15px;" });
 }
 
 void BiseulReadingRoomReservation::_set_paused_style(int num)
 {
-	this->p_seat[num]->setStyleSheet({ "background-color: #f2e85a; font: 75 14pt Arial;qproperty-icon: url(./assets/flag.png); qproperty-iconSize: 20px 20px; " });
+	this->p_seat[num]->setStyleSheet({ "background-color: #fee9b2; border:3px solid #e2d0a1; font: 75 14pt Arial;qproperty-icon: url(./assets/flag.png); qproperty-iconSize: 20px 20px; " });
 }

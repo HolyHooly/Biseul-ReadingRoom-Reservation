@@ -9,16 +9,18 @@ RfidPanel::RfidPanel(QWidget *parent) :
     ui(new Ui::RfidPanel)
 {
     ui->setupUi(this);
+    setStyleSheet({ "background-color:rgb(255,255,255);" });
 
     // images
     im = new QLabel();
     QPixmap p = QPixmap("./assets/tagging.png");
     im->setPixmap(p);
+    im->setStyleSheet({ "border: 0px;" });
 
     // cancel button
     n = new QPushButton("Cancel");
-    
     n->setFocusPolicy(Qt::NoFocus);
+    n->setStyleSheet({ "background-color: white; border: 1.5px solid; padding: 5px; border-color: black;" });
 
     grid = new QGridLayout;
     grid->addWidget(im, 0, 0, 2, 2);

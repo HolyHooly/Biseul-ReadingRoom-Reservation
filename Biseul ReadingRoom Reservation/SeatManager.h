@@ -31,6 +31,8 @@ namespace biseul_rroom {
 		Reserver* get_reserver();
 		SeatStatus get_status();
 		int get_pause_time();
+		tm* get_reserved_time() { return &reserved_time; };
+		tm* get_reserve_end_time() { return &reserve_end_time; };
 
 		void setStatus(SeatStatus);
 		void add_time_hour(int);

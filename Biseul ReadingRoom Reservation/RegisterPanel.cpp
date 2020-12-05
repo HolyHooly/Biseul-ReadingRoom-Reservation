@@ -9,6 +9,9 @@ RegisterPanel::RegisterPanel(QWidget *parent) :
 
     // whole layout
     QVBoxLayout *vlayout = new QVBoxLayout;
+    setStyleSheet({ "background-color:rgb(255,255,255);" });
+    setWindowIcon(QIcon("./assets/icon.png"));
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
 
     // 제목
     label = new QLabel("Terms of Use");

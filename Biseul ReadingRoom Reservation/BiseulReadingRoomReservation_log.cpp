@@ -1,4 +1,6 @@
 #include "BiseulReadingRoomReservation_log.h"
+#include "BiseulReadingRoomReservation_log.h"
+
 void init_file_collecting(boost::shared_ptr< file_sink > sink)
 {
     sink->locked_backend()->set_file_collector(sinks::file::make_collector(
@@ -9,7 +11,7 @@ void init_file_collecting(boost::shared_ptr< file_sink > sink)
     ));
 }
 
-void init_logging(){
+void init_logging() {
     // Create a text file sink
     boost::shared_ptr< file_sink > sink(new file_sink(
         keywords::file_name = "log/log_%3N.log",                                /*< the resulting file name pattern >*/
@@ -23,7 +25,7 @@ void init_logging(){
             keywords::open_mode = std::ios_base::out | std::ios_base::app,
             keywords::enable_final_rotation = false,
             keywords::auto_flush = true
-            ); 
+            );
 
     // Set up where the rotated files will be stored
     init_file_collecting(sink);
@@ -51,8 +53,71 @@ void write_log(std::string msg) {
     BOOST_LOG(lg) << msg;
 }
 
-void save_status(std::string seat_info) {
-    std::ofstream myfile;
-    myfile.open("log/seat_status.csv");
-    myfile << seat_info;
+
+namespace biseul_rroom {
+    void Loading::load_status()
+    {
+        std::fstream status_file;
+        std::string member;
+
+        status_file.open("log/seat_status.csv", std::ios::in);
+
+        int seat_number_checker = 0;
+        while (!status_file.eof()) {
+            //csv 파일에서 한 줄씩 읽기
+            getline(status_file, member, '\n');
+
+            //string ,로 잘라주려고 std::string에서 char*[]으로 변환
+            std::vector<char> str_char(member.begin(), member.end());
+            str_char.push_back('\0');
+            char* words = &str_char[0];
+
+            // 한 줄을 {자리 번호},{이름},{학번},{rfid_id},{자리상태},{일시정시시간}으로 각각 나눠줌
+            char* word[6] = { nullptr, }, * context;
+
+            word[0] = strtok_s(words, ",", &context);
+            for (int i = 1; i < 6; i++) {
+                word[i] = strtok_s(NULL, ",", &context);
+            }
+
+            // seat number 유무 따라서 seat에 채워주기
+            if (seat_number_checker != 0) {
+                Loading* seat = new Loading;
+                if (atoi(word[2]) != 0) {
+                    seat->seat_no = atoi(word[0]);
+                    seat->name = std::string(word[1]);
+                    seat->student_id = atoi(word[2]);
+                    seat->rfid_id = _atoi64(word[3]);
+                    seat->seat_status = std::string(word[4]);
+                    seat->pause_time = atoi(word[5]);
+                }
+                seats[atoi(word[0]) - 1] = seat;
+            }
+            ++seat_number_checker;
+        }
+    }
+    bool Loading::get_seat(int seatno)
+    {
+        if (seats[seatno - 1] == nullptr) {
+            return false;
+        }
+        return true;
+    }
+}
+
+namespace biseul_rroom {
+    SeatStatus Loading::seat_status_converter(int seatno)
+    {
+        if (seats[seatno - 1] == nullptr) {
+            return SeatStatus::Vacant;
+        }
+
+        std::string status = seats[seatno - 1]->seat_status;
+        if (status.compare("Occupied") == 0) {
+            return SeatStatus::Occupied;
+        }
+        if (status.compare("Paused") == 0) {
+            return SeatStatus::Paused;
+        }
+    }
 }

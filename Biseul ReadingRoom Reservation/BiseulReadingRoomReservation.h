@@ -20,7 +20,7 @@
 #include "AdminPanel.h"
 #include "RfidPanel.h"
 #include "RegisterPanel.h"
-//#include "SeatInfoPanel.h"
+#include "SeatInfoPanel.h"
 
 #include "DBinterface.h"
 #include "DBsystem.h"

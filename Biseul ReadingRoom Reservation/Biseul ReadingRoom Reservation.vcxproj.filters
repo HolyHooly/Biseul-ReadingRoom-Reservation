@@ -44,6 +44,12 @@
     <ClCompile Include="DBsystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SeatSave.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SeatInfoPanel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="BiseulReadingRoomReservation.qrc" />
@@ -59,6 +65,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="RegisterPanel.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="SeatInfoPanel.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -90,6 +99,9 @@
     <QtMoc Include="RegisterPanel.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="SeatInfoPanel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BiseulReadingRoomReservation_log.h">
@@ -117,6 +129,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DBsystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SeatSave.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

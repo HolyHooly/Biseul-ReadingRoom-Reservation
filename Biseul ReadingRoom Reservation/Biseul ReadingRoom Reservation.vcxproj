@@ -116,7 +116,9 @@
     <ClCompile Include="RegisterPanel.cpp" />
     <ClCompile Include="Reserver.cpp" />
     <ClCompile Include="RfidPanel.cpp" />
+    <ClCompile Include="SeatInfoPanel.cpp" />
     <ClCompile Include="SeatManager.cpp" />
+    <ClCompile Include="SeatSave.cpp" />
     <ClCompile Include="sqlite\shell.c" />
     <ClCompile Include="sqlite\sqlite3.c" />
     <ClCompile Include="TimeManager.cpp" />
@@ -129,6 +131,7 @@
     <ClCompile Include="main.cpp" />
     <QtUic Include="RegisterPanel.ui" />
     <QtUic Include="RfidPanel.ui" />
+    <QtUic Include="SeatInfoPanel.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="AdminPanel.h" />
@@ -139,7 +142,9 @@
     <QtMoc Include="RegisterPanel.h" />
     <ClInclude Include="Reserver.h" />
     <QtMoc Include="RfidPanel.h" />
+    <QtMoc Include="SeatInfoPanel.h" />
     <ClInclude Include="SeatManager.h" />
+    <ClInclude Include="SeatSave.h" />
     <ClInclude Include="sqlite\sqlite3.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="UserManager.h" />
