@@ -24,6 +24,7 @@
 
 #include "DBinterface.h"
 #include "DBsystem.h"
+#include "SeatSave.h"
 
 #include "Reserver.h"
 #include "Manager.h"

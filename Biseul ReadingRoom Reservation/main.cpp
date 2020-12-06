@@ -1,4 +1,5 @@
 ﻿#include <QtWidgets/QApplication>
+#include <QFont>
 
 #include "BiseulReadingRoomReservation.h"
 #include "BiseulReadingRoomReservation_log.h"
@@ -9,6 +10,9 @@
 int main(int argc, char *argv[])
 {   
     QApplication a(argc, argv);
+    QFont font;
+    font.setFamily(QString("Godo B"));
+    a.setFont(font);
     BiseulReadingRoomReservation w;
 
     w.show();

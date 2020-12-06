@@ -32,7 +32,7 @@ namespace biseul_rroom {
 
     void save_seats(std::string seat_info) {
         std::ofstream myfile;
-        myfile.open("log/seat_status.csv");
+        myfile.open("./log/seat_status.csv");
         myfile << "Seat #, User Name, Student ID, Rfid ID, Seat Status, Pause Time" << "\n";
         myfile << seat_info;
     }

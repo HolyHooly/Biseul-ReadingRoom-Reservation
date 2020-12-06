@@ -17,9 +17,10 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 	setWindowFlags(Qt::FramelessWindowHint);
 
 //---------------------title layout---------------------------------//
+
 	QHBoxLayout* title_layout = new QHBoxLayout;
 	QLabel* title_label = new QLabel(QString::fromLocal8Bit("비슬빌리지 독서실 예약시스템"));
-	auto sty_t = "font: 20pt KBIZgo B;";
+	auto sty_t = "font: 20pt Godo B;";
 	title_label->setStyleSheet({ sty_t });
 	
 	QPixmap icon_pix = QPixmap("./assets/icon.png");
@@ -38,7 +39,7 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 
 //------------------setting main UI---------------------------------//
 	// & button slot connection
-	main->setStyleSheet("QPushButton{background-color : #d6f7ad; color:#1d7f46; border:3px solid #bdd899; font: 75 14pt Arial; min-width: 80px;}");
+	main->setStyleSheet("QPushButton{background-color : #d6f7ad; color:#1d7f46; border:3px solid #bdd899; font: 75 14pt; min-width: 80px;}");
 	int seat[] = { 0,
 				  0,0,0,1,1,1,1,1,1,1,1,0,
 				  0,0,0,1,1,1,1,1,1,1,1,0,
@@ -96,17 +97,17 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 	QPushButton* return_btn = new QPushButton("Return");
 	return_btn->setObjectName("return_btn");
 
-	auto pause_btn_sty = "font: 15pt KBIZgo B; background-color : #fff8a6;"
+	auto pause_btn_sty = "font: 20pt Godo B; background-color : #fff8a6;"
 		"color:#252525; border: 4px solid #eae393;";
-	auto renew_btn_sty = "font: 15pt KBIZgo B; background-color : #ffd19a;"
+	auto renew_btn_sty = "font: 20pt Godo B; background-color : #ffd19a;"
 		"color:#252525; border: 4px solid #e0b98d;";
-	auto move_btn_sty = "font: 15pt KBIZgo B; background-color : #ffc5a1;"
+	auto move_btn_sty = "font: 20pt Godo B; background-color : #ffc5a1;"
 		"color:#252525; border: 4px solid #e5b192;";
-	auto signup_btn_sty = "font: 15pt KBIZgo B; background-color : #8cb8ff;"
+	auto signup_btn_sty = "font: 20pt Godo B; background-color : #8cb8ff;"
 		"color:#252525; border: 4px solid #5e9cff;";
-	auto admin_btn_sty = "font: 15pt KBIZgo B; background-color : #5c5757;"
+	auto admin_btn_sty = "font: 20pt Godo B; background-color : #5c5757;"
 		"color:#363434; border: 4px solid #363434;";
-	auto return_btn_sty = "font: 15pt KBIZgo B; background-color : #b0deff;"
+	auto return_btn_sty = "font: 20pt Godo B; background-color : #b0deff;"
 		"color:#252525; border: 4px solid #a3c8e2;";
 
 	auto prefer = QSizePolicy::Preferred;
@@ -127,9 +128,9 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 	//side bar info setup
 	QLabel* info_name = new QLabel(QString::fromLocal8Bit("생활관자치위원회"));
 	info_name->setAlignment(Qt::AlignCenter);
-	QLabel* info_contributor = new QLabel(QString::fromLocal8Bit("Contributtor \n 김태현, 고지연, 이준영, 박준서"));
-	info_contributor->setAlignment(Qt::AlignLeft);
-	auto sty_con = "font: 63 10pt KBIZgo B";
+	QLabel* info_contributor = new QLabel(QString::fromLocal8Bit("Contributor \n 김태현, 고지연, 이준영, 박준서"));
+	info_contributor->setAlignment(Qt::AlignRight);
+	auto sty_con = "font: 63 10pt Godo B";
 	info_contributor->setStyleSheet(sty_con);
 	//할것 style 추가
 
@@ -177,7 +178,6 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 	connect(m_pTimer, SIGNAL(timeout()), this, SLOT(minute_timeout()));
 
 
-
 	showMaximized();
 
 }
@@ -193,7 +193,6 @@ void BiseulReadingRoomReservation::minute_timeout()
 			if (exe_seat_manager.get_seat(i)->over_time()) {
 				int stud_id = cur_seat->get_reserver()->get_stud_id(); // get seat reserver's student id
 				biseul_db_interface->give_penalty(stud_id); //give him/her a penalty
-				//할것: 여기 give penalty하면 rfid overflow되어서 저장되는 버그있음
 				exe_seat_manager.return_seat(i); //return the seat
 				_set_vacant_style(i);
 			}
@@ -400,8 +399,9 @@ void BiseulReadingRoomReservation::signup_button_click()
 
 void BiseulReadingRoomReservation::admin_button_click()
 {
-	AdminPanel admin_panel;
+	AdminPanel admin_panel(nullptr,exe_seat_manager);
 	admin_panel.exec();
+	//biseul_rroom::save_status(exe_seat_manager.get_reserved_seat_vector());
 }
 
 
@@ -420,7 +420,7 @@ __int64 BiseulReadingRoomReservation::tag_rfid()
 void BiseulReadingRoomReservation::_msg_not_reserved()
 {
 	msgBox.setText(QString::fromLocal8Bit("자리가 예약되어있지 않습니다! Not reserved a seat!"));
-	msgBox.setStyleSheet({ "font: 75 10pt KBIZgo B;" });
+	msgBox.setStyleSheet({ "font: 75 10pt Godo M;" });
 	msgBox.setWindowTitle("Error");
 	msgBox.setWindowIcon(QIcon("./assets/icon.png"));
 	msgBox.setStandardButtons(QMessageBox::Ok);
@@ -429,7 +429,7 @@ void BiseulReadingRoomReservation::_msg_not_reserved()
 void BiseulReadingRoomReservation::_msg_already_reserved()
 {
 	msgBox.setText(QString::fromLocal8Bit("이미 자리를 예약하였습니다! Already reserved a seat!"));
-	msgBox.setStyleSheet({ "font: 75 10pt KBIZgo B;" });
+	msgBox.setStyleSheet({ "font: 75 10pt Godo M;" });
 	msgBox.setWindowTitle("Error");
 	msgBox.setWindowIcon(QIcon("./assets/icon.png"));
 	msgBox.setStandardButtons(QMessageBox::Ok);
@@ -439,7 +439,7 @@ void BiseulReadingRoomReservation::_msg_already_reserved()
 void BiseulReadingRoomReservation::_msg_diy(const char* msg)
 {
 	msgBox.setText(QString::fromLocal8Bit(msg));
-	msgBox.setStyleSheet({ "font: 75 10pt KBIZgo B;" });
+	msgBox.setStyleSheet({ "font: 75 10pt Godo M;" });
 	msgBox.setWindowTitle("Alert");
 	msgBox.setWindowIcon(QIcon("./assets/icon.png"));
 	msgBox.setStandardButtons(QMessageBox::Ok);
@@ -453,16 +453,16 @@ void BiseulReadingRoomReservation::_msg_diy(const char* msg)
 //setting seat buttons' style
 void BiseulReadingRoomReservation::_set_vacant_style(int num)
 {
-	this->p_seat[num]->setStyleSheet({ "background-color : #d6f7ad; color:#1d7f46; border:3px solid #bdd899; font: 75 14pt Arial; min-width: 80px;; qproperty-iconSize: 0px 0px" });
+	this->p_seat[num]->setStyleSheet({ "background-color : #d6f7ad; color:#1d7f46; border:3px solid #bdd899; font: 75 14pt Godo B; min-width: 80px;; qproperty-iconSize: 0px 0px" });
 
 }
 
 void BiseulReadingRoomReservation::_set_occupied_style(int num)
 {
-	this->p_seat[num]->setStyleSheet({ "background-color: #f38181;border:3px solid #d37272; font: 75 14pt Arial; qproperty-icon: url(./assets/occupied.png); qproperty-iconSize: 15px 15px;" });
+	this->p_seat[num]->setStyleSheet({ "background-color: #f38181;border:3px solid #d37272; font: 75 14pt Godo B; qproperty-icon: url(./assets/occupied.png); qproperty-iconSize: 15px 15px;" });
 }
 
 void BiseulReadingRoomReservation::_set_paused_style(int num)
 {
-	this->p_seat[num]->setStyleSheet({ "background-color: #fee9b2; border:3px solid #e2d0a1; font: 75 14pt Arial;qproperty-icon: url(./assets/flag.png); qproperty-iconSize: 20px 20px; " });
+	this->p_seat[num]->setStyleSheet({ "background-color: #fee9b2; border:3px solid #e2d0a1; font: 75 14pt Godo B;qproperty-icon: url(./assets/flag.png); qproperty-iconSize: 20px 20px; " });
 }
