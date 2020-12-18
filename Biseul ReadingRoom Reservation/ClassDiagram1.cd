@@ -69,10 +69,29 @@
     <Members>
       <Field Name="ui" Hidden="true" />
     </Members>
+    <AssociationLine Name="exe_manager_ptr" Type="biseul_rroom::SeatManager" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="15.75" Y="6" />
+        <Point X="14.458" Y="6" Type="JumpStart" />
+        <Point X="14.292" Y="6" Type="JumpEnd" />
+        <Point X="13.5" Y="6" />
+        <Point X="13.5" Y="6.319" />
+        <Point X="11.458" Y="6.319" Type="JumpStart" />
+        <Point X="11.292" Y="6.319" Type="JumpEnd" />
+        <Point X="2.031" Y="6.319" />
+        <Point X="2.031" Y="6.069" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.815" Y="-0.035" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>CAACAAAAQgQAEMAEAKIAgAAAAAAACAAAAgQABAAAQAA=</HashCode>
       <FileName>AdminPanel.h</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="exe_manager_ptr" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="RfidPanel">
     <Position X="24.25" Y="1.75" Width="2.5" />
@@ -105,7 +124,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="biseul_rroom::Reserver">
-    <Position X="4.25" Y="8.25" Width="2.75" />
+    <Position X="4.25" Y="8.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AQAAAACAAAAAAAAAAAAAAQAAAAAEAAAgAAIAAIACABA=</HashCode>
       <FileName>Reserver.h</FileName>
@@ -202,21 +221,28 @@
     </TypeIdentifier>
   </Class>
   <Class Name="QTimer" Collapsed="true">
-    <Position X="10.5" Y="6.5" Width="1.5" />
+    <Position X="10.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>KAAABAAAAABoAABgAYAZgBCIAAAhAAACAAAgAgCAAgQ=</HashCode>
       <FileName>C:\Qt\5.15.1\msvc2019_64\include\QtCore\qtimer.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="biseul_rroom::Loading">
+    <Position X="20" Y="8" Width="3" />
+    <TypeIdentifier>
+      <HashCode>gEEAAAAQEAAAAQCAAAAAAIIAAAAUgAAgQgIAAIAAAAI=</HashCode>
+      <FileName>SeatSave.h</FileName>
+    </TypeIdentifier>
+  </Class>
   <Enum Name="biseul_rroom::SeatStatus">
-    <Position X="4.25" Y="6.5" Width="1.5" />
+    <Position X="4.25" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAEBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Manager.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="biseul_rroom::UserAction">
-    <Position X="6" Y="6.5" Width="1.5" />
+    <Position X="6" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAQAAAAAAgAAABAAAAAACAAAAAAAAAAAAAA=</HashCode>
       <FileName>Manager.h</FileName>

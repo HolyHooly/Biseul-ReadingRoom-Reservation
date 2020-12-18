@@ -173,6 +173,11 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 
 	showMaximized();
 
+	init_logging();
+
+	std::string log = "Program booted";
+	write_log(log);
+
 }
 
 void BiseulReadingRoomReservation::minute_timeout()
@@ -248,6 +253,9 @@ void BiseulReadingRoomReservation::seat_button_click()
 
 
 					_msg_diy("성공적으로 자리를 예약하였습니다! Success!");
+					std::string log = "Reserve Trial, Success: ";
+					log += std::to_string(rfid_id) + ", " + std::to_string(num) + "번 좌석";
+					write_log(log);
 
 					char msg[] = "회 경고횟수가 존재합니다! 주의바랍니다.\nYour have warnings. Be careful.";
 					std::string buf = "";
@@ -265,12 +273,21 @@ void BiseulReadingRoomReservation::seat_button_click()
 			}
 			else if (action == biseul_rroom::UserAction::Signup) {
 				_msg_diy("회원가입이 되어있지 않습니다! 회원가입 후 이용해주세요\nUser not Signed Up! Please register first.");
+				std::string log = "Reserve Trial, Not Registered: ";
+				log += std::to_string(rfid_id) + ", " + std::to_string(num) + "번 좌석";
+				write_log(log);
 			}
 			else if (action == biseul_rroom::UserAction::Warning) {
 				_msg_diy("경고 횟수 누적으로 사용이 제한되었습니다.\nYou are banned because of warnings.");
+				std::string log = "Reserve Trial, Banned: ";
+				log += std::to_string(rfid_id) + ", " + std::to_string(num) + "번 좌석";
+				write_log(log);
 			}
 			else if (action == biseul_rroom::UserAction::OverTime) {
 				_msg_diy("오늘의 예약 횟수를 이미 소진하였습니다.\nYou already used all of your reservation times per day");
+				std::string log = "Reserve Trial, Taken all reserve cnt: ";
+				log += std::to_string(rfid_id) + ", " + std::to_string(num) + "번 좌석";
+				write_log(log);
 			}
 		}
 	}
@@ -302,16 +319,25 @@ void BiseulReadingRoomReservation::pause_button_click()
 			if (cur_seat->get_status() == biseul_rroom::SeatStatus::Occupied) { //seat is occupied
 				if (cur_seat->get_pause_time() <= 0) { //not enough pause time
 					_msg_diy("자리비움 시간이 남아있지 않습니다. Not enough out time.");
+					std::string log = "Pause Trial, No time left: ";
+					log += std::to_string(rfid_id) + ", " + std::to_string(num) + "번 좌석";
+					write_log(log);
 				}
 				else { //enough pause time
 					exe_seat_manager.pause_seat(num);
 					_msg_diy("자리비움 처리 되었습니다. Out your seat.");
+					std::string log = "Pause Trial, Success: ";
+					log += std::to_string(rfid_id) + ", " + std::to_string(num) + "번 좌석";
+					write_log(log);
 					_set_paused_style(num);
 				}
 			}
 			else {
 				exe_seat_manager.unpause_seat(num);
 				_msg_diy("자리비움 해제 되었습니다. In your seat.");
+				std::string log = "Unpause Trial, Success: ";
+				log += std::to_string(rfid_id) + ", " + std::to_string(num) + "번 좌석";
+				write_log(log);
 				_set_occupied_style(num);
 			}
 		}
@@ -333,9 +359,15 @@ void BiseulReadingRoomReservation::renew_button_click()
 			if (exe_seat_manager.get_seat(seat_num)->before_minutes(30)) {
 				exe_seat_manager.renew_seat(seat_num, 3); //add 3hours to the seat
 				_msg_diy("3시간 연장되었습니다! Renewed your seat for 3 hours!");
+				std::string log = "Renew Trial, Success: ";
+				log += std::to_string(rfid_id) + ", " + std::to_string(seat_num) + "번 좌석";
+				write_log(log);
 			}
 			else {
 				_msg_diy("종료 30분 전부터 연장할 수 있습니다!\nAble to renew before 30min to the end!");
+				std::string log = "Renew Trial, Not yet: ";
+				log += std::to_string(rfid_id) + ", " + std::to_string(seat_num) + "번 좌석";
+				write_log(log);
 			}
 		}
 	}
@@ -360,6 +392,9 @@ void BiseulReadingRoomReservation::move_button_click()
 					_set_vacant_style(seat_num);
 					_set_occupied_style(to_seat_num);
 					_msg_diy("자리를 이동했습니다! Moved your seat!");
+					std::string log = "Move Trial, Success: ";
+					log += std::to_string(rfid_id) + ", " + std::to_string(seat_num) + "번 --> " + std::to_string(to_seat_num);
+					write_log(log);
 				}
 				else {
 					_msg_diy("빈 자리를 선택해주세요! Please choose vacant seat!");
@@ -382,6 +417,9 @@ void BiseulReadingRoomReservation::return_button_click()
 		else {
 			exe_seat_manager.return_seat(seat_num);
 			_msg_diy("반납되었습니다! Returned your seat!");
+			std::string log = "Return Trial, Success: ";
+			log += std::to_string(rfid_id) + ", " + std::to_string(seat_num) + "번 좌석";
+			write_log(log);
 			_set_vacant_style(seat_num);
 		}
 	}
@@ -399,13 +437,22 @@ void BiseulReadingRoomReservation::signup_button_click()
 			biseul_db_interface->existence_check_byrfid(rfid_id))
 		{ //already have a record on db
 			_msg_diy("이미 가입되어있습니다! Already registered!");
+			std::string log = "Signup Trial, Already: ";
+			log += std::to_string(rfid_id);
+			write_log(log);
 		}
 		else {
 			if (biseul_db_interface->insert(&name, stud_id, rfid_id)) { //학생 정보 db에 insert
 				_msg_diy("가입이 완료되었습니다! Registered!");
+				std::string log = "Signup Trial, Success: ";
+				log += std::to_string(rfid_id);
+				write_log(log);
 			}
 			else { //insert 실패시
 				_msg_diy("알 수 없는 에러가 발생하였습니다! 관리자에게 문의하세요.\nError! Please contact the administrator");
+				std::string log = "Signup Trial, Unknown Error Occur: ";
+				log += std::to_string(rfid_id);
+				write_log(log);
 			}
 		}
 	}
@@ -429,16 +476,28 @@ void BiseulReadingRoomReservation::admin_button_click()
 			}
 		}
 		if (flag == 1) {
+			std::string log = "Admin Login Trial, Success: ";
+			log += std::to_string(rfid_id);
+			write_log(log);
 			AdminPanel admin_panel(nullptr,exe_seat_manager);
 			admin_panel.exec();
 		}
 		else {
 			_msg_diy("관리자가 아닙니다!");
+			std::string log = "Admin Login Trial, Not admin: ";
+			log += std::to_string(rfid_id);
+			write_log(log);
 		}
 	}
 }
 
 
+
+BiseulReadingRoomReservation::~BiseulReadingRoomReservation()
+{
+	std::string log = "Program Terminated";
+	write_log(log);
+}
 
 __int64 BiseulReadingRoomReservation::tag_rfid()
 {

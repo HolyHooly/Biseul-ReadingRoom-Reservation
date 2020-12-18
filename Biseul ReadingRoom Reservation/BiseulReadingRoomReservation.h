@@ -25,6 +25,7 @@
 #include "DBinterface.h"
 #include "DBsystem.h"
 #include "SeatSave.h"
+#include "BiseulReadingRoomReservation_log.h"
 
 #include "Reserver.h"
 #include "Manager.h"
@@ -38,6 +39,7 @@ class BiseulReadingRoomReservation : public QMainWindow
 
 public:
     BiseulReadingRoomReservation(QWidget *parent = Q_NULLPTR);
+    ~BiseulReadingRoomReservation();
     friend class AdminPanel; //AdminPanel class to be a friend --> to access seatmanager, etc
 
     __int64 tag_rfid();
