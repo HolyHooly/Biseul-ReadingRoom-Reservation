@@ -39,6 +39,8 @@ namespace biseul_rroom {
 
 		void add_user_reserve_cnt(__int64 rfid_id);
 
+		void reset_all();
+
 	private:
 		UserManger() {};
 

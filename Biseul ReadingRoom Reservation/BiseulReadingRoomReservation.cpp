@@ -10,9 +10,6 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 
 	whole = new QGridLayout;
 	main = new QWidget;
-
-
-
 	setStyleSheet({ "background-color:rgb(255,255,255);" });
 	setMenuBar(false);
 	setWindowFlags(Qt::FramelessWindowHint);
@@ -36,7 +33,6 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 	title_layout->addStretch(2);
 	title_layout->addWidget(title_label);
 	title_layout->addStretch(15);
-//------------------------------------------------------------------//
 
 //------------------setting main UI---------------------------------//
 	// & button slot connection
@@ -58,7 +54,6 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 	QGridLayout* grid_seat = new QGridLayout;
 
 	int id = 1;
-
 	for (int i = 0; i < 12; i++) {
 		for (int j = 0; j < 12; j++) {
 			if (j == 6) { //represents reading room's aisle
@@ -66,10 +61,9 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 			}
 			if (seat[12 * i + j + 1] == 1) {
 				p_seat[id] = new QPushButton(QString::number(id));
-				connect(p_seat[id], SIGNAL(clicked()), this, SLOT(seat_button_click()));
-
 				p_seat[id]->setObjectName(QString::number(id)); //setting QPushbutton objects' name as seat number
 				p_seat[id]->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+				connect(p_seat[id], SIGNAL(clicked()), this, SLOT(seat_button_click()));
 
 				if (j >= 6) {
 					grid_seat->addWidget(p_seat[id], i, j + 1);
@@ -81,7 +75,6 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 			}
 		}
 	}
-//-------------------------------------------------------------//
 
 //--------------------<sidebar setting>------------------------//
 	//side bar button setup
@@ -97,7 +90,7 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 	admin_btn->setObjectName("admin_btn");
 	QPushButton* return_btn = new QPushButton("Return");
 	return_btn->setObjectName("return_btn");
-
+	//side bar button style
 	auto pause_btn_sty = "font: 20pt Godo B; background-color : #fff8a6;"
 		"color:#252525; border: 4px solid #eae393;";
 	auto renew_btn_sty = "font: 20pt Godo B; background-color : #ffd19a;"
@@ -125,11 +118,10 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 	signup_btn->setStyleSheet({ signup_btn_sty });
 	admin_btn->setStyleSheet({ admin_btn_sty });
 	return_btn->setStyleSheet({ return_btn_sty });
-
 	//side bar info setup
 	QLabel* info_name = new QLabel(QString::fromLocal8Bit("생활관자치위원회"));
-	info_name->setAlignment(Qt::AlignCenter);
 	QLabel* info_contributor = new QLabel(QString::fromLocal8Bit("Contributor \n 김태현, 고지연, 이준영, 박준서"));
+	info_name->setAlignment(Qt::AlignCenter);
 	info_contributor->setAlignment(Qt::AlignRight);
 	auto sty_con = "font: 63 10pt Godo B";
 	info_contributor->setStyleSheet(sty_con);
@@ -185,17 +177,34 @@ BiseulReadingRoomReservation::BiseulReadingRoomReservation(QWidget *parent)
 
 void BiseulReadingRoomReservation::minute_timeout()
 {
-	for (int i = 1; i <= READINGROOM_SEAT; ++i) {
+	if (exe_time_manager.is_time(7, 0)) { //is time 7:00 am
+		exe_user_manager.reset_all();
+		exe_seat_manager.reset_all();
+	}
+	
+	//PART1과 PART2는 독서실 정책에 맞게 수정하면 됨
+
+	for (int i = 1; i <= READINGROOM_SEAT; ++i) { //investigating all seats
 		biseul_rroom::Seat* cur_seat = exe_seat_manager.get_seat(i);
-		if (cur_seat != nullptr) {
-			if (exe_seat_manager.seat_status_check(i) == biseul_rroom::SeatStatus::Paused) {
-				cur_seat->minus_pause_time();
+		if (cur_seat != nullptr) { //seat not vacant
+			if (exe_seat_manager.seat_status_check(i) == biseul_rroom::SeatStatus::Paused) { //if seat is on paused state
+				cur_seat->minus_pause_time(); //1 min minus of pause time
+				if (cur_seat->get_pause_time() < 0) { //pause time over
+					//PART 1
+					int stud_id = cur_seat->get_reserver()->get_stud_id(); // get seat reserver's student id
+					biseul_db_interface->give_penalty(stud_id); //give him/her a penalty
+					exe_seat_manager.return_seat(i); //return the seat
+					_set_vacant_style(i);
+					continue;
+				}
 			}
-			if (exe_seat_manager.get_seat(i)->over_time()) {
+			if (cur_seat->over_time()) { //check if current seat over time
+				//PART 2
 				int stud_id = cur_seat->get_reserver()->get_stud_id(); // get seat reserver's student id
 				biseul_db_interface->give_penalty(stud_id); //give him/her a penalty
 				exe_seat_manager.return_seat(i); //return the seat
 				_set_vacant_style(i);
+				continue;
 			}
 		}
 	}
@@ -211,22 +220,23 @@ void BiseulReadingRoomReservation::seat_button_click()
 	
 	if (exe_seat_manager.seat_status_check(num) == biseul_rroom::SeatStatus::Vacant) { // Vacant Button click
 		
-		//Getting RFID information with RfidPanel
-		__int64 rfid_id = tag_rfid();
-		if (rfid_id == -1) { //cancelled the action (do nothing)
+		__int64 rfid_id = tag_rfid(); //Getting RFID information with RfidPanel
+		if (rfid_id == -1) { //user cancelled the action (do nothing)
 		}
 		else {
 			//User inquiry start
 			biseul_rroom::UserAction action = exe_user_manager.user_valid_check(rfid_id, biseul_db_interface);
 
 			if (action == biseul_rroom::UserAction::Pass) { //User is able to reserve a seat
-				if (exe_seat_manager.find_seat(rfid_id) != -1) { // Already taken
+				if (exe_seat_manager.find_seat(rfid_id) != -1) { // Already taken a seat (double reservation trial)
 					_msg_already_reserved(); //message box
 				}
-				else { //no already taken seat
+				else { //none of already taken seat
+					//get user's available time data
 					int hour = exe_user_manager.available_reserve_hour(rfid_id);
 					int pause = exe_user_manager.get_user_pause_left(rfid_id);
-
+					
+					//get user's basic information from the db
 					std::string name;
 					std::string* nameptr = &name;
 					int stud_id;
@@ -237,14 +247,18 @@ void BiseulReadingRoomReservation::seat_button_click()
 					exe_user_manager.add_user_reserve_cnt(rfid_id);
 
 
-					//할것: 그사람 몇번 경고 먹었는지도 알려줘야댐
 					_msg_diy("성공적으로 자리를 예약하였습니다! Success!");
 
+					char msg[] = "회 경고횟수가 존재합니다! 주의바랍니다.\nYour have warnings. Be careful.";
+					std::string buf = "";
+					char str[20];
+					buf += itoa(warnings, str, 10);
+					buf += msg;
+					const char* final_msg = buf.c_str();
 
 					if (warnings > 0) {
-						_msg_diy("경고횟수가 존재합니다! 주의바랍니다.\nYour have warnings. Be careful.");
+						_msg_diy(final_msg);
 					}
-
 					_set_occupied_style(num);
 				}
 
@@ -262,10 +276,11 @@ void BiseulReadingRoomReservation::seat_button_click()
 	}
 	else { //if pressed occupied seat
 
-		std::string temp_name = exe_seat_manager.get_seat(num)->get_reserver()->get_name();
-		tm* reserved_time = exe_seat_manager.get_seat(num)->get_reserved_time();
-		tm* end_time = exe_seat_manager.get_seat(num)->get_reserve_end_time();
-		int pause_time = exe_seat_manager.get_seat(num)->get_pause_time();
+		biseul_rroom::Seat* cur_seat = exe_seat_manager.get_seat(num);
+		std::string temp_name = cur_seat->get_reserver()->get_name();
+		tm* reserved_time = cur_seat->get_reserved_time();
+		tm* end_time = cur_seat->get_reserve_end_time();
+		int pause_time = cur_seat->get_pause_time();
 		SeatInfoPanel sp(this, num, temp_name, reserved_time, end_time, pause_time);
 		sp.exec();
 
@@ -274,10 +289,8 @@ void BiseulReadingRoomReservation::seat_button_click()
 
 void BiseulReadingRoomReservation::pause_button_click()
 {
-	
 	__int64 rfid_id = tag_rfid();
-	if (rfid_id == -1) { //cancelled the action
-
+	if (rfid_id == -1) { //user cancelled the action
 	}
 	else {
 		int num = exe_seat_manager.find_seat(rfid_id); //num as seat number
@@ -285,8 +298,9 @@ void BiseulReadingRoomReservation::pause_button_click()
 			_msg_not_reserved();
 		}
 		else {
-			if (exe_seat_manager.get_seat(num)->get_status() == biseul_rroom::SeatStatus::Occupied) { //seat is occupied
-				if (exe_seat_manager.get_seat(num)->get_pause_time() <= 0) { //not enough pause time
+			biseul_rroom::Seat* cur_seat = exe_seat_manager.get_seat(num);
+			if (cur_seat->get_status() == biseul_rroom::SeatStatus::Occupied) { //seat is occupied
+				if (cur_seat->get_pause_time() <= 0) { //not enough pause time
 					_msg_diy("자리비움 시간이 남아있지 않습니다. Not enough out time.");
 				}
 				else { //enough pause time
@@ -307,7 +321,7 @@ void BiseulReadingRoomReservation::pause_button_click()
 void BiseulReadingRoomReservation::renew_button_click()
 {
 	__int64 rfid_id = tag_rfid();
-	if (rfid_id == -1) { //user cancelled
+	if (rfid_id == -1) { //user cancelled the action
 	}
 	else {
 		int seat_num = exe_seat_manager.find_seat(rfid_id);
@@ -331,7 +345,6 @@ void BiseulReadingRoomReservation::move_button_click()
 {
 	__int64 rfid_id = tag_rfid();
 	if (rfid_id == -1) { //user cancelled tagging rfid
-		
 	}
 	else {
 		int seat_num = exe_seat_manager.find_seat(rfid_id);
@@ -359,7 +372,7 @@ void BiseulReadingRoomReservation::move_button_click()
 void BiseulReadingRoomReservation::return_button_click()
 {
 	__int64 rfid_id = tag_rfid();
-	if (rfid_id == -1) { //user cancelled
+	if (rfid_id == -1) { //user cancelled the action
 	}
 	else {
 		int seat_num = exe_seat_manager.find_seat(rfid_id);

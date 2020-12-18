@@ -48,6 +48,18 @@ namespace biseul_rroom {
 		return false;
 	}
 
+	bool TimeManager::is_time(int hour, int minute)
+	{
+		time_t time_now;
+		time(&time_now);
+
+		struct tm* timeinfo;
+		timeinfo = localtime(&time_now); //time_t to tm as local time
+
+		if (timeinfo->tm_hour == hour && timeinfo->tm_min == minute) return true;
+		else return false;
+	}
+
 
 
 	TimeManager::~TimeManager()

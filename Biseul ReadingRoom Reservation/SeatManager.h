@@ -80,6 +80,8 @@ namespace biseul_rroom {
 
 		int find_seat(__int64 rfid_id);
 
+		void reset_all();
+
 	private:
 		SeatManager() {};
 
