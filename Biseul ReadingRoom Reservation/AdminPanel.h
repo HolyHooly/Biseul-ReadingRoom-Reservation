@@ -40,6 +40,7 @@ private slots:
     void seat_button_clicked();
     void return_box_clicked();
     void pause_box_clicked();
+    void execute_button_clicked();
 
 private:
     Ui::AdminPanel* ui;

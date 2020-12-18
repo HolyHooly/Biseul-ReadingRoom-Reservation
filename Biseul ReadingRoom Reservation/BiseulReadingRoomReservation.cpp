@@ -1,4 +1,5 @@
 ﻿#include "BiseulReadingRoomReservation.h"
+#include <fstream>
 #include <iostream>
 #include <string>
 
@@ -273,7 +274,7 @@ void BiseulReadingRoomReservation::seat_button_click()
 
 void BiseulReadingRoomReservation::pause_button_click()
 {
-	//할것:rfid tag window
+	
 	__int64 rfid_id = tag_rfid();
 	if (rfid_id == -1) { //cancelled the action
 
@@ -399,9 +400,29 @@ void BiseulReadingRoomReservation::signup_button_click()
 
 void BiseulReadingRoomReservation::admin_button_click()
 {
-	AdminPanel admin_panel(nullptr,exe_seat_manager);
-	admin_panel.exec();
-	//biseul_rroom::save_status(exe_seat_manager.get_reserved_seat_vector());
+	//admin login
+	__int64 rfid_id = tag_rfid();
+	int flag = 0;
+	if (rfid_id == -1) { //user cancelled
+	}
+	else {
+		std::string in_line;
+		std::ifstream in("./data/admin.txt");
+		while (std::getline(in, in_line)) {
+			const char* line = in_line.c_str();
+			if (rfid_id == _atoi64(line)) {
+				flag = 1;
+				break;
+			}
+		}
+		if (flag == 1) {
+			AdminPanel admin_panel(nullptr,exe_seat_manager);
+			admin_panel.exec();
+		}
+		else {
+			_msg_diy("관리자가 아닙니다!");
+		}
+	}
 }
 
 
@@ -435,7 +456,6 @@ void BiseulReadingRoomReservation::_msg_already_reserved()
 	msgBox.setStandardButtons(QMessageBox::Ok);
 	msgBox.show();
 }
-
 void BiseulReadingRoomReservation::_msg_diy(const char* msg)
 {
 	msgBox.setText(QString::fromLocal8Bit(msg));
@@ -447,21 +467,16 @@ void BiseulReadingRoomReservation::_msg_diy(const char* msg)
 
 }
 
-
-
-
 //setting seat buttons' style
 void BiseulReadingRoomReservation::_set_vacant_style(int num)
 {
 	this->p_seat[num]->setStyleSheet({ "background-color : #d6f7ad; color:#1d7f46; border:3px solid #bdd899; font: 75 14pt Godo B; min-width: 80px;; qproperty-iconSize: 0px 0px" });
 
 }
-
 void BiseulReadingRoomReservation::_set_occupied_style(int num)
 {
 	this->p_seat[num]->setStyleSheet({ "background-color: #f38181;border:3px solid #d37272; font: 75 14pt Godo B; qproperty-icon: url(./assets/occupied.png); qproperty-iconSize: 15px 15px;" });
 }
-
 void BiseulReadingRoomReservation::_set_paused_style(int num)
 {
 	this->p_seat[num]->setStyleSheet({ "background-color: #fee9b2; border:3px solid #e2d0a1; font: 75 14pt Godo B;qproperty-icon: url(./assets/flag.png); qproperty-iconSize: 20px 20px; " });

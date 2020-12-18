@@ -5,6 +5,7 @@
 
 AdminPanel::AdminPanel(QWidget *parent, biseul_rroom::SeatManager& exe_manager) : QDialog(parent)
 {
+    //window setting
     exe_manager_ptr = &exe_manager;
     ui->setupUi(this);
     setModal(true);
@@ -12,20 +13,20 @@ AdminPanel::AdminPanel(QWidget *parent, biseul_rroom::SeatManager& exe_manager) 
     setFixedSize(1010, 510);
     setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint); //no hint button
 
+    //whole layout setting
     QHBoxLayout* seat_page_whole_layout = new QHBoxLayout();
-
     //Tab main menu setting
     QTabWidget* main_menu = new QTabWidget(this); //main menu as tab widget
     main_menu->setGeometry(5, 5, 1000, 500);
 
     QString seat_panel_str = QString::fromLocal8Bit("자리 관리");
     QString stud_panel_str = QString::fromLocal8Bit("학생 관리");
-
     QWidget* seat_panel = new QWidget(); //QWidget for the first panel
     main_menu->addTab(seat_panel, seat_panel_str);
     QWidget* stud_panel = new QWidget(); //Qwidget second panel
     main_menu->addTab(stud_panel, stud_panel_str);
     
+    //==========================seat panel setting========================
     //seat button setting
     int seat[] = {0,
                   0,0,0,1,1,1,1,1,1,1,1,0,
@@ -72,12 +73,11 @@ AdminPanel::AdminPanel(QWidget *parent, biseul_rroom::SeatManager& exe_manager) 
         }
     } //seat button grid done
 
+    //side menu setting
     QVBoxLayout *side_menu_layout = new QVBoxLayout;
     QPushButton *ac = new QPushButton(QString::fromLocal8Bit("처리"));
+    connect(ac, SIGNAL(clicked()), this, SLOT(execute_button_clicked()));
 
-
-
-   
     box_group.addButton(pause_box);
 
     connect(return_box, SIGNAL(clicked()), this, SLOT(return_box_clicked()));
@@ -114,7 +114,7 @@ AdminPanel::AdminPanel(QWidget *parent, biseul_rroom::SeatManager& exe_manager) 
     seat_page_whole_layout->addLayout(side_menu_layout);
     seat_panel->setLayout(seat_page_whole_layout);
 
-    //=================================================================
+
     //=======================Stuendt Tab=============================
     QHBoxLayout* stud_page_whole_layout = new QHBoxLayout();
 
@@ -124,6 +124,7 @@ AdminPanel::AdminPanel(QWidget *parent, biseul_rroom::SeatManager& exe_manager) 
     table->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     //filter_model->setSourceModel() 할것: table에 데이터 가져오는거
+    //keyword: 안녕하이
     filter_model->setFilterKeyColumn(-1);
 
     table->setModel(filter_model);
@@ -179,6 +180,13 @@ AdminPanel::AdminPanel(QWidget *parent, biseul_rroom::SeatManager& exe_manager) 
 
 AdminPanel::~AdminPanel()
 {
+    delete return_box;
+    delete warning_box;
+    delete pause_box;
+    
+    delete filter_model;
+
+
 }
 
 void AdminPanel::return_box_clicked()
@@ -195,6 +203,18 @@ void AdminPanel::pause_box_clicked()
     warning_box->setChecked(false);
     pause_box->setChecked(true);
     
+}
+
+void AdminPanel::execute_button_clicked()
+{
+
+
+    for (int i = 0; i < READINGROOM_SEAT; ++i) {
+        
+    
+    
+    }
+
 }
 
 void AdminPanel::seat_button_clicked() {
