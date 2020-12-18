@@ -165,8 +165,8 @@
     </Members>
     <AssociationLine Name="exe_seat_manager" Type="biseul_rroom::SeatManager" FixedFromPoint="true">
       <Path>
-        <Point X="10.75" Y="5.625" />
-        <Point X="2.5" Y="5.625" />
+        <Point X="10.75" Y="5.803" />
+        <Point X="2.5" Y="5.803" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.16" Y="0.294" />
@@ -174,8 +174,8 @@
     </AssociationLine>
     <AssociationLine Name="exe_user_manager" Type="biseul_rroom::UserManger" FixedFromPoint="true">
       <Path>
-        <Point X="10.75" Y="4.375" />
-        <Point X="5.25" Y="4.375" />
+        <Point X="10.75" Y="4.496" />
+        <Point X="5.25" Y="4.496" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.239" Y="0.107" />
@@ -183,8 +183,8 @@
     </AssociationLine>
     <AssociationLine Name="exe_time_manager" Type="biseul_rroom::TimeManager" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="10.75" Y="3.75" />
-        <Point X="6.625" Y="3.75" />
+        <Point X="10.75" Y="3.842" />
+        <Point X="6.625" Y="3.842" />
         <Point X="6.625" Y="3.31" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
@@ -202,7 +202,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAIIhAAAAAIAEAAEBAABAAAAAQAiAhBEACQAQAAAoIQ=</HashCode>
+      <HashCode>AAIIhAAAAAIAEAAEBEABAAAAAQAiAhBEACQAQAAAoIQ=</HashCode>
       <FileName>BiseulReadingRoomReservation.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -230,7 +230,7 @@
   <Class Name="biseul_rroom::Loading">
     <Position X="20" Y="8" Width="3" />
     <TypeIdentifier>
-      <HashCode>gEEAAAAQEAAAAQCAAAAAAIIAAAAUgAAgQgIAAIAAAAI=</HashCode>
+      <HashCode>gAEAAAAQAAAAAQCAAAAAAIIAAAAUgAAgQgAAAAAAAEA=</HashCode>
       <FileName>SeatSave.h</FileName>
     </TypeIdentifier>
   </Class>

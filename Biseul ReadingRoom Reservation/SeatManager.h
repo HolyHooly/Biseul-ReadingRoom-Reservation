@@ -26,7 +26,7 @@ namespace biseul_rroom {
 	public:
 		Seat() {};
 		Seat(Reserver* reserver, SeatStatus status, int reserve_hour, int pause_minutes);
-		~Seat();
+		virtual ~Seat();
 
 		Reserver* get_reserver();
 		SeatStatus get_status();
@@ -60,7 +60,7 @@ namespace biseul_rroom {
 			static SeatManager* instance = new SeatManager();
 			return *instance;
 		}
-		~SeatManager();
+		virtual ~SeatManager();
 
 		SeatStatus seat_status_check(int); //seat number as an input
 		Seat* create_seat(Reserver* reserver, int hour, int pause);

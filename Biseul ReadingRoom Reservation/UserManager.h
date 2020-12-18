@@ -23,7 +23,7 @@ namespace biseul_rroom {
 			static UserManger* instance = new UserManger();
 			return *instance;
 		}
-		~UserManger() {};
+		virtual ~UserManger() {};
 
 		/// validating user's permission to reserve new seat
 		/// it includes 1) existence check 2) warning check 3) reserve count check

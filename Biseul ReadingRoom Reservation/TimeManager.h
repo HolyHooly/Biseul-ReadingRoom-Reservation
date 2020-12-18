@@ -19,7 +19,7 @@ namespace biseul_rroom {
 			static TimeManager* instance = new TimeManager();
 			return *instance;
 		}
-		~TimeManager();
+		virtual ~TimeManager();
 
 		bool is_time(int hour, int minute);
 

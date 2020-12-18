@@ -16,7 +16,7 @@ namespace biseul_rroom {
 		add_tm_hour(reserve_end_time, reserve_hour); //reserve end time
 	}
 
-	Seat::~Seat()
+	virtual Seat::~Seat()
 	{
 	}
 
