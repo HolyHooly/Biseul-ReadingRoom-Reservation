@@ -21,6 +21,8 @@ namespace biseul_rroom {
 		}
 		~TimeManager();
 
+		bool is_time(int hour, int minute);
+
 	private:
 		TimeManager() {};
 
@@ -31,7 +33,4 @@ namespace biseul_rroom {
 	bool before_min_timemanager(tm& t1, int minutes);
 	bool over_time_timemanager(tm& t1);
 	
-
-	
-
 }

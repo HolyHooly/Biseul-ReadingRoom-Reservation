@@ -102,8 +102,10 @@ namespace biseul_rroom {
 
 	void SeatManager::delete_seat(int num)
 	{
-		delete rroom_seat[num]->get_reserver(); //delete reserver instance
-		delete rroom_seat[num]; // delete seat instance
+		if (rroom_seat[num] != nullptr) {
+			delete rroom_seat[num]->get_reserver(); //delete reserver instance
+			delete rroom_seat[num]; // delete seat instance
+		}
 	}
 
 	void SeatManager::reserve_seat(int num, std::string name, int stud_id, __int64 rfid_id, int hour, int pause)
@@ -161,6 +163,16 @@ namespace biseul_rroom {
 		}
 
 		return -1; //return -1 as for error value (not existing)
+	}
+
+	void SeatManager::reset_all()
+	{
+		for (int i = 0; i < READINGROOM_SEAT; ++i) {
+			if (rroom_seat[i] != nullptr) { //if seat is reserved
+				return_seat(i + 1);
+			}
+		}
+
 	}
 
 	
