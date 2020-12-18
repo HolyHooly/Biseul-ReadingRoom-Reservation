@@ -31,7 +31,7 @@ namespace biseul_rroom {
 
         bool get_seat(int seatno); // 함수에 넘긴 자리 번호에 해당하는 자리 정보가 없으면 false 있으면 true return
 
-        std::vector<std::pair<int, Loading*>> get_seats_info_vector();// 전체 자리에 대한 정보 가져옴. 해당 자리번호가 빈 자리면 nullptr, 아니면 Loaging*가 들어 있음.
+        std::vector<std::pair<int, Loading*>> get_seats_info_vector();// 전체 자리에 대한 정보 가져옴. SeatManager의 vector랑 동일하게 pair<자리 번호, Loading*> 넘겨줌
 
     private:
         int seat_no = 0;
