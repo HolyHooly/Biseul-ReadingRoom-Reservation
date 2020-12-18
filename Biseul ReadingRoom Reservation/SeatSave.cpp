@@ -60,7 +60,7 @@ namespace biseul_rroom {
         std::fstream status_file;
         std::string member;
 
-        Loading* seat = nullptr;
+        SeatInfo* seat = nullptr;
 
         status_file.open("log/seat_status.csv", std::ios::in);
 
@@ -120,16 +120,9 @@ namespace biseul_rroom {
 
             // seat number 유무 따라서 seat에 채워주기
             if (seat_number_checker != 0) {
-                seat = new Loading;
+                seat = new SeatInfo;
                 if (atoi(word[2]) != 0) {
-                    seat->seat_no = atoi(word[0]);
-                    seat->name = std::string(word[1]);
-                    seat->student_id = atoi(word[2]);
-                    seat->rfid_id = _atoi64(word[3]);
-                    seat->seat_status = std::string(word[4]);
-                    seat->pause_time = atoi(word[5]);
-                    seat->reserved_time = reserved;
-                    seat->reserve_end_time = reserve_end;
+                    SeatInfo(atoi(word[0]), std::string(word[1]), atoi(word[2]), _atoi64(word[3]), std::string(word[4]), atoi(word[5]), reserved, reserve_end);
                 }
                 seats[atoi(word[0]) - 1] = seat;
             }
@@ -137,37 +130,37 @@ namespace biseul_rroom {
         }
     }
 
-    bool Loading::get_seat(int seatno)
+    std::vector<std::pair<int, SeatInfo*>> Loading::get_seats_info_vector()
     {
-        if (seats[seatno - 1] == nullptr) {
-            return false;
-        }
-        return true;
-    }
-
-    std::vector<std::pair<int, Loading*>> Loading::get_seats_info_vector()
-    {
-        std::vector<std::pair<int, Loading*>> seat_vector;
+        std::vector<std::pair<int, SeatInfo*>> seat_vector;
         for (int i = 0; i < READINGROOM_SEAT; ++i) { 
             if (seats[i] != nullptr) { 
                 seat_vector.push_back(std::make_pair(i, seats[i]));
             }
         }
-        return seat_vector; //벡터 리턴
+        return seat_vector;
     }
 
-    SeatStatus Loading::seat_status_converter(int seatno)
+    SeatStatus SeatInfo::seat_status_converter(std::string status)
     {
-        if (seats[seatno - 1] == nullptr) {
-            return SeatStatus::Vacant;
-        }
-
-        std::string status = seats[seatno - 1]->seat_status;
         if (status.compare("Occupied") == 0) {
             return SeatStatus::Occupied;
         }
         if (status.compare("Paused") == 0) {
             return SeatStatus::Paused;
         }
+        else return SeatStatus::Vacant;
+    }
+
+    SeatInfo::SeatInfo(int seatno, std::string name1, int studentid, __int64 rfid, std::string status, int pause, tm reserved, tm reserve_end)
+    {
+        seat_no = seatno;
+        name = name1;
+        student_id = studentid;
+        rfid_id = rfid;
+        seat_status = seat_status_converter(status);
+        pause_time = pause;
+        reserved_time = reserved;
+        reserve_end_time = reserve_end;
     }
 }
