@@ -41,7 +41,7 @@ private:
     Ui::RegisterPanel *ui;
     
     QLabel *label; // 제목
-    QTextBrowser *brouser; // 약관
+    QTextBrowser *browser; // 약관
     // 약관 밑쪽의 layout, 상관 안써도 될듯
     QHBoxLayout *hlayout1;
     QHBoxLayout *hlayout2;
