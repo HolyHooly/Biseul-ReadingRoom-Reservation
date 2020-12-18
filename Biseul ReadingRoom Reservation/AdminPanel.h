@@ -22,6 +22,7 @@
 
 #include "Manager.h"
 #include "SeatManager.h"
+#include "SeatSave.h"
 
 namespace Ui {
     class AdminPanel;
