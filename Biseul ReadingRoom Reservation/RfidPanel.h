@@ -33,12 +33,11 @@ private:
 
     Ui::RfidPanel *ui;
     
-    QMessageBox msg;// 예, 아니오 뜨는 msg
-    QLabel *im;// 메인 이미지
-    QPushButton *n;// 취소 버튼
-    QGridLayout *grid; // grid
+    QLabel *img;// 메인 이미지
+    QPushButton *cancel_button;// 취소 버튼
+    QGridLayout *main_grid; // grid
 
-    QString rfid;// rfid를 append 시킬 장소
+    QString rfid_str;// rfid를 append 시킬 장소
     __int64 int_number;// 들어온 사용자의 rfid number
     std::string string_number;// rfid를 string으로 받고 싶으면 이거 사용
 

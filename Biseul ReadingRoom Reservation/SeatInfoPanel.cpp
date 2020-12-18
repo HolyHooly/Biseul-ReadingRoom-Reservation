@@ -98,7 +98,15 @@ SeatInfoPanel::SeatInfoPanel(QWidget *parent, const int seat_num, const std::str
 }
 
 SeatInfoPanel::~SeatInfoPanel()
-{
+{   
+    delete position_label;
+    delete name_label;
+    delete time_label;
+    delete time_end_label;
+    delete pause_label;
+    
+    delete n_button;
+
     delete ui;
 }
 

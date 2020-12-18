@@ -39,7 +39,6 @@ private slots:
 private:
 
     Ui::RegisterPanel *ui;
-    RfidPanel *rf;
     
     QLabel *label; // 제목
     QTextBrowser *brouser; // 약관

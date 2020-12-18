@@ -1,2 +1,233 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="biseul_rroom::Manager" Collapsed="true">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Manager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="biseul_rroom::TimeManager">
+    <Position X="5.5" Y="1.5" Width="2.25" />
+    <InheritanceLine Type="biseul_rroom::Manager">
+      <InheritanceModifierLabel ManuallyPlaced="true">
+        <Position X="0.051" Y="0.026" />
+      </InheritanceModifierLabel>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAgAAAABAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>TimeManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="biseul_rroom::UserManger">
+    <Position X="2.75" Y="1.5" Width="2.5" />
+    <InheritanceLine Type="biseul_rroom::Manager">
+      <InheritanceModifierLabel ManuallyPlaced="true">
+        <Position X="0.06" Y="0.03" />
+      </InheritanceModifierLabel>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAABJIAAAAACEAAAAAAAIIAABABEAAAAAAAAAAAAA=</HashCode>
+      <FileName>UserManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="biseul_rroom::Seat">
+    <Position X="0.5" Y="6.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AgQEAoACEQAAAQQAAAAAQAAAAAAAAEAAAgAAAhAAwAA=</HashCode>
+      <FileName>SeatManager.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="seat_reserver" />
+      <Field Name="status" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="biseul_rroom::SeatManager">
+    <Position X="0.5" Y="1.5" Width="2" />
+    <InheritanceLine Type="biseul_rroom::Manager">
+      <InheritanceModifierLabel ManuallyPlaced="true">
+        <Position X="0.157" Y="0.087" />
+      </InheritanceModifierLabel>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAgAQgIIUAAIAAARgiAAAAgAYgAAAAAA=</HashCode>
+      <FileName>SeatManager.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="rroom_seat" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="QDialog" Collapsed="true">
+    <Position X="21" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BACJBAiiQBAQAAAQBABAIAAAAAAEIAAAgAERgAIgAEA=</HashCode>
+      <FileName>C:\Qt\5.15.1\msvc2019_64\include\QtWidgets\qdialog.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminPanel">
+    <Position X="15.75" Y="1.75" Width="3.5" />
+    <Members>
+      <Field Name="ui" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>CAACAAAAQgQAEMAEAKIAgAAAAAAACAAAAgQABAAAQAA=</HashCode>
+      <FileName>AdminPanel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RfidPanel">
+    <Position X="24.25" Y="1.75" Width="2.5" />
+    <Members>
+      <Field Name="ui" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAACAABAEAAEEAAAAAAAIAAAAQAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>RfidPanel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeatInfoPanel">
+    <Position X="22" Y="1.75" Width="2" />
+    <Members>
+      <Field Name="ui" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAEAIAAAAAAABIAAAAAAAAAAAkAAAAABA=</HashCode>
+      <FileName>SeatInfoPanel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RegisterPanel">
+    <Position X="19.5" Y="1.75" Width="2.25" />
+    <Members>
+      <Field Name="ui" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AQAEAAABAEAIEBAQEAAAAAABAAAEIAAgAQAIAIAIQBA=</HashCode>
+      <FileName>RegisterPanel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="biseul_rroom::Reserver">
+    <Position X="4.25" Y="8.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AQAAAACAAAAAAAAAAAAAAQAAAAAEAAAgAAIAAIACABA=</HashCode>
+      <FileName>Reserver.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="biseul_rroom::DBsystem">
+    <Position X="9.25" Y="8.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgARAAIBAAAAAAAABAIAgBAAAIEAAwAAAAAAABBA=</HashCode>
+      <FileName>DBsystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="biseul_rroom::Exception">
+    <Position X="16.75" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAABAAgAAAAA=</HashCode>
+      <FileName>DBInterface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="biseul_rroom::DBinterface">
+    <Position X="13" Y="8.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>ABAEAQABAAhAABAMAAABAAAAAAAAAEACkAAAAAAgAAA=</HashCode>
+      <FileName>DBInterface.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="dbsys" />
+      <Field Name="exception" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BiseulReadingRoomReservation">
+    <Position X="10.75" Y="1.75" Width="2.5" />
+    <Members>
+      <Field Name="main" Hidden="true" />
+      <Field Name="msgBox" Hidden="true" />
+      <Field Name="ui" Hidden="true" />
+      <Field Name="whole" Hidden="true" />
+    </Members>
+    <AssociationLine Name="exe_seat_manager" Type="biseul_rroom::SeatManager" FixedFromPoint="true">
+      <Path>
+        <Point X="10.75" Y="5.625" />
+        <Point X="2.5" Y="5.625" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.16" Y="0.294" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="exe_user_manager" Type="biseul_rroom::UserManger" FixedFromPoint="true">
+      <Path>
+        <Point X="10.75" Y="4.375" />
+        <Point X="5.25" Y="4.375" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.239" Y="0.107" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="exe_time_manager" Type="biseul_rroom::TimeManager" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.75" Y="3.75" />
+        <Point X="6.625" Y="3.75" />
+        <Point X="6.625" Y="3.31" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.712" Y="0.163" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="biseul_db_interface" Type="biseul_rroom::DBinterface">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.101" Y="0.37" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="m_pTimer" Type="QTimer">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.133" Y="0.13" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAIIhAAAAAIAEAAEBAABAAAAAQAiAhBEACQAQAAAoIQ=</HashCode>
+      <FileName>BiseulReadingRoomReservation.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="exe_seat_manager" />
+      <Field Name="exe_user_manager" />
+      <Field Name="exe_time_manager" />
+      <Field Name="biseul_db_interface" />
+      <Field Name="m_pTimer" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="QMainWindow" Collapsed="true">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AoACQgKYCA0hRAgRkKBY4oAAABEAABuBggAgIAMgACA=</HashCode>
+      <FileName>C:\Qt\5.15.1\msvc2019_64\include\QtWidgets\qmainwindow.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QTimer" Collapsed="true">
+    <Position X="10.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KAAABAAAAABoAABgAYAZgBCIAAAhAAACAAAgAgCAAgQ=</HashCode>
+      <FileName>C:\Qt\5.15.1\msvc2019_64\include\QtCore\qtimer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="biseul_rroom::SeatStatus">
+    <Position X="4.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAEBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Manager.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="biseul_rroom::UserAction">
+    <Position X="6" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAgAAABAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Manager.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="biseul_rroom::signal">
+    <Position X="16.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAQBIAAAAAAIAAAAAAAAABAABAAAAA=</HashCode>
+      <FileName>DBsystem.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
