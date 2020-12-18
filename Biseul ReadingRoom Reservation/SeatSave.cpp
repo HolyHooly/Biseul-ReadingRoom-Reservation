@@ -136,12 +136,24 @@ namespace biseul_rroom {
             ++seat_number_checker;
         }
     }
+
     bool Loading::get_seat(int seatno)
     {
         if (seats[seatno - 1] == nullptr) {
             return false;
         }
         return true;
+    }
+
+    std::vector<std::pair<int, Loading*>> Loading::get_seats_info_vector()
+    {
+        std::vector<std::pair<int, Loading*>> seat_vector;
+        for (int i = 0; i < READINGROOM_SEAT; ++i) { 
+            if (seats[i] != nullptr) { 
+                seat_vector.push_back(std::make_pair(i, seats[i]));
+            }
+        }
+        return seat_vector; //º¤ÅÍ ¸®ÅÏ
     }
 
     SeatStatus Loading::seat_status_converter(int seatno)

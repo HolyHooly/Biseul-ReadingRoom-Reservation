@@ -29,15 +29,9 @@ namespace biseul_rroom {
         ~Loading() {};
         void load_status(); //함수 사용하면 class 내부 인수로 seat status 불러옴 각각 인수 넣어야하는 데로 집어넣으면 됨
 
-
         bool get_seat(int seatno); // 함수에 넘긴 자리 번호에 해당하는 자리 정보가 없으면 false 있으면 true return
 
-        //자리 번호 입력하면 그 자리에 해당하는 값 return (빈 자리 번호 입력하면 오류남)
-        std::string get_name(int seatno) { return seats[seatno - 1]->name; }
-        int get_student_id(int seatno) { return seats[seatno - 1]->student_id; }
-        __int64 get_rfid_id(int seatno) { return seats[seatno - 1]->rfid_id; }
-        SeatStatus get_seat_status(int seatno) { return seat_status_converter(seatno); }
-        int get_pause_time(int seatno) { return seats[seatno - 1]->pause_time; }
+        std::vector<std::pair<int, Loading*>> get_seats_info_vector();// 전체 자리에 대한 정보 가져옴. 해당 자리번호가 빈 자리면 nullptr, 아니면 Loaging*가 들어 있음.
 
     private:
         int seat_no = 0;
