@@ -29,8 +29,8 @@ RegisterPanel::RegisterPanel(QWidget *parent) :
     }
 
     QString q = QString::fromStdString(s);
-    brouser = new QTextBrowser();
-    brouser->setText(q);
+    browser = new QTextBrowser();
+    browser->setText(q);
 
     // component 3
     hlayout1 = new QHBoxLayout;
@@ -82,7 +82,7 @@ RegisterPanel::RegisterPanel(QWidget *parent) :
     hb_con->addLayout(button_con);
 
     vlayout->addWidget(label);
-    vlayout->addWidget(brouser);
+    vlayout->addWidget(browser);
     vlayout->addLayout(hb_con);
 
     // showing layout
@@ -99,6 +99,17 @@ RegisterPanel::RegisterPanel(QWidget *parent) :
 
 RegisterPanel::~RegisterPanel()
 {
+    delete label;
+    delete browser;
+    delete hlayout1;
+    delete hlayout2;
+    delete hb_con;
+    delete hh_con;
+    delete button_con;
+    delete input_name;
+    delete input_number;
+    delete confirm_btn;
+    delete cancel_btn;
     delete ui;
 }
 
