@@ -100,6 +100,11 @@ namespace biseul_rroom {
 		return seat_vector; //º¤ÅÍ ¸®ÅÏ
 	}
 
+	bool SeatManager::load_seat_vector(std::vector<std::pair<int, SeatInfo*>>)
+	{
+		return false;
+	}
+
 	void SeatManager::delete_seat(int num)
 	{
 		if (rroom_seat[num] != nullptr) {

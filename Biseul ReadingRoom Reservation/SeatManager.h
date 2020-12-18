@@ -10,6 +10,8 @@
 #include "Reserver.h"
 #include "TimeManager.h"
 
+#include "SeatSave.h"
+
 #include <ctime>
 #include <string>
 #include <vector>
@@ -67,6 +69,7 @@ namespace biseul_rroom {
 		Seat* get_seat(int num);
 		
 		std::vector<std::pair<int, Seat*>> get_reserved_seat_vector();
+		bool load_seat_vector(std::vector<std::pair<int, SeatInfo*>>); //할것: 이거 구현하기
 
 
 		void delete_seat(int num);
