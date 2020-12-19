@@ -6,6 +6,8 @@
 #include <vector>
 #include <utility>
 
+#include "Seat.h"
+#include "Reserver.h"
 #include "SeatManager.h"
 #include "UserManager.h"
 

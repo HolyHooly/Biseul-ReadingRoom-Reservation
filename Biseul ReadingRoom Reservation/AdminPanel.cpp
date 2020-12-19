@@ -222,8 +222,9 @@ void AdminPanel::execute_button_clicked()
 
 void AdminPanel::recent_button_clicked()
 {
-    
-    
+    biseul_rroom::Loading loader;
+    loader.load_status();
+    exe_manager_ptr->load_seat_vector(loader.get_seats_info_vector());
 
     //할것: 로그 추가
 
@@ -231,7 +232,7 @@ void AdminPanel::recent_button_clicked()
 
 void AdminPanel::save_button_clicked()
 {
-    
+    biseul_rroom::save_status(exe_manager_ptr->get_reserved_seat_vector());
 
     //할것: 로그 추가
 }
