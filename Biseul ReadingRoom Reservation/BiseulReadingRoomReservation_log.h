@@ -1,3 +1,8 @@
+///////////////////////////////////////////////////////////
+// Logging 
+// 2020. 12. 20. Last modified
+// (C) Jiyeon Ko & OOP Lecture Team Project
+//////////////////////////////////////////////////////////
 /*
 boost logging 라이브러리 c 드라이브에 설치한 후에 컴파일 가능
 https://miragecore.tistory.com/entry/Boost-152-BoostLog-%EC%84%A4%EC%B9%98 참고!

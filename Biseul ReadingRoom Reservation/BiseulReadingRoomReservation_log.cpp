@@ -1,3 +1,9 @@
+///////////////////////////////////////////////////////////
+// Logging 
+// 2020. 12. 20. Last modified
+// (C) Jiyeon Ko & OOP Lecture Team Project
+//////////////////////////////////////////////////////////
+
 #include "BiseulReadingRoomReservation_log.h"
 #include "BiseulReadingRoomReservation_log.h"
 
