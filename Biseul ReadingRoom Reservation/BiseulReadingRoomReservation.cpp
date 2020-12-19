@@ -1,4 +1,9 @@
-﻿#include "BiseulReadingRoomReservation.h"
+﻿///////////////////////////////////////////////////////////
+// Manager that controls seat status
+// 2020. 12. 20. Last modified
+// (C) Taehyun Kim & OOP Lecture Team Project
+//////////////////////////////////////////////////////////
+#include "BiseulReadingRoomReservation.h"
 #include <fstream>
 #include <iostream>
 #include <string>

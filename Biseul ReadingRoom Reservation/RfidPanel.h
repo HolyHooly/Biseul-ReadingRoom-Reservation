@@ -1,4 +1,9 @@
-﻿#ifndef RFID_H
+﻿///////////////////////////////////////////////////////////
+// Manager that controls seat status
+// 2020. 12. 10. Last modified
+// (C) Taehyun Kim & OOP Lecture Team Project
+//////////////////////////////////////////////////////////
+#ifndef RFID_H
 #define RFID_H
 
 #include <QDialog>

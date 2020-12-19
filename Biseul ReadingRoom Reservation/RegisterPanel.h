@@ -1,4 +1,9 @@
-﻿#ifndef MYDIALOG_H
+﻿///////////////////////////////////////////////////////////
+// Manager that controls seat status
+// 2020. 11. 29. Last modified
+// (C) Taehyun Kim & OOP Lecture Team Project
+//////////////////////////////////////////////////////////
+#ifndef MYDIALOG_H
 #define MYDIALOG_H
 
 #include <QDialog>

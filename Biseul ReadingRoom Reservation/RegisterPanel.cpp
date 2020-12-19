@@ -1,4 +1,9 @@
-﻿#include "RegisterPanel.h"
+﻿///////////////////////////////////////////////////////////
+// Manager that controls seat status
+// 2020. 11. 29. Last modified
+// (C) Taehyun Kim & OOP Lecture Team Project
+//////////////////////////////////////////////////////////
+#include "RegisterPanel.h"
 #include "ui_RegisterPanel.h"
 
 RegisterPanel::RegisterPanel(QWidget *parent) :

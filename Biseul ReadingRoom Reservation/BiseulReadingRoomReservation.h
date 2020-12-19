@@ -1,4 +1,9 @@
-﻿#pragma once
+﻿///////////////////////////////////////////////////////////
+// Manager that controls seat status
+// 2020. 12. 20. Last modified
+// (C) Taehyun Kim & OOP Lecture Team Project
+//////////////////////////////////////////////////////////
+#pragma once
 
 #include <QtWidgets/QMainWindow>
 #include <QInputDialog>

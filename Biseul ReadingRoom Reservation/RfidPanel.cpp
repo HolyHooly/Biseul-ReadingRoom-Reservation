@@ -1,4 +1,10 @@
-﻿#include "RfidPanel.h"
+﻿///////////////////////////////////////////////////////////
+// Manager that controls seat status
+// 2020. 12. 10. Last modified
+// (C) Taehyun Kim & OOP Lecture Team Project
+//////////////////////////////////////////////////////////
+
+#include "RfidPanel.h"
 #include "ui_RfidPanel.h"
 
 #include <QString>

@@ -1,3 +1,8 @@
+///////////////////////////////////////////////////////////
+// Manager that controls seat status
+// 2020. 12. 10. Last modified
+// (C) Taehyun Kim & OOP Lecture Team Project
+//////////////////////////////////////////////////////////
 #include "SeatInfoPanel.h"
 #include "ui_SeatInfoPanel.h"
 
