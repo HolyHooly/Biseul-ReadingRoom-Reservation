@@ -24,8 +24,6 @@
 
 #include "DBinterface.h"
 #include "DBsystem.h"
-#include "SeatSave.h"
-#include "BiseulReadingRoomReservation_log.h"
 
 #include "Reserver.h"
 #include "Manager.h"
@@ -33,6 +31,8 @@
 #include "UserManager.h"
 #include "TimeManager.h"
 
+#include "SeatSave.h"
+#include "BiseulReadingRoomReservation_log.h"
 class BiseulReadingRoomReservation : public QMainWindow
 {
     Q_OBJECT

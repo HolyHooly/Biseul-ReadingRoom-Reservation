@@ -131,7 +131,7 @@ namespace biseul_rroom {
         }
     }
 
-    std::vector<std::pair<int, Seat*>> Loading::get_seats_info_vector(int)
+    std::vector<std::pair<int, Seat*>> Loading::get_seats_info_vector()
     {
         std::vector<std::pair<int, Seat*>> seat_vector;
         for (int i = 0; i < READINGROOM_SEAT; ++i) {
