@@ -28,7 +28,7 @@ namespace biseul_rroom {
         ~Loading() {};
         void load_status(); //함수 사용하면 class 내부 인수로 seat status 불러옴 각각 인수 넣어야하는 데로 집어넣으면 됨
 
-        std::vector<std::pair<int, Seat*>> get_seats_info_vector(int);
+        std::vector<std::pair<int, Seat*>> get_seats_info_vector();
 
     private:
         SeatStatus seat_status_converter(std::string);
