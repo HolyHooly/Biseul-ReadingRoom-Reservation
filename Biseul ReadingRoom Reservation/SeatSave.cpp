@@ -24,7 +24,7 @@ namespace biseul_rroom {
             tm* reserved = seat_info[i].second->get_reserved_time();
             tm* reserve_end = seat_info[i].second->get_reserve_end_time();
 
-            seats << seat_no << "," << name << "," << student_id << "," << rfid_id << "," << status << "," << pause_time 
+            seats << seat_no << "," << name << "," << student_id << "," << rfid_id << "," << status << "," << pause_time << ","
                 << reserved->tm_hour << "-" << reserved->tm_min << "-" << reserved->tm_sec << "-" 
                 << reserved->tm_mday << "-" << reserved->tm_mon << "-" << reserved->tm_year << "-" << reserved->tm_wday << "-" << reserved->tm_yday << "-" << reserved->tm_isdst << ","
                 << reserve_end->tm_hour << "-" << reserve_end->tm_min << "-" << reserve_end->tm_sec << "-"
