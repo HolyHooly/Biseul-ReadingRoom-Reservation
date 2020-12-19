@@ -50,6 +50,9 @@
     <ClCompile Include="SeatInfoPanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Seat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="BiseulReadingRoomReservation.qrc" />
@@ -132,6 +135,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SeatSave.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Seat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

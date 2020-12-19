@@ -3,6 +3,8 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <vector>
+#include <utility>
 
 #include "SeatManager.h"
 #include "UserManager.h"

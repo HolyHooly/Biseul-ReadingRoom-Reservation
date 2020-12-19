@@ -116,6 +116,7 @@
     <ClCompile Include="RegisterPanel.cpp" />
     <ClCompile Include="Reserver.cpp" />
     <ClCompile Include="RfidPanel.cpp" />
+    <ClCompile Include="Seat.cpp" />
     <ClCompile Include="SeatInfoPanel.cpp" />
     <ClCompile Include="SeatManager.cpp" />
     <ClCompile Include="SeatSave.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="Reserver.h" />
     <QtMoc Include="RfidPanel.h" />
     <QtMoc Include="SeatInfoPanel.h" />
+    <ClInclude Include="Seat.h" />
     <ClInclude Include="SeatManager.h" />
     <ClInclude Include="SeatSave.h" />
     <ClInclude Include="sqlite\sqlite3.h" />
