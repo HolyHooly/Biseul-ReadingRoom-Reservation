@@ -43,6 +43,10 @@ private slots:
     void pause_box_clicked();
     void execute_button_clicked();
 
+    void recent_button_clicked();
+    void save_button_clicked();
+    void exit_button_clicked();
+
 private:
     Ui::AdminPanel* ui;
     QPushButton* s_seat[READINGROOM_SEAT+1]; //seat button ptr array

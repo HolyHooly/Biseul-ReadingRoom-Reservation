@@ -71,22 +71,20 @@
     </Members>
     <AssociationLine Name="exe_manager_ptr" Type="biseul_rroom::SeatManager" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="15.75" Y="6" />
-        <Point X="14.458" Y="6" Type="JumpStart" />
-        <Point X="14.292" Y="6" Type="JumpEnd" />
-        <Point X="13.5" Y="6" />
-        <Point X="13.5" Y="6.319" />
-        <Point X="11.458" Y="6.319" Type="JumpStart" />
-        <Point X="11.292" Y="6.319" Type="JumpEnd" />
-        <Point X="2.031" Y="6.319" />
-        <Point X="2.031" Y="6.069" />
+        <Point X="15.75" Y="6.56" />
+        <Point X="14.583" Y="6.56" Type="JumpStart" />
+        <Point X="14.417" Y="6.56" Type="JumpEnd" />
+        <Point X="11.458" Y="6.56" Type="JumpStart" />
+        <Point X="11.292" Y="6.56" Type="JumpEnd" />
+        <Point X="2.031" Y="6.56" />
+        <Point X="2.031" Y="6.261" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="-1.815" Y="-0.035" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>CAACAAAAQgQAEMAEAKIAgAAAAAAACAAAAgQABAAAQAA=</HashCode>
+      <HashCode>CAACAAAAQgQAGMAEAKIAgAAAAAoACAAAAgQABAAAQAA=</HashCode>
       <FileName>AdminPanel.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -119,7 +117,7 @@
       <Field Name="ui" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AQAEAAABAEAIEBAQEAAAAAABAAAEIAAgAQAIAIAIQBA=</HashCode>
+      <HashCode>AQQEAAABAEAIEBAQEAAAAAABAAAEIAAgAQAIAIAIQBA=</HashCode>
       <FileName>RegisterPanel.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -230,7 +228,7 @@
   <Class Name="biseul_rroom::Loading">
     <Position X="20" Y="8" Width="3" />
     <TypeIdentifier>
-      <HashCode>gAEAAAAQAAAAAQCAAAAAAIIAAAAUgAAgQgAAAAAAAEA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIIAAAAAgAAAQAAAAAAAAEA=</HashCode>
       <FileName>SeatSave.h</FileName>
     </TypeIdentifier>
   </Class>

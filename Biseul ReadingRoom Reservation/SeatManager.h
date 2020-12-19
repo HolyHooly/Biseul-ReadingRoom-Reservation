@@ -28,6 +28,7 @@ namespace biseul_rroom {
 	public:
 		Seat() {};
 		Seat(Reserver* reserver, SeatStatus status, int reserve_hour, int pause_minutes);
+		Seat(Reserver* reserver, SeatStatus status, tm reserved_time, tm reserve_end_time, int pause_minutes);
 		virtual ~Seat();
 
 		Reserver* get_reserver();
@@ -66,10 +67,11 @@ namespace biseul_rroom {
 
 		SeatStatus seat_status_check(int); //seat number as an input
 		Seat* create_seat(Reserver* reserver, int hour, int pause);
+		Seat* create_seat(Reserver* reserver, SeatStatus status, tm reserved_time, tm reserve_end_time, int pause);
 		Seat* get_seat(int num);
 		
 		std::vector<std::pair<int, Seat*>> get_reserved_seat_vector();
-		bool load_seat_vector(std::vector<std::pair<int, SeatInfo*>>); //할것: 이거 구현하기
+		//bool load_seat_vector(std::vector<std::pair<int, biseul_rroom::SeatInfo*>>);
 
 
 		void delete_seat(int num);

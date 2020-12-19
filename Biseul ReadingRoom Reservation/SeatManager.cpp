@@ -16,7 +16,12 @@ namespace biseul_rroom {
 		add_tm_hour(reserve_end_time, reserve_hour); //reserve end time
 	}
 
-	virtual Seat::~Seat()
+	Seat::Seat(Reserver* reserver, SeatStatus status, tm reserved_time, tm reserve_end_time, int pause_minutes)
+		: seat_reserver(reserver), status(status), reserved_time(reserved_time), reserve_end_time(reserve_end_time),pause_minutes_left(pause_minutes)
+	{
+	}
+
+	Seat::~Seat()
 	{
 	}
 
@@ -78,6 +83,12 @@ namespace biseul_rroom {
 		return new_seat;
 	}
 
+	Seat* SeatManager::create_seat(Reserver* reserver, SeatStatus status, tm reserved_time, tm reserve_end_time, int pause)
+	{
+		Seat* new_seat = new Seat(reserver, status, reserved_time, reserve_end_time, pause);
+		return new_seat;
+	}
+
 	Seat* SeatManager::get_seat(int num)
 	{
 		return rroom_seat[num-1];
@@ -100,10 +111,25 @@ namespace biseul_rroom {
 		return seat_vector; //º¤ÅÍ ¸®ÅÏ
 	}
 
-	bool SeatManager::load_seat_vector(std::vector<std::pair<int, SeatInfo*>>)
+	/*
+	bool SeatManager::load_seat_vector(std::vector<std::pair<int, SeatInfo*>> input_data)
 	{
+		for (auto it = input_data.begin(); it != input_data.end(); ++it) {
+			int num = it->first;
+			SeatInfo* info = it->second;
+
+			Reserver* reserver = new Reserver(info->get_name(), info->get_student_id(), info->get_rfid_id());
+			Seat* seat = create_seat(reserver, info->get_seat_status(),info->get_reserved_time(), info->get_reserve_end_time(), info->get_pause_time());
+			rroom_seat[num] = seat;
+			rroom_seat[num]->setStatus(SeatStatus::Occupied);
+			++_seat_cnt;
+
+		}
+
+
+
 		return false;
-	}
+	}*/
 
 	void SeatManager::delete_seat(int num)
 	{

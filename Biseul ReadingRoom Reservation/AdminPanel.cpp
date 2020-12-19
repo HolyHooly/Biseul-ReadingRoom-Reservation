@@ -88,6 +88,9 @@ AdminPanel::AdminPanel(QWidget *parent, biseul_rroom::SeatManager& exe_manager) 
     QPushButton *recent = new QPushButton(QString::fromLocal8Bit("최근 자리 정보 불러오기"));
     QPushButton *save = new QPushButton(QString::fromLocal8Bit("최근 자리 정보 저장"));
     QPushButton *exit = new QPushButton(QString::fromLocal8Bit("프로그램 종료"));
+    connect(recent, SIGNAL(clicked()), this, SLOT(recent_button_clicked()));
+    connect(save, SIGNAL(clicked()), this, SLOT(save_button_clicked()));
+    connect(exit, SIGNAL(clicked()), this, SLOT(exit_button_clicked()));
 
     side_menu_layout->addWidget(return_box);
     side_menu_layout->addWidget(warning_box);
@@ -215,6 +218,26 @@ void AdminPanel::execute_button_clicked()
     
     }
 
+}
+
+void AdminPanel::recent_button_clicked()
+{
+    
+    
+
+    //할것: 로그 추가
+
+}
+
+void AdminPanel::save_button_clicked()
+{
+    
+
+    //할것: 로그 추가
+}
+
+void AdminPanel::exit_button_clicked()
+{
 }
 
 void AdminPanel::seat_button_clicked() {
