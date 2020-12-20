@@ -64,7 +64,6 @@ namespace biseul_rroom {
 			Reserver* reserver = new Reserver(cur_seat->get_reserver()->get_name(), cur_seat->get_reserver()->get_stud_id(), cur_seat->get_reserver()->get_rfid_id());
 			Seat* seat = create_seat(reserver, cur_seat->get_status(), cur_seat->vget_reserved_time(), cur_seat->vget_reserve_end_time(), cur_seat->get_pause_time());
 			rroom_seat[num] = seat;
-			rroom_seat[num]->setStatus(SeatStatus::Occupied);
 			++_seat_cnt;
 		}
 		return false;
