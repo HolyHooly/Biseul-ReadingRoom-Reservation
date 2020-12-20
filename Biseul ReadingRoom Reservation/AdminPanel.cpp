@@ -128,6 +128,42 @@ AdminPanel::AdminPanel(QWidget *parent, biseul_rroom::SeatManager& exe_manager) 
     table->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     //filter_model->setSourceModel() 할것: table에 데이터 가져오는거
+    QStandardItemModel* model = new QStandardItemModel;
+    model->setHorizontalHeaderLabels(QStringList({ "학생이름", "학번", "학생증 고유번호", "경고 횟수", "선택" }));
+
+    biseul_rroom::DBinterface db("./data/test111.db");
+    std::vector<biseul_rroom::studinf>container{};
+    db.get_all_student(container);
+    std::vector<biseul_rroom::studinf>::iterator iter;
+    std::string stringtmp;
+    _int64 rfidtmp;
+    int studidtmp, warningtmp, indextmp;
+    int data_number = container.size();
+    int row = 0;
+
+    for (iter = container.begin(); iter != container.end(); iter++) {
+        stringtmp = iter->name;
+        studidtmp = iter->stud_id;
+        rfidtmp = iter->rfid_id;
+        warningtmp = iter->warning;
+        indextmp = iter->index; //확인필요
+
+        //for (int row = 0; row < data_number; row++) {
+            model->setItem(row, 0, new QStandardItem(QString::fromLocal8Bit(stringtmp.c_str())));
+            model->setItem(row, 1, new QStandardItem(QString::fromLocal8Bit(std::to_string(studidtmp).c_str())));
+            model->setItem(row, 2, new QStandardItem(QString::fromLocal8Bit(std::to_string(rfidtmp).c_str())));
+            model->setItem(row, 3, new QStandardItem(QString::fromLocal8Bit(std::to_string(warningtmp).c_str())));
+
+            QStandardItem * s = new QStandardItem();
+            s->setCheckState(Qt::Unchecked);
+            s->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
+            model->setItem(row, 4, s);
+        //}
+            ++row;
+    }
+
+    table->setModel(model);
+
     //keyword: 안녕하이
     filter_model->setFilterKeyColumn(-1);
 
@@ -226,6 +262,7 @@ void AdminPanel::recent_button_clicked()
     biseul_rroom::Loading loader;
     loader.load_status();
     exe_manager_ptr->load_seat_vector(loader.get_seats_info_vector());
+    close();
 
     //할것: 로그 추가
 
