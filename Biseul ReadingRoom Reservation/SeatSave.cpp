@@ -66,12 +66,13 @@ namespace biseul_rroom {
         std::fstream status_file;
         std::string member;
 
-        Seat* seat = nullptr;
-
         status_file.open("log/seat_status.csv", std::ios::in);
 
         int seat_number_checker = 0;
         while (!status_file.eof()) {
+            Seat* seat = new Seat;
+            Reserver* r = new Reserver;
+
             //csv 파일에서 한 줄씩 읽기
             getline(status_file, member, '\n');
 
@@ -130,8 +131,8 @@ namespace biseul_rroom {
                 if (atoi(word[2]) != 0) {
                     std::string name = word[1];
                     SeatStatus ss = seat_status_converter(std::string(word[4]));
-                    Reserver r = Reserver(name, atoi(word[2]), _atoi64(word[3]));
-                    seat = & Seat(&r, ss, reserved, reserve_end, atoi(word[5]));
+                    * r = Reserver(name, atoi(word[2]), _atoi64(word[3]));
+                    * seat = Seat(r, ss, reserved, reserve_end, atoi(word[5]));
                     seats[atoi(word[0]) - 1] = seat;
                 }
             }
