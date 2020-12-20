@@ -482,6 +482,7 @@ void BiseulReadingRoomReservation::admin_button_click()
 			write_log(log);
 			AdminPanel admin_panel(nullptr,exe_seat_manager);
 			admin_panel.exec();
+			refresh();
 		}
 		else {
 			_msg_diy("관리자가 아닙니다!");
@@ -539,6 +540,24 @@ void BiseulReadingRoomReservation::_msg_diy(const char* msg)
 	msgBox.show();
 
 }
+
+void BiseulReadingRoomReservation::refresh() {
+	
+	for (int i = 1; i <= READINGROOM_SEAT; ++i) {
+		auto cur_status = exe_seat_manager.seat_status_check(i);
+		if (cur_status == biseul_rroom::SeatStatus::Vacant) {
+			_set_vacant_style(i);
+		}
+		else if (cur_status == biseul_rroom::SeatStatus::Occupied) {
+			_set_occupied_style(i);
+		}
+		else if (cur_status == biseul_rroom::SeatStatus::Paused) {
+			_set_paused_style(i);
+		}
+	}
+}
+
+
 
 //setting seat buttons' style
 void BiseulReadingRoomReservation::_set_vacant_style(int num)

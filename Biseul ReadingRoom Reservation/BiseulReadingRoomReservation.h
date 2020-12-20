@@ -63,6 +63,7 @@ private:
     QGridLayout* whole;
     QWidget* main;
 
+    void refresh();
     void _set_vacant_style(int num);
     void _set_occupied_style(int num);
     void _set_paused_style(int num);

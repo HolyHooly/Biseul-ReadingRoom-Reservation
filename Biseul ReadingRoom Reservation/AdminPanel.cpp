@@ -226,6 +226,7 @@ void AdminPanel::recent_button_clicked()
     biseul_rroom::Loading loader;
     loader.load_status();
     exe_manager_ptr->load_seat_vector(loader.get_seats_info_vector());
+    close();
 
     //할것: 로그 추가
 
