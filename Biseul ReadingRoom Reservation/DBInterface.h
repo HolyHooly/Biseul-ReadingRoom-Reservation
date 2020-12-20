@@ -24,8 +24,16 @@ namespace biseul_rroom {
 			case (int)signal::DBMODIFYERR:
 				std::cout << "From DBsystem: Modify error. try again" << std::endl;
 				return;
+
+			case (int)signal::DBUPDATEERR:
+				std::cout << "From DBsystem: Update error. try again" << std::endl;
+				return;
+			case (int)signal::DBSORTERR:
+				std::cout << "From DBsystem: date sorting error. fatal!" << std::endl;
+				return;
 			}
 		}
+
 		void scenario(bool expn) {
 			switch (expn) {
 			case (bool)signal::DBNOTEXIST:
@@ -58,5 +66,6 @@ namespace biseul_rroom {
 		virtual bool get_studinf_byrfid(std::string*& name, int& stud_id, const _int64& rfid, int& warning);
 		virtual bool give_penalty(int stud_id);
 		virtual bool give_penalty_byrfid(_int64 rfid);
+		virtual bool get_all_student(std::vector<studinf>& x);
 	};
 }

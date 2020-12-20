@@ -100,6 +100,7 @@ RegisterPanel::RegisterPanel(QWidget *parent) :
 
 RegisterPanel::~RegisterPanel()
 {
+    /*/
     delete label;
     delete browser;
     delete hlayout1;
@@ -110,7 +111,7 @@ RegisterPanel::~RegisterPanel()
     delete input_name;
     delete input_number;
     delete confirm_btn;
-    delete cancel_btn;
+    delete cancel_btn;*/
     delete ui;
 }
 

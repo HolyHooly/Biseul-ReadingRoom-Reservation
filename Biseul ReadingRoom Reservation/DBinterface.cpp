@@ -63,8 +63,13 @@ namespace biseul_rroom {
 	}
 	bool DBinterface::modify_byrfid(const std::string name, const int stud_id, const _int64 rfid_id, const int warning) {
 		try {
-			const std::string* nameptr = &name;
-			dbsys.modify_byrfid(nameptr, stud_id, rfid_id, warning);
+			std::string namep = "";
+			std::string* nameptr = &namep;
+			int studtmp = 0;
+			int warningtmp,indextmp = 0;
+			dbsys.get_studinf_byrfid(nameptr, studtmp, rfid_id, warningtmp, indextmp);
+			const std::string* nameptr2 = &name;
+			dbsys.modify_byrfid(nameptr2, stud_id, rfid_id, warning,indextmp);
 		}
 		catch (bool expn) {
 			return false;
@@ -116,7 +121,8 @@ namespace biseul_rroom {
 			std::string* nameptr = &nametmp;
 			_int64 rfid_id;
 			int warntmp;
-			if (dbsys.get_studinf_bystudid(nameptr, stud_id, rfid_id, warntmp)) {
+			int indextmp;
+			if (dbsys.get_studinf_bystudid(nameptr, stud_id, rfid_id, warntmp,indextmp)) {
 				return true;
 			}
 			else {
@@ -135,7 +141,8 @@ namespace biseul_rroom {
 			std::string* nameptr = &nametmp;
 			int stud_id;
 			int warntmp;
-			if (dbsys.get_studinf_byrfid(nameptr, stud_id, rfid_id, warntmp)) {
+			int indextmp;
+			if (dbsys.get_studinf_byrfid(nameptr, stud_id, rfid_id, warntmp,indextmp)) {
 				return true;
 			}
 			else {
@@ -153,8 +160,9 @@ namespace biseul_rroom {
 		std::string* nameptr = &nametmp;
 		_int64 rfid_id; 
 		int warntmp;
+		int indextmp;
 		try {
-			if (dbsys.get_studinf_bystudid(nameptr, stud_id, rfid_id, warntmp)) {}
+			if (dbsys.get_studinf_bystudid(nameptr, stud_id, rfid_id, warntmp,indextmp)) {}
 			else {
 				return false;
 			}
@@ -171,9 +179,9 @@ namespace biseul_rroom {
 	bool DBinterface::get_studinf_byrfid(std::string*& name, int& stud_id, const _int64& rfid, int& warning) {
 		std::string nametmp = "";
 		std::string* nameptr = &nametmp;
-		int studtmp, warntmp;
+		int studtmp, warntmp,indextmp;
 		try {
-			if (dbsys.get_studinf_byrfid(nameptr, studtmp, rfid, warntmp)) {
+			if (dbsys.get_studinf_byrfid(nameptr, studtmp, rfid, warntmp,indextmp)) {
 			}
 			else {
 				return false;
@@ -186,6 +194,14 @@ namespace biseul_rroom {
 		*name = nametmp;
 		stud_id = studtmp;
 		warning = warntmp;
+		return true;
+	}
+
+	bool DBinterface::get_all_student(std::vector<studinf>& x) {
+		try {
+			dbsys.get_all_studinf(x);
+		}
+		catch (signal x) { exception.scenario((int)x); return false; }
 		return true;
 	}
 

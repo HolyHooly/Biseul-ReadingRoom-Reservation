@@ -6,7 +6,7 @@
 #include <QDialog>
 #include <QTableWidget>
 #include <QPushButton>
-
+#include <QStandardItemModel> 
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QGridLayout>
@@ -25,6 +25,8 @@
 #include "Manager.h"
 #include "SeatManager.h"
 #include "SeatSave.h"
+#include "DBInterface.h"
+#include "DBsystem.h"
 
 namespace Ui {
     class AdminPanel;
