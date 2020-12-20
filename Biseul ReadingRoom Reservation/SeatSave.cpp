@@ -128,11 +128,12 @@ namespace biseul_rroom {
 
                 
                 if (atoi(word[2]) != 0) {
+                    std::string name = word[1];
                     SeatStatus ss = seat_status_converter(std::string(word[4]));
-                    Reserver r = Reserver(std::string(word[1]), atoi(word[2]), _atoi64(word[3]));
+                    Reserver r = Reserver(name, atoi(word[2]), _atoi64(word[3]));
                     seat = & Seat(&r, ss, reserved, reserve_end, atoi(word[5]));
+                    seats[atoi(word[0]) - 1] = seat;
                 }
-                seats[atoi(word[0]) - 1] = seat;
             }
             ++seat_number_checker;
         }
